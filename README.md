@@ -2,7 +2,11 @@
 
 [![Build Status](https://travis-ci.org/dblessing/rundeck.svg?branch=master)](https://travis-ci.org/dblessing/rundeck)
 
-TODO: Write a gem description
+A Ruby wrapper around the Rundeck API. 
+
+This library will strive to achieve reliable, 
+100% coverage of the Rundeck API. Please submit an issue if you find a bug and feel
+free to submit a pull request to contribute fixes or new features.
 
 ## Installation
 
@@ -29,3 +33,7 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## License
+
+Released under the BSD 2-clause license. See LICENSE.txt for details.
