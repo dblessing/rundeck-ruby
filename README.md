@@ -1,5 +1,7 @@
 # Rundeck
 
+[![Build Status](https://travis-ci.org/dblessing/rundeck.svg?branch=master)](https://travis-ci.org/dblessing/rundeck)
+
 TODO: Write a gem description
 
 ## Installation
