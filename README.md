@@ -8,6 +8,9 @@ This library will strive to achieve reliable,
 100% coverage of the Rundeck API. Please submit an issue if you find a bug and feel
 free to submit a pull request to contribute fixes or new features.
 
+The layout and the code in this library is inspired by https://github.com/NARKOZ/gitlab. 
+NARKOZ does a fantastic job of keeping code simple and achieving API feature parity.
+
 ## Installation
 
 Add this line to your application's Gemfile:
