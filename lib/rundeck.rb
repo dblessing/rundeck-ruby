@@ -1,5 +1,27 @@
-require "rundeck/version"
+require 'rundeck/version'
+require 'rundeck/configuration'
+require 'rundeck/request'
+require 'rundeck/api'
+require 'rundeck/client'
 
 module Rundeck
-  # Your code goes here...
+  extend Configuration
+
+  # Alias for Rundeck::Client.new
+  #
+  # @return [Rundeck::Client]
+  def self.client(options={})
+    Rundeck::Client.new(options)
+  end
+
+  # Delegate to Gitlab::Client
+  def self.method_missing(method, *args, &block)
+    return super unless client.respond_to?(method)
+    client.send(method, *args, &block)
+  end
+
+  # Delegate to Gitlab::Client
+  def self.respond_to?(method)
+    return client.respond_to?(method) || super
+  end
 end
