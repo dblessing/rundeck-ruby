@@ -34,15 +34,15 @@ module Rundeck
     # Returns parsed response for successful requests.
     def validate(response)
       case response.code
-        when 400; raise Error::BadRequest.new error_message(response)
-        when 401; raise Error::Unauthorized.new error_message(response)
-        when 403; raise Error::Forbidden.new error_message(response)
-        when 404; raise Error::NotFound.new error_message(response)
-        when 405; raise Error::MethodNotAllowed.new error_message(response)
-        when 409; raise Error::Conflict.new error_message(response)
-        when 500; raise Error::InternalServerError.new error_message(response)
-        when 502; raise Error::BadGateway.new error_message(response)
-        when 503; raise Error::ServiceUnavailable.new error_message(response)
+      when 400 then fail Error::BadRequest, error_message(response)
+      when 401 then fail Error::Unauthorized, error_message(response)
+      when 403 then fail Error::Forbidden, error_message(response)
+      when 404 then fail Error::NotFound, error_message(response)
+      when 405 then fail Error::MethodNotAllowed, error_message(response)
+      when 409 then fail Error::Conflict, error_message(response)
+      when 500 then fail Error::InternalServerError, error_message(response)
+      when 502 then fail Error::BadGateway, error_message(response)
+      when 503 then fail Error::ServiceUnavailable, error_message(response)
       end
 
       response.parsed_response
@@ -51,7 +51,9 @@ module Rundeck
     # Sets a base_uri and default_params for requests.
     # @raise [Error::MissingCredentials] if endpoint not set.
     def set_request_defaults(endpoint, api_token)
-      raise Error::MissingCredentials.new("Please set an endpoint to API") unless endpoint
+      unless endpoint
+        fail Error::MissingCredentials, 'Please set an endpoint to API'
+      end
       @api_token = api_token
 
       self.class.base_uri endpoint
@@ -63,11 +65,12 @@ module Rundeck
 
     # Sets a PRIVATE-TOKEN header for requests.
     # @raise [Error::MissingCredentials] if api_token not set.
-    def set_api_token_header(options, path=nil)
-      unless path == '/j_security_check'
-        raise Error::MissingCredentials.new("Please set a api_token for user") unless @api_token
-        options[:headers] = {'X-Rundeck-Auth-Token' => @api_token}
+    def set_api_token_header(options, path = nil)
+      return nil if path == '/j_security_check'
+      unless @api_token
+        fail Error::MissingCredentials, 'Please set a api_token for user'
       end
+      options[:headers] = { 'X-Rundeck-Auth-Token' => @api_token }
     end
 
     def error_message(response)

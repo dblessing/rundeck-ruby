@@ -23,6 +23,6 @@ module Rundeck
 
   # Delegate to Gitlab::Client
   def self.respond_to?(method)
-    return client.respond_to?(method) || super
+    client.respond_to?(method) || super
   end
 end

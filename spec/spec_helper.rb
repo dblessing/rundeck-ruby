@@ -5,7 +5,7 @@ require 'codeclimate-test-reporter'
 
 CodeClimate::TestReporter.start
 
-WebMock.disable_net_connect!(:allow => "codeclimate.com")
+WebMock.disable_net_connect!(allow: 'codeclimate.com')
 
 require File.expand_path('../../lib/rundeck', __FILE__)
 

@@ -23,7 +23,7 @@ module Rundeck
 
     # Creates a hash of options and their values.
     def options
-      VALID_OPTIONS_KEYS.inject({}) do |option, key|
+      VALID_OPTIONS_KEYS.reduce({}) do |option, key|
         option.merge!(key => send(key))
       end
     end

@@ -10,7 +10,7 @@ describe Rundeck::Request do
     subject { Rundeck::Request.default_options }
     it { is_expected.to be_a Hash }
     its([:format]) { is_expected.to eq(:xml) }
-    its([:headers]) { is_expected.to eq({ 'Accept' => 'application/xml' }) }
+    its([:headers]) { is_expected.to eq('Accept' => 'application/xml') }
     its([:default_params]) { is_expected.to be_nil }
   end
 
@@ -18,18 +18,18 @@ describe Rundeck::Request do
     context 'when endpoint' do
       context 'is not set' do
         it do
-          expect {
+          expect do
             Rundeck::Request.new.set_request_defaults(nil, 'secret')
-          }.to raise_error(Rundeck::Error::MissingCredentials,
-                           'Please set an endpoint to API')
+          end.to raise_error(Rundeck::Error::MissingCredentials,
+                             'Please set an endpoint to API')
         end
       end
 
       context 'is set' do
         before do
           @rundeck_request = Rundeck::Request.new
-          @rundeck_request.
-              set_request_defaults('http://api.example.org','secret')
+          @rundeck_request
+              .set_request_defaults('http://api.example.org', 'secret')
         end
         subject { @rundeck_request }
 
