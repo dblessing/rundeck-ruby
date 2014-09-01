@@ -1,6 +1,7 @@
 require 'rundeck/version'
 require 'rundeck/configuration'
 require 'rundeck/error'
+require 'rundeck/objectified_hash'
 require 'rundeck/request'
 require 'rundeck/api'
 require 'rundeck/client'
