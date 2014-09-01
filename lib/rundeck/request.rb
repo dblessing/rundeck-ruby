@@ -7,7 +7,6 @@ module Rundeck
     include HTTParty
     format :xml
     headers 'Accept' => 'application/xml'
-    parser Proc.new { |body, _| parse(body) }
 
     attr_accessor :api_token
 
