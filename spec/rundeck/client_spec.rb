@@ -19,7 +19,6 @@ describe Rundeck::Client do
       end
 
       context 'is a string' do
-        let(:result) { 'A result' }
         it do
           expect do
             Rundeck::Client.new.objectify('string')
