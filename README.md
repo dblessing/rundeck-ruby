@@ -5,7 +5,9 @@
 [![Code Climate](https://codeclimate.com/github/dblessing/rundeck-ruby/badges/gpa.svg)](https://codeclimate.com/github/dblessing/rundeck-ruby)
 [![Test Coverage](https://codeclimate.com/github/dblessing/rundeck-ruby/badges/coverage.svg)](https://codeclimate.com/github/dblessing/rundeck-ruby)
 
-A Ruby wrapper around the Rundeck API. 
+## Note: Work in progress. Not yet stable
+
+A Ruby wrapper around the Rundeck API.  
 
 This library will strive to achieve reliable, 
 100% coverage of the Rundeck API. Please submit an issue if you find a bug and feel
