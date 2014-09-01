@@ -19,6 +19,7 @@ RSpec.configure do |config|
     Rundeck.api_token = 'secret'
   end
 end
+
 #
 # GET
 # def stub_get(path, fixture)
