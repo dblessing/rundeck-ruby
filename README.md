@@ -1,6 +1,8 @@
 # Rundeck
 
 [![Build Status](https://travis-ci.org/dblessing/rundeck-ruby.svg?branch=master)](https://travis-ci.org/dblessing/rundeck-ruby)
+[![Code Climate](https://codeclimate.com/github/dblessing/rundeck-ruby/badges/gpa.svg)](https://codeclimate.com/github/dblessing/rundeck-ruby)
+[![Dependency Status](https://gemnasium.com/dblessing/rundeck-ruby.svg)](https://gemnasium.com/dblessing/rundeck-ruby)
 
 A Ruby wrapper around the Rundeck API. 
 

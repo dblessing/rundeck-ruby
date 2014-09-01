@@ -1,6 +1,9 @@
 require 'rspec'
 require 'rspec/its'
 require 'webmock/rspec'
+require 'codeclimate-test-reporter'
+
+CodeClimate::TestReporter.start
 
 require File.expand_path('../../lib/rundeck', __FILE__)
 
