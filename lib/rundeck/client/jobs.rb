@@ -8,15 +8,34 @@ module Rundeck
       #   Rundeck.jobs('project')
       #
       # @param  [String] project Project name
-      # @param  [Hash] options A customizable set of options.
-      #
-      # @todo what options can we use?
-      # @option options [String] :scope Scope of projects. 'owned' for list of projects owned by the authenticated user, 'all' to get all projects (admin only)
-      #
-      #
+      # @param  [Hash] options A set of options passed directly to HTTParty
       # @return [Array<Rundeck::ObjectifiedHash>]
       def jobs(project, options = {})
         objectify get("/project/#{project}/jobs", options)['jobs']['job']
+      end
+
+      # Gets a single job by id
+      #
+      # @example Rundeck.job('c07518ef-b697-4792-9a59-5b4f08855b67')
+      #
+      # @param  [String] id Job id
+      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @return [Rundeck::ObjectifiedHash]
+      def job(id, options = {})
+        objectify get("/job/#{id}")['joblist']['job']
+      end
+
+      # Get executions for a specific job
+      #
+      # @example
+      #   Rundeck.job_executions('c07518ef-b697-4792-9a59-5b4f08855b67')
+      #
+      # @param  [String] id Job id
+      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @return [Rundeck::ObjectifiedHash]
+      def job_executions(id, options = {})
+        r = get("/job/#{id}/executions")['result']['executions']['execution']
+        objectify r
       end
     end
   end

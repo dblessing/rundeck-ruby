@@ -7,7 +7,7 @@
   </job>
   <job id='9c922902-faa6-49cf-aa8d-4de3f5e1d3e1'>
     <name>Job 2</name>
-    <group />
+    <group>My_Group</group>
     <project>My_Project</project>
     <description>My second project</description>
   </job>
