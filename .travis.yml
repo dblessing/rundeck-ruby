@@ -3,6 +3,9 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1
+script:
+  - bundle exec rake
+  - bundle exec rubocop
 addons:
   code_climate:
     repo_token: 2aea108baa65d08ea87fb2371ec22a1741cb760027b8605bdabd5e153e595f4c
