@@ -1,4 +1,5 @@
 require 'rspec'
+require 'rspec/its'
 require 'webmock/rspec'
 
 require File.expand_path('../../lib/rundeck', __FILE__)
@@ -7,12 +8,12 @@ def load_fixture(name)
   File.new(File.dirname(__FILE__) + "/fixtures/#{name}.json")
 end
 
-# RSpec.configure do |config|
-#   config.before(:all) do
-#     Gitlab.endpoint = 'https://api.example.com'
-#     Gitlab.private_token = 'secret'
-#   end
-# end
+RSpec.configure do |config|
+  config.before(:each) do
+    Rundeck.endpoint = 'https://api.example.com'
+    Rundeck.api_token = 'secret'
+  end
+end
 #
 # GET
 # def stub_get(path, fixture)

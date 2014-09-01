@@ -1,5 +1,6 @@
 require 'rundeck/version'
 require 'rundeck/configuration'
+require 'rundeck/error'
 require 'rundeck/request'
 require 'rundeck/api'
 require 'rundeck/client'
@@ -10,7 +11,7 @@ module Rundeck
   # Alias for Rundeck::Client.new
   #
   # @return [Rundeck::Client]
-  def self.client(options={})
+  def self.client(options = {})
     Rundeck::Client.new(options)
   end
 
