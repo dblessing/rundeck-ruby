@@ -75,7 +75,7 @@ module Rundeck
 
     def error_message(response)
       "Server responded with code #{response.code}, " \
-      "message: #{response.parsed_response.message}. " \
+      "message: #{response.parsed_response['result']['error'][1]['message']}. " \
       "Request URI: #{response.request.base_uri}#{response.request.path}"
     end
   end

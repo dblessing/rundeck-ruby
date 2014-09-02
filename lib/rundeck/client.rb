@@ -10,6 +10,8 @@ module Rundeck
         ObjectifiedHash.new(result)
       elsif result.is_a? Array
         result.map! { |e| ObjectifiedHash.new(e) }
+      elsif result.nil?
+        nil
       else
         fail Error::Parsing, "Couldn't parse a response body"
       end

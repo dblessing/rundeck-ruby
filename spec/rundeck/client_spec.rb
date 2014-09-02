@@ -26,6 +26,12 @@ describe Rundeck::Client do
                              "Couldn't parse a response body"
         end
       end
+
+      context 'is nil' do
+        let(:result) { nil }
+        
+        it { is_expected.to be_nil }
+      end
     end
   end
 end
