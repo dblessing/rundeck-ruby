@@ -4,6 +4,7 @@ module Rundeck
     Dir[File.expand_path('../client/*.rb', __FILE__)].each { |f| require f }
 
     include Jobs
+    include Keys
 
     def objectify(result)
       if result.is_a?(Hash)
