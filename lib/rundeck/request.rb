@@ -70,6 +70,7 @@ module Rundeck
       unless @api_token
         fail Error::MissingCredentials, 'Please set a api_token for user'
       end
+      options[:headers] = {} if options[:headers].nil?
       options[:headers].merge!( 'X-Rundeck-Auth-Token' => @api_token )
     end
 
