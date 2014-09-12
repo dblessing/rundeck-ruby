@@ -5,28 +5,26 @@ module Rundeck
   # @private
   class Request
     include HTTParty
-    format :xml
-    headers 'Accept' => 'application/json'
 
     attr_accessor :api_token
 
     def get(path, options = {})
-      set_api_token_header(options)
+      request_settings(options)
       validate self.class.get(path, options)
     end
 
     def post(path, options = {})
-      set_api_token_header(options, path)
+      request_settings(options, path)
       validate self.class.post(path, options)
     end
 
     def put(path, options = {})
-      set_api_token_header(options)
+      request_settings(options)
       validate self.class.put(path, options)
     end
 
     def delete(path, options = {})
-      set_api_token_header(options)
+      request_settings(options)
       validate self.class.delete(path, options)
     end
 
@@ -63,15 +61,40 @@ module Rundeck
 
     private
 
+    def request_settings(options, path = nil)
+      format(options)
+      api_token_header(options, path)
+      accept_header(options)
+    end
+
     # Sets a PRIVATE-TOKEN header for requests.
     # @raise [Error::MissingCredentials] if api_token not set.
-    def set_api_token_header(options, path = nil)
+    def api_token_header(options, path = nil)
       return nil if path == '/j_security_check'
       unless @api_token
         fail Error::MissingCredentials, 'Please set a api_token for user'
       end
       options[:headers] = {} if options[:headers].nil?
       options[:headers].merge!('X-Rundeck-Auth-Token' => @api_token)
+    end
+
+    # Accept JSON when available. If unavailable, the Rundeck service will
+    # return XML automatically. However, `format` will have to be set to :xml
+    # or :json appropriately for each call or parsing will fail.
+    def accept_header(options)
+      return nil if options[:headers].nil?
+
+      unless options[:headers].include?('Accept')
+        options[:headers].merge!('Accept' => 'application/json')
+      end
+    end
+
+    def format(options)
+      options[:format] = :json if options[:format].nil?
+
+      unless options[:format] == :xml || options[:format] == :json
+        fail Error::InvalidAttributes, 'Please set a valid request format'
+      end
     end
 
     def error_message(response)

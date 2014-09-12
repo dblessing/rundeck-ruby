@@ -13,7 +13,7 @@ module Rundeck
       # @param  [Hash] options A set of options passed directly to HTTParty
       # @return [Array<Rundeck::ObjectifiedHash>]
       def keys(path, options = {})
-        get("#{STORAGE_KEYS_PATH}/#{path}", options)
+        objectify get("#{STORAGE_KEYS_PATH}/#{path}", options)
       end
 
       # Create a private key
@@ -29,7 +29,7 @@ module Rundeck
       def create_private_key(path, key, options = {})
         options.merge!(body: key,
                        headers: { 'Content-Type' => 'application/octet-stream' })
-        post("#{STORAGE_KEYS_PATH}/#{path}", options)
+        objectify post("#{STORAGE_KEYS_PATH}/#{path}", options)
       end
     end
   end

@@ -11,6 +11,7 @@ module Rundeck
       # @param  [Hash] options A set of options passed directly to HTTParty
       # @return [Array<Rundeck::ObjectifiedHash>]
       def jobs(project, options = {})
+        options.merge!(format: :xml)
         objectify get("/project/#{project}/jobs", options)['jobs']['job']
       end
 
@@ -22,6 +23,7 @@ module Rundeck
       # @param  [Hash] options A set of options passed directly to HTTParty
       # @return [Rundeck::ObjectifiedHash]
       def job(id, options = {})
+        options.merge!(format: :xml)
         objectify get("/job/#{id}", options)['joblist']['job']
       end
 
@@ -34,6 +36,7 @@ module Rundeck
       # @param  [Hash] options A set of options passed directly to HTTParty
       # @return [Rundeck::ObjectifiedHash]
       def job_executions(id, options = {})
+        options.merge!(format: :xml)
         r = get("/job/#{id}/executions", options)['result']['executions']['execution']
         objectify r
       end

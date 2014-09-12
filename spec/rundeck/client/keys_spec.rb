@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Rundeck::Client do
   describe '.keys' do
     before do
-      stub_get('/storage/keys/path/to/key1')
+      stub_get('/storage/keys/path/to/key1', 'key')
       @keys = Rundeck.keys('path/to/key1')
     end
     subject { @keys }

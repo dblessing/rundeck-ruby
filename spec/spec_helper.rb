@@ -12,10 +12,10 @@ require File.expand_path('../../lib/rundeck', __FILE__)
 def load_fixture(name)
   prefix = File.dirname(__FILE__) + '/fixtures'
 
-  if File.exists?("#{prefix}/#{name}.xml")
+  if File.exist?("#{prefix}/#{name}.xml")
     File.new("#{prefix}/#{name}.xml")
 
-  elsif File.exists?("#{prefix}/#{name}.json")
+  elsif File.exist?("#{prefix}/#{name}.json")
     File.new("#{prefix}/#{name}.json")
 
   else

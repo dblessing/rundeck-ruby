@@ -6,6 +6,9 @@ module Rundeck
     # Raise when attributes are missing.
     class MissingAttributes < Error; end
 
+    # Raise when attributes are invalid.
+    class InvalidAttributes < Error; end
+
     # Raised when API endpoint credentials not configured.
     class MissingCredentials < Error; end
 
