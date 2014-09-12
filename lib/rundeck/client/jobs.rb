@@ -22,7 +22,7 @@ module Rundeck
       # @param  [Hash] options A set of options passed directly to HTTParty
       # @return [Rundeck::ObjectifiedHash]
       def job(id, options = {})
-        objectify get("/job/#{id}")['joblist']['job']
+        objectify get("/job/#{id}", options)['joblist']['job']
       end
 
       # Get executions for a specific job
@@ -34,7 +34,7 @@ module Rundeck
       # @param  [Hash] options A set of options passed directly to HTTParty
       # @return [Rundeck::ObjectifiedHash]
       def job_executions(id, options = {})
-        r = get("/job/#{id}/executions")['result']['executions']['execution']
+        r = get("/job/#{id}/executions", options)['result']['executions']['execution']
         objectify r
       end
     end

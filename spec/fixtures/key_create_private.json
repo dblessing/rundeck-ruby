@@ -1,0 +1,12 @@
+{
+    "path": "keys/my_key31",
+    "type": "file",
+    "name": "my_key31",
+    "url":  "http://dc-mb-am-009.bucklehq.com:4440/api/12/storage/keys/my_key31",
+    "meta":{
+        "Rundeck-content-type": "application/octet-stream",
+        "Rundeck-content-size": "1766",
+        "Rundeck-content-mask": "content",
+        "Rundeck-key-type":     "private"
+    }
+}

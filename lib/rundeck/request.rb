@@ -6,7 +6,7 @@ module Rundeck
   class Request
     include HTTParty
     format :xml
-    headers 'Accept' => 'application/xml'
+    headers 'Accept' => 'application/json'
 
     attr_accessor :api_token
 
@@ -71,7 +71,7 @@ module Rundeck
         fail Error::MissingCredentials, 'Please set a api_token for user'
       end
       options[:headers] = {} if options[:headers].nil?
-      options[:headers].merge!( 'X-Rundeck-Auth-Token' => @api_token )
+      options[:headers].merge!('X-Rundeck-Auth-Token' => @api_token)
     end
 
     def error_message(response)

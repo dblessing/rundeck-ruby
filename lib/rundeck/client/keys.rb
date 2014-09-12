@@ -19,14 +19,14 @@ module Rundeck
       # Create a private key
       #
       # @example
-      #   key = "-----BEGIN RSA PRIVATE KEY-----"
+      #   key = "-----BEGIN RSA PRIVATE KEY-----\nProc-Type:..."
       #   Rundeck.create_private_key('path', key)
       #
       # @param  [String] path A key storage path
       # @param  [String] key The entire private key value
       # @param  [Hash] options A set of options passed directory to HTTParty
       # @return [Array<Rundeck::ObjectifiedHash>]
-      def create_private_key(path, key, options)
+      def create_private_key(path, key, options = {})
         options.merge!(body: key,
                        headers: { 'Content-Type' => 'application/octet-stream' })
         post("#{STORAGE_KEYS_PATH}/#{path}", options)
