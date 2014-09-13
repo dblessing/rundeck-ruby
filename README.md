@@ -1,11 +1,13 @@
-# Rundeck
+# Rundeck Ruby Gem
+
+## Work in progress. Not yet stable
+
+### Note: Although the git repository is called 'rundeck-ruby', the gem is called 'Rundeck' on Rubygems.org. There is another gem called 'rundeck-ruby' on Rubygems.org and it is not affiliated with this project.
 
 [![Build Status](https://travis-ci.org/dblessing/rundeck-ruby.svg?branch=master)](https://travis-ci.org/dblessing/rundeck-ruby)
 [![Dependency Status](https://gemnasium.com/dblessing/rundeck-ruby.svg)](https://gemnasium.com/dblessing/rundeck-ruby)
 [![Code Climate](https://codeclimate.com/github/dblessing/rundeck-ruby/badges/gpa.svg)](https://codeclimate.com/github/dblessing/rundeck-ruby)
 [![Test Coverage](https://codeclimate.com/github/dblessing/rundeck-ruby/badges/coverage.svg)](https://codeclimate.com/github/dblessing/rundeck-ruby)
-
-## Note: Work in progress. Not yet stable
 
 A Ruby wrapper around the Rundeck API.  
 
