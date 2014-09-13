@@ -21,16 +21,16 @@ RSpec.configure do |config|
 end
 
 # GET
-def stub_get(path, fixture)
+def stub_get(path, fixture, accept = 'xml')
   stub_request(:get, "#{Rundeck.endpoint}#{path}")
-      .with(headers: { 'Accept' => 'application/xml',
+      .with(headers: { 'Accept' => "application/#{accept}",
                        'X-Rundeck-Auth-Token' => Rundeck.api_token })
       .to_return(body: load_fixture(fixture))
 end
 
-def a_get(path)
+def a_get(path, accept = 'xml')
   a_request(:get, "#{Rundeck.endpoint}#{path}")
-      .with(headers: { 'Accept' => 'application/xml',
+      .with(headers: { 'Accept' => "application/#{accept}",
                        'X-Rundeck-Auth-Token' => Rundeck.api_token })
 end
 

@@ -40,7 +40,7 @@ module Rundeck
         if r['resource']['contents']
           fail Error::InvalidAttributes,
                'Please provide a key storage path that ' \
-               'isn\'t a direct path to a key'
+               'is a direct path to a key'
         else
           objectify r['resource']
         end
@@ -57,8 +57,14 @@ module Rundeck
       # @param  [Hash] options A set of options passed directly to HTTParty
       # @return [String]
       def key_contents(path, options = {})
-        options.merge!(headers: { 'Accept' => 'application/pgp-keys' })
-        get("#{STORAGE_KEYS_PATH}/#{path}", options)['resource']
+        # Check if key exists first. Otherwise we could return some
+        # weird strings. We don't need to handle anything because `key_metadata`
+        # will raise an error for us.
+        key_metadata(path, options)
+
+        options.merge!(headers: { 'Accept' => 'application/pgp-keys' },
+                       format: :plain)
+        get("#{STORAGE_KEYS_PATH}/#{path}", options)
       end
 
       # Create a private key

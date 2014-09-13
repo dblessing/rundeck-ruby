@@ -21,7 +21,9 @@ describe Rundeck::Client do
       it do
         expect do
           Rundeck.keys('path/to/key1')
-        end.to raise_error Rundeck::Error::InvalidAttributes
+        end.to raise_error(Rundeck::Error::InvalidAttributes,
+                           'Please provide a key storage path that ' \
+                           'isn\'t a direct path to a key')
       end
     end
   end
@@ -47,15 +49,40 @@ describe Rundeck::Client do
       it do
         expect do
           Rundeck.key_metadata('path/to/keys')
-        end.to raise_error Rundeck::Error::InvalidAttributes
+        end.to raise_error(Rundeck::Error::InvalidAttributes,
+                           'Please provide a key storage path that ' \
+                           'is a direct path to a key')
       end
     end
   end
 
-  # @TODO
-  # describe '.key_contents' do
-  #
-  # end
+  describe '.key_contents' do
+    context 'with a direct path to a key' do
+      before do
+        stub_get('/storage/keys/path/to/key1', 'key_public')
+        stub_get('/storage/keys/path/to/key1', 'key_contents', 'pgp-keys')
+        @key = Rundeck.key_contents('path/to/key1')
+      end
+      subject { @key }
+
+      it { is_expected.to be_a String }
+      it { expect(a_get('/storage/keys/path/to/key1', 'pgp-keys')).to have_been_made }
+    end
+
+    context 'with a path containing multiple keys' do
+      before do
+        stub_get('/storage/keys/path/to/keys', 'keys')
+      end
+
+      it do
+        expect do
+          Rundeck.key_contents('path/to/keys')
+        end.to raise_error(Rundeck::Error::InvalidAttributes,
+                           'Please provide a key storage path that ' \
+                           'is a direct path to a key')
+      end
+    end
+  end
 
   describe '.create_private_key' do
     before do
