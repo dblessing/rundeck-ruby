@@ -1,0 +1,8 @@
+<resource path='keys/path/to/my_key' type='file' url='http://localhost:4440/api/12/storage/keys/path/to/my_key' name='path/to/my_key'>
+  <resource-meta>
+    <Rundeck-content-type>application/octet-stream</Rundeck-content-type>
+    <Rundeck-content-size>1765</Rundeck-content-size>
+    <Rundeck-content-mask>content</Rundeck-content-mask>
+    <Rundeck-key-type>private</Rundeck-key-type>
+  </resource-meta>
+</resource>

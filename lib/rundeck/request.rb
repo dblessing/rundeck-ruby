@@ -6,6 +6,7 @@ module Rundeck
   class Request
     include HTTParty
 
+    format :xml
     attr_accessor :api_token
 
     def get(path, options = {})
@@ -55,14 +56,11 @@ module Rundeck
       @api_token = api_token
 
       self.class.base_uri endpoint
-      # self.class.default_params :sudo => sudo
-      # self.class.default_params.delete(:sudo) if sudo.nil?
     end
 
     private
 
     def request_settings(options, path = nil)
-      format(options)
       api_token_header(options, path)
       accept_header(options)
     end
@@ -78,22 +76,11 @@ module Rundeck
       options[:headers].merge!('X-Rundeck-Auth-Token' => @api_token)
     end
 
-    # Accept JSON when available. If unavailable, the Rundeck service will
-    # return XML automatically. However, `format` will have to be set to :xml
-    # or :json appropriately for each call or parsing will fail.
     def accept_header(options)
       return nil if options[:headers].nil?
 
       unless options[:headers].include?('Accept')
-        options[:headers].merge!('Accept' => 'application/json')
-      end
-    end
-
-    def format(options)
-      options[:format] = :json if options[:format].nil?
-
-      unless options[:format] == :xml || options[:format] == :json
-        fail Error::InvalidAttributes, 'Please set a valid request format'
+        options[:headers].merge!('Accept' => 'application/xml')
       end
     end
 

@@ -39,7 +39,7 @@ describe Rundeck::Client do
     it { is_expected.to be_an Array }
     it do
       expect(
-        a_get("/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions")
+        a_get('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions')
       ).to have_been_made
     end
   end

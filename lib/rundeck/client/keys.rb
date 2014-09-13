@@ -4,7 +4,7 @@ module Rundeck
     module Keys
       STORAGE_KEYS_PATH = '/storage/keys'
 
-      # Gets a list keys at a specific path.
+      # Gets a list of keys at a specific path.
       #
       # @example
       #   Rundeck.keys('path')
@@ -12,8 +12,53 @@ module Rundeck
       # @param  [String] path A key storage path
       # @param  [Hash] options A set of options passed directly to HTTParty
       # @return [Array<Rundeck::ObjectifiedHash>]
-      def keys(path, options = {})
-        objectify get("#{STORAGE_KEYS_PATH}/#{path}", options)
+      def keys(path = '', options = {})
+        r = get("#{STORAGE_KEYS_PATH}/#{path}", options)
+
+        #         # In case a user provides a direct path to a key, error.
+        if r['resource']['contents']
+          objectify r['resource']['contents']['resource']
+        else
+          fail Error::InvalidAttributes,
+               'Please provide a key storage path that ' \
+               'isn\'t a direct path to a key'
+        end
+      end
+
+      # Get a single key's metadata
+      #
+      # @example
+      #   Rundeck.key_metadata('path/to/key1')
+      #
+      # @param  [String] path A key storage path, including key name
+      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @return [Rundeck::ObjectifiedHash]
+      def key_metadata(path, options = {})
+        r = get("#{STORAGE_KEYS_PATH}/#{path}", options)
+
+        # In case a user provides a key path instead of a path to a single key.
+        if r['resource']['contents']
+          fail Error::InvalidAttributes,
+               'Please provide a key storage path that ' \
+               'isn\'t a direct path to a key'
+        else
+          objectify r['resource']
+        end
+      end
+
+      # Get the contents of a key. Only allowed for public keys.
+      # Note: This method returns a raw string of the public key,
+      # not at ObjectifiedHash.
+      #
+      # @example
+      #   Rundeck.key_contents('path/to/key1')
+      #
+      # @param  [String] path A key storage path, including key name
+      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @return [String]
+      def key_contents(path, options = {})
+        options.merge!(headers: { 'Accept' => 'application/pgp-keys' })
+        get("#{STORAGE_KEYS_PATH}/#{path}", options)['resource']
       end
 
       # Create a private key

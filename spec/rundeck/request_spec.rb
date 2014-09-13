@@ -10,7 +10,6 @@ describe Rundeck::Request do
     subject { Rundeck::Request.default_options }
     it { is_expected.to be_a Hash }
     its([:format]) { is_expected.to eq(:xml) }
-    its([:headers]) { is_expected.to eq('Accept' => 'application/json') }
     its([:default_params]) { is_expected.to be_nil }
   end
 
