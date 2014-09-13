@@ -55,7 +55,7 @@ module Rundeck
       #
       # @param  [String] path A key storage path, including key name
       # @param  [Hash] options A set of options passed directly to HTTParty
-      # @return [String]
+      # @return [Rundeck::ObjectifiedHash]
       def key_contents(path, options = {})
         # Check if key exists first. Otherwise we could return some
         # weird strings. Also, raise error if user is trying to get a
@@ -65,10 +65,10 @@ module Rundeck
                'You are not allowed to retrieve the contents of a private key'
         end
 
-
-        options.merge!(headers: { 'Accept' => 'application/pgp-keys' },
-                       format: :plain)
-        get("#{STORAGE_KEYS_PATH}/#{path}", options)
+        options.merge!(format: :plain,
+                       headers: { 'Accept' => 'application/pgp-keys' })
+        key = get("#{STORAGE_KEYS_PATH}/#{path}", options)
+        objectify 'public_key' => key
       end
 
       # Create a private key
@@ -80,11 +80,42 @@ module Rundeck
       # @param  [String] path A key storage path
       # @param  [String] key The entire private key value
       # @param  [Hash] options A set of options passed directory to HTTParty
-      # @return [Array<Rundeck::ObjectifiedHash>]
+      # @return [Rundeck::ObjectifiedHash]
       def create_private_key(path, key, options = {})
         options.merge!(body: key,
                        headers: { 'Content-Type' => 'application/octet-stream' })
         objectify post("#{STORAGE_KEYS_PATH}/#{path}", options)
+      end
+
+      # Create a public key
+      #
+      # @example
+      #   key = "ssh-rsa AAAA.....3MOj user@example.com"
+      #   Rundeck.create_public_key('path/to/key', key)
+      #
+      # @param  [String] path A key storage path
+      # @param  [String] key The entire private key value
+      # @param  [Hash] options A set of options passed directory to HTTParty
+      # @return [Array<Rundeck::ObjectifiedHash>]
+      def create_public_key(path, key, options = {})
+        options.merge!(body: key,
+                       headers: { 'Content-Type' => 'application/pgp-keys' })
+        objectify post("#{STORAGE_KEYS_PATH}/#{path}", options)
+      end
+
+      # Delete a key
+      #
+      # @example
+      # Rundeck.delete_key('path/to/key')
+      #
+      # @param  [String] path A key storage path
+      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @return [nil]
+      def delete_key(path, options = {})
+        delete("#{STORAGE_KEYS_PATH}/#{path}", options)
+
+        # Rundeck won't return anything if the delete is successful.
+        nil
       end
     end
   end

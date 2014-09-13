@@ -60,12 +60,12 @@ describe Rundeck::Client do
     context 'with a direct path to a key' do
       before do
         stub_get('/storage/keys/path/to/key1', 'key_public')
-        stub_get('/storage/keys/path/to/key1', 'key_contents', 'pgp-keys')
+        stub_get('/storage/keys/path/to/key1', 'key_contents_private', 'pgp-keys')
         @key = Rundeck.key_contents('path/to/key1')
       end
       subject { @key }
 
-      it { is_expected.to be_a String }
+      it { is_expected.to be_a Rundeck::ObjectifiedHash }
       it { expect(a_get('/storage/keys/path/to/key1', 'pgp-keys')).to have_been_made }
     end
 
@@ -117,5 +117,25 @@ DEK-Info: AES-128-CBC,E283774838299...
         a_post('/storage/keys/path/to/my_key')
       ).to have_been_made
     end
+  end
+
+  describe '.create_public_key' do
+    before do
+      keystring = 'ssh-rsa AAAA....3MOj user@example.com'
+      stub_post('/storage/keys/path/to/my_public_key', 'key_public')
+      @key = Rundeck.create_public_key('path/to/my_public_key', keystring)
+    end
+    subject { @key }
+
+    it { is_expected.to be_a Rundeck::ObjectifiedHash }
+    it do
+      expect(
+          a_post('/storage/keys/path/to/my_public_key')
+      ).to have_been_made
+    end
+  end
+
+  describe '.delete_key' do
+
   end
 end
