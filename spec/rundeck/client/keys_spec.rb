@@ -82,6 +82,20 @@ describe Rundeck::Client do
                            'is a direct path to a key')
       end
     end
+
+    context 'when trying to get a private key' do
+      before do
+        stub_get('/storage/keys/path/to/key2', 'key_private')
+      end
+
+      it do
+        expect do
+          Rundeck.key_contents('path/to/key2')
+        end.to raise_error(Rundeck::Error::Unauthorized,
+                           'You are not allowed to retrieve the contents ' \
+                           'of a private key')
+      end
+    end
   end
 
   describe '.create_private_key' do

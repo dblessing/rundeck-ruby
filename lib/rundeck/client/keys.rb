@@ -42,7 +42,7 @@ module Rundeck
                'Please provide a key storage path that ' \
                'is a direct path to a key'
         else
-          objectify r['resource']
+          objectify r['resource']['resource_meta']
         end
       end
 
@@ -58,9 +58,13 @@ module Rundeck
       # @return [String]
       def key_contents(path, options = {})
         # Check if key exists first. Otherwise we could return some
-        # weird strings. We don't need to handle anything because `key_metadata`
-        # will raise an error for us.
-        key_metadata(path, options)
+        # weird strings. Also, raise error if user is trying to get a
+        # private key.
+        if key_metadata(path, options).rundeck_key_type == 'private'
+          fail Error::Unauthorized,
+               'You are not allowed to retrieve the contents of a private key'
+        end
+
 
         options.merge!(headers: { 'Accept' => 'application/pgp-keys' },
                        format: :plain)
