@@ -159,9 +159,9 @@ module Rundeck
         options.merge!(body: key)
 
         if method == 'post'
-          objectify post("#{STORAGE_KEYS_PATH}/#{path}", options)
+          objectify post("#{STORAGE_KEYS_PATH}/#{path}", options)['resource']['resource_meta']
         elsif method == 'put'
-          objectify put("#{STORAGE_KEYS_PATH}/#{path}", options)
+          objectify put("#{STORAGE_KEYS_PATH}/#{path}", options)['resource']['resource_meta']
         end
       end
 

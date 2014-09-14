@@ -10,7 +10,11 @@ describe Rundeck::Client do
       subject { @keys }
 
       it { is_expected.to be_an Array }
-      it { expect(a_get('/storage/keys/')).to have_been_made }
+      its('first.resource_meta.rundeck_key_type') { is_expected.to eq('public') }
+
+      it 'expects a get to have been made' do
+        expect(a_get('/storage/keys/')).to have_been_made
+      end
     end
 
     context 'with a direct path to a key' do
@@ -18,7 +22,7 @@ describe Rundeck::Client do
         stub_get('/storage/keys/path/to/key1', 'key_public')
       end
 
-      it do
+      specify do
         expect do
           Rundeck.keys('path/to/key1')
         end.to raise_error(Rundeck::Error::InvalidAttributes,
@@ -37,8 +41,11 @@ describe Rundeck::Client do
       subject { @key }
 
       it { is_expected.to be_a Rundeck::ObjectifiedHash }
-      it { expect(a_get('/storage/keys/path/to/key1')).to have_been_made }
+      its(:rundeck_content_type) { is_expected.to eq('application/pgp-keys') }
 
+      it 'expects a get to have been made' do
+        expect(a_get('/storage/keys/path/to/key1')).to have_been_made
+      end
     end
 
     context 'with a path containing multiple keys' do
@@ -60,13 +67,20 @@ describe Rundeck::Client do
     context 'with a direct path to a key' do
       before do
         stub_get('/storage/keys/path/to/key1', 'key_public')
-        stub_get('/storage/keys/path/to/key1', 'key_contents_private', 'pgp-keys')
+        stub_get('/storage/keys/path/to/key1', 'key_contents_public', 'pgp-keys')
         @key = Rundeck.key_contents('path/to/key1')
       end
       subject { @key }
 
       it { is_expected.to be_a Rundeck::ObjectifiedHash }
-      it { expect(a_get('/storage/keys/path/to/key1', 'pgp-keys')).to have_been_made }
+      its(:public_key) { is_expected.to include('ssh-rsa') }
+
+      it 'expects a get to have been made' do
+        expect(a_get('/storage/keys/path/to/key1')).to have_been_made
+      end
+      it 'expects a get to have been made' do
+        expect(a_get('/storage/keys/path/to/key1', 'pgp-keys')).to have_been_made
+      end
     end
 
     context 'with a path containing multiple keys' do
@@ -112,7 +126,9 @@ DEK-Info: AES-128-CBC,E283774838299...
     subject { @key }
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
-    it do
+    its(:rundeck_key_type) { is_expected.to eq('private') }
+
+    it 'expects a post to have been made' do
       expect(
         a_post('/storage/keys/path/to/my_key')
       ).to have_been_made
@@ -120,7 +136,28 @@ DEK-Info: AES-128-CBC,E283774838299...
   end
 
   describe '.update_private_key' do
+    before do
+      keystring = <<-EOD
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,E283774838299...
+-----END RSA PRIVATE KEY-----
+      EOD
+      stub_get('/storage/keys/path/to/key1', 'key_private')
+      stub_put('/storage/keys/path/to/key1', 'key_private')
+      @key = Rundeck.update_private_key('path/to/key1', keystring)
+    end
+    subject { @key }
 
+    it { is_expected.to be_a Rundeck::ObjectifiedHash }
+    its(:rundeck_key_type) { is_expected.to eq('private') }
+
+    it 'expects a get to have been made' do
+      expect(a_get('/storage/keys/path/to/key1')).to have_been_made
+    end
+    it 'expects a put to have been made' do
+      expect(a_put('/storage/keys/path/to/key1')).to have_been_made
+    end
   end
 
   describe '.create_public_key' do
@@ -132,7 +169,9 @@ DEK-Info: AES-128-CBC,E283774838299...
     subject { @key }
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
-    it do
+    its(:rundeck_content_type) { is_expected.to eq('application/pgp-keys') }
+
+    it 'expects a post to have been made' do
       expect(
           a_post('/storage/keys/path/to/my_public_key')
       ).to have_been_made
@@ -140,7 +179,25 @@ DEK-Info: AES-128-CBC,E283774838299...
   end
 
   describe '.update_public_key' do
+    before do
+      keystring = <<-EOD
+ssh-rsa AAAA....ZlxUH user@example.com
+      EOD
+      stub_get('/storage/keys/path/to/key1', 'key_public')
+      stub_put('/storage/keys/path/to/key1', 'key_public')
+      @key = Rundeck.update_public_key('path/to/key1', keystring)
+    end
+    subject { @key }
 
+    it { is_expected.to be_a Rundeck::ObjectifiedHash }
+    its(:rundeck_content_type) { is_expected.to eq('application/pgp-keys') }
+
+    it 'expects a get to have been made' do
+      expect(a_get('/storage/keys/path/to/key1')).to have_been_made
+    end
+    it 'expects a put to have been made' do
+      expect(a_put('/storage/keys/path/to/key1')).to have_been_made
+    end
   end
 
   describe '.delete_key' do
@@ -151,6 +208,9 @@ DEK-Info: AES-128-CBC,E283774838299...
     subject { @key }
 
     it { is_expected.to be_nil }
-    it { expect(a_delete('/storage/keys/path/to/my_key')).to have_been_made }
+
+    it 'expects a delete to have been made' do
+      expect(a_delete('/storage/keys/path/to/my_key')).to have_been_made
+    end
   end
 end

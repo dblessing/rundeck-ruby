@@ -9,7 +9,11 @@ describe Rundeck::Client do
     subject { @jobs }
 
     it { is_expected.to be_an Array }
-    it { expect(a_get('/project/My_Project/jobs')).to have_been_made }
+    its('first.name') { is_expected.to eq('Job 1') }
+
+    it 'expects a get to have been made' do
+      expect(a_get('/project/My_Project/jobs')).to have_been_made
+    end
   end
 
   describe '.job' do
@@ -20,7 +24,9 @@ describe Rundeck::Client do
     subject { @job }
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
-    it do
+    its(:name) { is_expected.to eq('Hello World') }
+
+    it 'expects a get to have been made' do
       expect(
         a_get('/job/c07518ef-b697-4792-9a59-5b4f08855b67')
       ).to have_been_made
@@ -37,7 +43,9 @@ describe Rundeck::Client do
     subject { @job_executions }
 
     it { is_expected.to be_an Array }
-    it do
+    its('first.job.name') { is_expected.to eq('Job 1') }
+
+    it 'expects a get to have been made' do
       expect(
         a_get('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions')
       ).to have_been_made
