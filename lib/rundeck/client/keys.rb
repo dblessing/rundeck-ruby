@@ -82,9 +82,27 @@ module Rundeck
       # @param  [Hash] options A set of options passed directory to HTTParty
       # @return [Rundeck::ObjectifiedHash]
       def create_private_key(path, key, options = {})
-        options.merge!(body: key,
-                       headers: { 'Content-Type' => 'application/octet-stream' })
-        objectify post("#{STORAGE_KEYS_PATH}/#{path}", options)
+        create_or_update_key(path, key, 'private', 'post', options)
+      end
+
+      # Update a private key
+      #
+      # @example
+      #   key = "-----BEGIN RSA PRIVATE KEY-----\nProc-Type:..."
+      #   Rundeck.update_private_key('path', key)
+      #
+      # @param  [String] path A key storage path
+      # @param  [String] key The entire private key value
+      # @param  [Hash] options A set of options passed directory to HTTParty
+      # @return [Rundeck::ObjectifiedHash]
+      def update_private_key(path, key, options = {})
+        # Check existence and type first
+        if key_metadata(path, options).rundeck_key_type != 'private'
+          fail Error::NotFound,
+               'A private key was not found at the specified path.'
+        end
+
+        create_or_update_key(path, key, 'public', 'put', options)
       end
 
       # Create a public key
@@ -98,9 +116,27 @@ module Rundeck
       # @param  [Hash] options A set of options passed directory to HTTParty
       # @return [Array<Rundeck::ObjectifiedHash>]
       def create_public_key(path, key, options = {})
-        options.merge!(body: key,
-                       headers: { 'Content-Type' => 'application/pgp-keys' })
-        objectify post("#{STORAGE_KEYS_PATH}/#{path}", options)
+        create_or_update_key(path, key, 'public', 'post', options)
+      end
+
+      # Update a public key
+      #
+      # @example
+      #   key = "ssh-rsa AAAA.....3MOj user@example.com"
+      #   Rundeck.update_public_key('path/to/key', key)
+      #
+      # @param  [String] path A key storage path
+      # @param  [String] key The entire private key value
+      # @param  [Hash] options A set of options passed directory to HTTParty
+      # @return [Array<Rundeck::ObjectifiedHash>]
+      def update_public_key(path, key, options = {})
+        # Check existence and type first
+        if key_metadata(path, options).rundeck_key_type != 'public'
+          fail Error::NotFound,
+               'A public key was not found at the specified path.'
+        end
+
+        create_or_update_key(path, key, 'public', 'put', options)
       end
 
       # Delete a key
@@ -116,6 +152,30 @@ module Rundeck
 
         # Rundeck won't return anything if the delete is successful.
         nil
+      end
+
+      private
+
+      def create_or_update_key(path, key, type, method, options = {})
+        key_type_headers(type, options)
+        options.merge!(body: key)
+
+        if method == 'post'
+          objectify post("#{STORAGE_KEYS_PATH}/#{path}", options)
+        elsif method == 'put'
+          objectify put("#{STORAGE_KEYS_PATH}/#{path}", options)
+        end
+      end
+
+      def key_type_headers(type, options = {})
+        if type == 'private'
+          options.merge!(headers: { 'Content-Type' => 'application/octet-stream' })
+        elsif type == 'public'
+          options.merge!(headers: { 'Content-Type' => 'application/pgp-key' })
+        else
+          fail Error::InvalidAttributes,
+               'Invalid key type specified. Must be public or private.'
+        end
       end
     end
   end

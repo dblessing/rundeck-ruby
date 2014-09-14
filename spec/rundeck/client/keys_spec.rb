@@ -119,6 +119,10 @@ DEK-Info: AES-128-CBC,E283774838299...
     end
   end
 
+  describe '.update_private_key' do
+
+  end
+
   describe '.create_public_key' do
     before do
       keystring = 'ssh-rsa AAAA....3MOj user@example.com'
@@ -135,7 +139,18 @@ DEK-Info: AES-128-CBC,E283774838299...
     end
   end
 
-  describe '.delete_key' do
+  describe '.update_public_key' do
 
+  end
+
+  describe '.delete_key' do
+    before do
+      stub_delete('/storage/keys/path/to/my_key', 'key_public')
+      @key = Rundeck.delete_key('path/to/my_key')
+    end
+    subject { @key }
+
+    it { is_expected.to be_nil }
+    it { expect(a_delete('/storage/keys/path/to/my_key')).to have_been_made }
   end
 end
