@@ -96,12 +96,7 @@ module Rundeck
       # @param  [Hash] options A set of options passed directory to HTTParty
       # @return [Rundeck::ObjectifiedHash]
       def update_private_key(path, key, options = {})
-        # Check existence and type first
-        if key_metadata(path, options).rundeck_key_type != 'private'
-          fail Error::NotFound,
-               'A private key was not found at the specified path.'
-        end
-
+        key_check(path, 'private', options)
         create_or_update_key(path, key, 'public', 'put', options)
       end
 
@@ -130,12 +125,7 @@ module Rundeck
       # @param  [Hash] options A set of options passed directory to HTTParty
       # @return [Array<Rundeck::ObjectifiedHash>]
       def update_public_key(path, key, options = {})
-        # Check existence and type first
-        if key_metadata(path, options).rundeck_key_type != 'public'
-          fail Error::NotFound,
-               'A public key was not found at the specified path.'
-        end
-
+        key_check(path, 'public', options)
         create_or_update_key(path, key, 'public', 'put', options)
       end
 
@@ -156,7 +146,15 @@ module Rundeck
 
       private
 
-      def create_or_update_key(path, key, type, method, options = {})
+      def key_check(path, type, options)
+        # Check existence and type
+        if key_metadata(path, options).rundeck_key_type != type
+          fail Error::NotFound,
+               "A #{type} key was not found at the specified path."
+        end
+      end
+
+      def create_or_update_key(path, key, type, method, options)
         key_type_headers(type, options)
         options.merge!(body: key)
 
@@ -167,7 +165,7 @@ module Rundeck
         end
       end
 
-      def key_type_headers(type, options = {})
+      def key_type_headers(type, options)
         if type == 'private'
           options.merge!(headers: { 'Content-Type' => 'application/octet-stream' })
         elsif type == 'public'
