@@ -17,7 +17,12 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.3.5, rbenv: 1.9.3-p125) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rake (v0.9.2.2, rbenv: 1.9.3-p125) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="erubis (v2.7.0, rbenv: 1.9.3-p125) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="eventmachine (v1.0.3, rbenv: 1.9.3-p125) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="hike (v1.2.3, rbenv: 1.9.3-p125) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack (v1.5.2, rbenv: 1.9.3-p125) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack-livereload (v0.3.15, rbenv: 1.9.3-p125) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.6.2, rbenv: 1.9.3-p125) [gem]" level="application" />
   </component>
 </module>
 
