@@ -3,6 +3,8 @@
 source 'http://rubygems.org'
 
 gem 'middleman', '~>3.3.5'
+gem 'middleman-slim'
+
 gem 'middleman-deploy', '~> 0.3.0'
 
 # Live-reloading plugin
