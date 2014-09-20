@@ -45,9 +45,10 @@ describe Rundeck do
           Rundeck.configure do |config|
             config.send("#{key}=", key)
           end
+          @key = key == :endpoint ? "#{key}/api/12" : key
         end
 
-        it { is_expected.to eq(key) }
+        it { is_expected.to eq(@key) }
       end
     end
   end

@@ -51,4 +51,23 @@ describe Rundeck::Client do
       ).to have_been_made
     end
   end
+
+  describe '.job_run' do
+    before do
+      stub_post('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions?loglevel=INFO',
+                'job_run')
+      @job_run =
+          Rundeck.job_run('c07518ef-b697-4792-9a59-5b4f08855b67')
+    end
+    subject { @job_run }
+
+    it { is_expected.to be_a Rundeck::ObjectifiedHash }
+    its('job.name') { is_expected.to eq('My_Job') }
+
+    it 'expects a post to have been made' do
+      expect(
+        a_post('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions?loglevel=INFO')
+      ).to have_been_made
+    end
+  end
 end

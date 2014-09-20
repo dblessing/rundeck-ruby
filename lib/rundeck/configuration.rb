@@ -28,6 +28,10 @@ module Rundeck
       end
     end
 
+    def endpoint=(endpoint)
+      @endpoint = "#{endpoint}/api/12"
+    end
+
     # Resets all configuration options to the defaults.
     def reset
       self.endpoint       = ENV['RUNDECK_API_ENDPOINT']
