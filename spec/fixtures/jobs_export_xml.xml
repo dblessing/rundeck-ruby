@@ -1,0 +1,32 @@
+<joblist>
+  <job>
+    <id>c07518ef-b697-4792-9a59-5b4f08855b67</id>
+    <loglevel>INFO</loglevel>
+    <sequence keepgoing='false' strategy='node-first'>
+      <command>
+        <exec>echo 'hello world'</exec>
+      </command>
+    </sequence>
+    <description>Hello World</description>
+    <name>hello</name>
+    <context>
+      <project>my_project</project>
+    </context>
+    <uuid>c07518ef-b697-4792-9a59-5b4f08855b67</uuid>
+  </job>
+  <job>
+    <id>9c922902-faa6-49cf-aa8d-4de3f5e1d3e1</id>
+    <loglevel>INFO</loglevel>
+    <sequence keepgoing='false' strategy='node-first'>
+      <command>
+        <exec>echo 'foo'</exec>
+      </command>
+    </sequence>
+    <description>Foo Bar</description>
+    <name>foo</name>
+    <context>
+      <project>my_project</project>
+    </context>
+    <uuid>9c922902-faa6-49cf-aa8d-4de3f5e1d3e1</uuid>
+  </job>
+</joblist>

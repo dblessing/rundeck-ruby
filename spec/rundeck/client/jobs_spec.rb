@@ -54,7 +54,7 @@ describe Rundeck::Client do
 
   describe '.job_run' do
     before do
-      stub_post('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions?loglevel=INFO',
+      stub_post('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions',
                 'job_run')
       @job_run =
           Rundeck.job_run('c07518ef-b697-4792-9a59-5b4f08855b67')
@@ -66,8 +66,55 @@ describe Rundeck::Client do
 
     it 'expects a post to have been made' do
       expect(
-        a_post('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions?loglevel=INFO')
+        a_post('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions')
       ).to have_been_made
+    end
+  end
+
+  describe '.job_export' do
+    context 'valid format' do
+      before do
+        stub_get("/jobs/export?project=my_project&format=#{format}", fixture)
+        @jobs = Rundeck.jobs_export('my_project', format)
+      end
+      subject { @jobs }
+
+      context 'yaml' do
+        let(:format) { 'yaml' }
+        let(:fixture) { 'jobs_export_yaml' }
+
+        it { is_expected.to be_a String }
+        it { is_expected.to include 'id: c07518ef-b697-4792-9a59-5b4f08855b67' }
+
+        it 'expects a get to have been made' do
+          expect(
+              a_get('/jobs/export?project=my_project&format=yaml')
+          ).to have_been_made
+        end
+      end
+
+      context 'xml' do
+        let(:format) { 'xml' }
+        let(:fixture) { 'jobs_export_xml' }
+
+        it { is_expected.to be_a String }
+        it { is_expected.to include '<id>c07518ef-b697-4792-9a59-5b4f08855b67</id>' }
+
+        it 'expects a get to have been made' do
+          expect(
+              a_get('/jobs/export?project=my_project&format=xml')
+          ).to have_been_made
+        end
+      end
+    end
+
+    context 'invalid format' do
+      specify do
+        expect do
+          Rundeck.jobs_export('my_project', 'invalid_format')
+        end.to raise_error(Rundeck::Error::InvalidAttributes,
+                           'format must be yaml or xml')
+      end
     end
   end
 end

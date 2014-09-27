@@ -44,19 +44,30 @@ module Rundeck
       #   Rundeck.job_run('c07518ef-b697-4792-9a59-5b4f08855b67', 'DEBUG')
       #
       # @param  [String] id Job id
-      # @param  [String] loglevel The loglevel for job output
-      # @param  [String] user The user the run the job as
-      # @param  [String] args argument string to pass to the job
-      # @param  [Hash]   node_filter The node filter options
       # @param  [Hash]   options A set of options passed directly to HTTParty
       # @return [Rundeck::ObjectifiedHash]
-      def job_run(id, loglevel = 'INFO', user = nil, args = nil, node_filter = {}, options = {})
-        options[:query] = { 'loglevel'   => loglevel }
-        options[:query]['asUser'] = user unless user.nil?
-        options[:query]['argString'] = args unless args.nil?
-        options[:query].merge!(node_filter)
-
+      def job_run(id, options = {})
         objectify post("/job/#{id}/executions", options)['result']['executions']['execution']
+      end
+
+      # Export jobs to yaml or xml format
+      #
+      # @example
+      #   Rundeck.jobs_export('project')
+      #
+      # @param  [String] project Project name
+      # @param  [String] format The export format. 'yaml|xml', defaults to 'yaml'
+      # @param  [Hash]   options A set of options passed directly to HTTParty
+      # @return [String]
+      def jobs_export(project, format = 'yaml', options = {})
+        unless format =~ /yaml|xml/
+          fail Error::InvalidAttributes, 'format must be yaml or xml'
+        end
+        options[:query] = {} if options[:query].nil?
+        options[:query].merge!('project' => project, 'format' => format)
+        options[:format] = format
+
+        get('/jobs/export', options)
       end
     end
   end
