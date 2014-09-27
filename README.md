@@ -4,6 +4,7 @@
 
 **Note: Although the git repository is called 'rundeck-ruby', the gem is called 'Rundeck' on Rubygems.org. There is another gem called 'rundeck-ruby' on Rubygems.org and it is not affiliated with this project.**
 
+[![Gem Version](https://badge.fury.io/rb/rundeck.svg)](http://badge.fury.io/rb/rundeck)
 [![Build Status](https://travis-ci.org/dblessing/rundeck-ruby.svg?branch=master)](https://travis-ci.org/dblessing/rundeck-ruby)
 [![Dependency Status](https://gemnasium.com/dblessing/rundeck-ruby.svg)](https://gemnasium.com/dblessing/rundeck-ruby)
 [![Code Climate](https://codeclimate.com/github/dblessing/rundeck-ruby/badges/gpa.svg)](https://codeclimate.com/github/dblessing/rundeck-ruby)
