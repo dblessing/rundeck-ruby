@@ -25,6 +25,18 @@ module Rundeck
         objectify get("/job/#{id}", options)['joblist']['job']
       end
 
+      # Delete a job
+      #
+      # @example
+      #   Rundeck.delete_job('c07518ef-b697-4792-9a59-5b4f08855b67')
+      #
+      # @param  [String] id Job id
+      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @return [Rundeck::ObjectifiedHash]
+      def delete_job(id, options = {})
+        delete("/job/#{id}", options)
+      end
+
       # Get executions for a specific job
       #
       # @example
@@ -41,25 +53,58 @@ module Rundeck
       # Run a job
       #
       # @example
-      #   Rundeck.job_run('c07518ef-b697-4792-9a59-5b4f08855b67', 'DEBUG')
+      #   Rundeck.run_job('c07518ef-b697-4792-9a59-5b4f08855b67', 'DEBUG')
       #
       # @param  [String] id Job id
       # @param  [Hash]   options A set of options passed directly to HTTParty
       # @return [Rundeck::ObjectifiedHash]
-      def job_run(id, options = {})
+      def run_job(id, options = {})
         objectify post("/job/#{id}/executions", options)['result']['executions']['execution']
+      end
+
+      # Import a job or multiple jobs
+      #
+      # @example
+      #   job = "- id: c07518ef-b697-4792-9a59-5b4f08855b67
+      #            project: Endeca
+      #            ..."
+      #   Rundeck.import_jobs(job)
+      #
+      # @example
+      #   job = "<joblist>
+      #            <job>
+      #              <id>c07518ef-b697-4792-9a59-5b4f08855b67</id>
+      #              ..."
+      #   Rundeck.import_jobs(job, 'xml')
+      #
+      # @param  [String] content The job definition(s) as yaml or xml
+      # @param  [String] format The import format. 'yaml|xml', defaults to 'yaml'
+      # @param  [Hash]   options A set of options passed directly to HTTParty
+      # @return [Rundeck::ObjectifiedHash]
+      def import_jobs(content, format = 'yaml', options = {})
+        unless format =~ /yaml|xml/
+          fail Error::InvalidAttributes, 'format must be yaml or xml'
+        end
+        options[:headers] = {} if options[:headers].nil?
+        options[:headers].merge!(
+            'Content-Type' => 'application/x-www-form-urlencoded')
+        options[:body] = "xmlBatch=#{content}"
+        options[:query] = {} if options[:query].nil?
+        options[:query]['format'] = format
+
+        objectify post('/jobs/import', options)['result']
       end
 
       # Export jobs to yaml or xml format
       #
       # @example
-      #   Rundeck.jobs_export('project')
+      #   Rundeck.export_jobs('project')
       #
       # @param  [String] project Project name
       # @param  [String] format The export format. 'yaml|xml', defaults to 'yaml'
       # @param  [Hash]   options A set of options passed directly to HTTParty
       # @return [String]
-      def jobs_export(project, format = 'yaml', options = {})
+      def export_jobs(project, format = 'yaml', options = {})
         unless format =~ /yaml|xml/
           fail Error::InvalidAttributes, 'format must be yaml or xml'
         end

@@ -202,7 +202,7 @@ ssh-rsa AAAA....ZlxUH user@example.com
 
   describe '.delete_key' do
     before do
-      stub_delete('/storage/keys/path/to/my_key', 'key_public')
+      stub_delete('/storage/keys/path/to/my_key', 'empty')
       @key = Rundeck.delete_key('path/to/my_key')
     end
     subject { @key }

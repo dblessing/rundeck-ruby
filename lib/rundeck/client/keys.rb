@@ -139,9 +139,6 @@ module Rundeck
       # @return [nil]
       def delete_key(path, options = {})
         delete("#{STORAGE_KEYS_PATH}/#{path}", options)
-
-        # Rundeck won't return anything if the delete is successful.
-        nil
       end
 
       private

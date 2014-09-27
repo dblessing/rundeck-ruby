@@ -6,9 +6,9 @@
     strategy: node-first
     commands:
     - exec: echo 'boom'
-    description: test
-    name: test
-    uuid: c07518ef-b697-4792-9a59-5b4f08855b67
+  description: test
+  name: test
+  uuid: c07518ef-b697-4792-9a59-5b4f08855b67
 - id: 9c922902-faa6-49cf-aa8d-4de3f5e1d3e1
   project: Endeca
   loglevel: INFO
@@ -17,6 +17,6 @@
     strategy: node-first
     commands:
     - exec: echo 'boom'
-    description: test
-    name: test
-    uuid: 9c922902-faa6-49cf-aa8d-4de3f5e1d3e1
+  description: test
+  name: test
+  uuid: 9c922902-faa6-49cf-aa8d-4de3f5e1d3e1
