@@ -78,18 +78,15 @@ title: Welcome
 
   | Configure the api token and endpoint:
   pre
-    | Rundeck.endpoint = 'https://rundeck.example.com'
+    | # Ruby
+      Rundeck.endpoint = 'https://rundeck.example.com'
       Rundeck.api_token = 'super_secret'
+
+      # Environment Variables (Recommended!)
+      export RUNDECK_ENDPOINT=https://rundeck.example.com
+      export RUNDECK_API_TOKEN=super_secret
 
   .alert.alert-info
     span.glyphicon.glyphicon-info-sign
     |  Find your api token by logging in to Rundeck and going
        to your user dropdown > Profile and selecting the API token
-
-  .alert.alert-warning
-    span.glyphicon.glyphicon-warning-sign
-    |  You should find a more secure way of configuring the
-       api token. Hard coding in configuration files, especially
-       under version control, is inadvisable. Options may include
-       environment variables or hidden configuration files you load
-       in. Specifics are outside the scope of this guide.
