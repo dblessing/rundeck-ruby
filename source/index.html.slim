@@ -3,6 +3,93 @@ title: Welcome
 ---
 
 .welcome
-  h1 Middleman is Watching with slim
-  p.doc
-    == link_to "Read Online Documentation", "http://middlemanapp.com/"
+  h1
+    | Rundeck Ruby Client
+    small<
+      | A Ruby wrapper around the Rundeck API.
+
+  p
+    | This library strives to achieve reliable, 100% coverage of the Rundeck
+      API. Please submit an issue if you find a bug and feel free to submit a
+      pull request to contribute fixes or new features.
+
+  p
+    | Note: This guide is geared more toward entry-level users.
+      If you are a more advanced user you may find the
+    a<> href="http://rubydoc.info/gems/rundeck/frames"
+      | Technical Documentation (RDoc)
+    | more helpful.
+
+  a.btn.btn-primary.btn-lg type="button" href="http://rubydoc.info/gems/rundeck/frames" target="_blank"
+    | Technical Docs
+  a.btn.btn-primary.btn-lg type="button" href="https://github.com/dblessing/rundeck-ruby/issues" target="_blank"
+    | Issue Tracker
+  a.btn.btn-primary.btn-lg type="button" href="https://github.com/dblessing/rundeck-ruby" target="_blank"
+    | GitHub Page
+
+  hr
+
+  h2 Rundeck API Reference
+
+  p
+    | The Rundeck API reference
+      is a great resource because this library is a pretty thin
+      wrapper around Rundeck's API. This makes it very flexible, but also means
+      a lot of the parameters/options are not explicitly defined as
+      method parameters. Many API options will need to be expressed via the
+    code<>
+      | options
+    | hash. See the
+    a<> href="overview"
+      | Overview
+    | page for more information.
+
+  a.btn.btn-primary type="button" href="http://rundeck.org/docs/api/" target="_blank"
+    | Rundeck API Reference
+
+
+
+  h2 Installation
+
+  | Add this line to your application's Gemfile or gemspec:
+
+  pre
+    | # Gemfile
+      gem 'rundeck', '~> x.x.x'
+
+      # gemspec
+      spec.add_runtime_dependency 'rundeck', '~> x.x.x'
+
+  | Then execute:
+  pre
+    | bundle install
+
+  hr
+
+  | Or install it yourself as:
+  pre
+    | gem install rundeck
+
+  h2 Configuration
+
+  | Require the rundeck gem:
+  pre
+    | require 'rundeck'
+
+  | Configure the api token and endpoint:
+  pre
+    | Rundeck.endpoint = 'https://rundeck.example.com'
+      Rundeck.api_token = 'super_secret'
+
+  .alert.alert-info
+    span.glyphicon.glyphicon-info-sign
+    |  Find your api token by logging in to Rundeck and going
+       to your user dropdown > Profile and selecting the API token
+
+  .alert.alert-warning
+    span.glyphicon.glyphicon-warning-sign
+    |  You should find a more secure way of configuring the
+       api token. Hard coding in configuration files, especially
+       under version control, is inadvisable. Options may include
+       environment variables or hidden configuration files you load
+       in. Specifics are outside the scope of this guide.

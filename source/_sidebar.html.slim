@@ -1,26 +1,33 @@
 ul.nav.nav-sidebar
   li.sidebar-brand
-    a href="http://dblessing.github.io/rundeck-ruby" Rundeck Ruby Client
-  li
-    a href="installation" Installation
-  li
-    a href="configuration" Configuration
-  li
-    a href="usage" Usage
-  li
-    a href="cli" CLI
-  li
-    a href="examples" Examples
+    a href="/" Rundeck Ruby
+
+  li[class="#{nav_active('index.html')}"]
+    a href='/' Home
+
+  - for page in ['overview', 'examples'] do
+    li[class="#{nav_active(page)}"]
+      a href="#{page}" = page.capitalize
 
   hr.side-hr
 
   li
-    a href="https://github.com/narkoz/gitlab"
+    a href="https://github.com/dblessing/rundeck-ruby" target="_blank"
       span.glyphicon.glyphicon-star
       '
       | GitHub page
   li
-    a href="http://rubydoc.info/gems/gitlab/frames"
+    a href="https://github.com/dblessing/rundeck-ruby/issues" target="_blank"
+      span.glyphicon.glyphicon-exclamation-sign
+      '
+      | Issue Tracker
+  li
+    a href="http://rubydoc.info/gems/rundeck/frames" target="_blank"
       span.glyphicon.glyphicon-book
       '
-      | Documentation
+      | Technical Documentation (RDoc)
+  li
+    a href="http://rundeck.org" target="_blank"
+      span.glyphicon.glyphicon-play
+      '
+      | Rundeck.org
