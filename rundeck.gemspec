@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['drew.blessing@mac.com']
   spec.description   = 'Ruby client for Rundeck API'
   spec.summary       = 'A ruby wrapper for the Rundeck API'
-  spec.homepage      = 'https://github.com/dblessing/rundeck'
+  spec.homepage      = 'http://dblessing.github.io/rundeck-ruby'
   spec.license       = 'BSD-2-Clause'
 
   spec.files         = `git ls-files`.split($/)
