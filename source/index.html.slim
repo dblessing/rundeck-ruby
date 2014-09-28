@@ -71,20 +71,46 @@ title: Welcome
     | gem install rundeck
 
   h2 Configuration
-
   | Require the rundeck gem:
   pre
     | require 'rundeck'
 
-  | Configure the api token and endpoint:
+  hr
+
+  code< endpoint
+  | and
+  code<> api_token
+  | are required configuration parameters.
+  code<> user_agent
+  | is optional and defaults to 'Rundeck Ruby Gem {gem_version}':
+
+  p
+  pre
+    | # Environment Variables (Recommended!)
+      export RUNDECK_ENDPOINT=https://rundeck.example.com
+      export RUNDECK_API_TOKEN=super_secret
+
   pre
     | # Ruby
       Rundeck.endpoint = 'https://rundeck.example.com'
       Rundeck.api_token = 'super_secret'
+      Rundeck.user_agent = 'Custom User Agent'
 
-      # Environment Variables (Recommended!)
-      export RUNDECK_ENDPOINT=https://rundeck.example.com
-      export RUNDECK_API_TOKEN=super_secret
+  pre
+    | # Ruby with multiple clients
+      client1 = Rundeck.client(endpoint: 'https://rundeck.example.com',
+                               api_token: 'super_secret',
+                               user_agent: 'Custom User Agent')
+      client2 = Rundeck.client(endpoint: 'https://rundeck2.example.com',
+                               api_token: 'super_secret2')
+
+  pre
+    | # Ruby on Rails
+      Rundeck.configure do |config|
+        config.endpoint       = 'https://rundeck.example.com'
+        config.api_token      = 'super_secret'
+        config.user_agent     = 'Custom User Agent'
+      end
 
   .alert.alert-info
     span.glyphicon.glyphicon-info-sign
