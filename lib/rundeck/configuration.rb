@@ -34,7 +34,7 @@ module Rundeck
 
     # Resets all configuration options to the defaults.
     def reset
-      self.endpoint       = ENV['RUNDECK_API_ENDPOINT']
+      self.endpoint       = ENV['RUNDECK_ENDPOINT']
       self.api_token      = ENV['RUNDECK_API_TOKEN']
       self.user_agent     = DEFAULT_USER_AGENT
     end
