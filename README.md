@@ -1,5 +1,7 @@
 # Rundeck Ruby Gem
 
+[Website](http://dblessing.github.io/rundeck-ruby)
+
 ## Work in progress. Not yet stable
 
 **Note: Although the git repository is called 'rundeck-ruby', the gem is called 'Rundeck' on Rubygems.org. There is another gem called 'rundeck-ruby' on Rubygems.org and it is not affiliated with this project.**
@@ -19,23 +21,7 @@ free to submit a pull request to contribute fixes or new features.
 The layout and the code in this library is inspired by https://github.com/NARKOZ/gitlab. 
 NARKOZ does a fantastic job of keeping code simple and achieving API feature parity.
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'rundeck'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install rundeck
-
-## Usage
-
-TODO: Write usage instructions here
+See http://dblessing.github.io/rundeck-ruby for documentation
 
 ## Contributing
 
