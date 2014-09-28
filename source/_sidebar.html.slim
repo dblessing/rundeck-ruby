@@ -1,43 +1,53 @@
-ul.nav.nav-sidebar
-  li.sidebar-brand
-    a href="/" Rundeck Ruby
+nav.navbar-default role="navigation"
+  button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar"
+    span.sr-only
+      | Toggle navigation
+    span.icon-bar
+    span.icon-bar
+    span.icon-bar
 
-  li[class="#{nav_active('index.html')}"]
-    a href='./' Home
+  .sidebar
+    .collapse.navbar-collapse id="sidebar"
+      ul.nav.nav-sidebar
+        li.sidebar-brand
+          a href="/" Rundeck Ruby
 
-  - for page in ['overview', 'examples'] do
-    li[class="#{nav_active(page)}"]
-      a href="#{page}" = page.capitalize
+        li[class="#{nav_active('index.html')}"]
+          a href='./' Home
 
-  hr.side-hr
+        - for page in ['overview', 'examples'] do
+          li[class="#{nav_active(page)}"]
+            a href="#{page}" = page.capitalize
 
-  li
-    a href="http://rubygems.org/gems/rundeck" target="_blank"
-      span.glyphicon.glyphicon-globe
-      '
-      | RubyGems Page
-  li
-    a href="https://github.com/dblessing/rundeck-ruby" target="_blank"
-      span.glyphicon.glyphicon-star
-      '
-      | GitHub page
-  li
-    a href="https://github.com/dblessing/rundeck-ruby/issues" target="_blank"
-      span.glyphicon.glyphicon-exclamation-sign
-      '
-      | Issue Tracker
-  li
-    a href="http://rubydoc.info/gems/rundeck/frames" target="_blank"
-      span.glyphicon.glyphicon-book
-      '
-      | Technical Documentation (RDoc)
-  li
-    a href="http://rundeck.org" target="_blank"
-      span.glyphicon.glyphicon-play
-      '
-      | Rundeck.org
+        hr.side-hr
+
+        li
+          a href="http://rubygems.org/gems/rundeck" target="_blank"
+            span.glyphicon.glyphicon-globe
+            '
+            | RubyGems Page
+        li
+          a href="https://github.com/dblessing/rundeck-ruby" target="_blank"
+            span.glyphicon.glyphicon-star
+            '
+            | GitHub page
+        li
+          a href="https://github.com/dblessing/rundeck-ruby/issues" target="_blank"
+            span.glyphicon.glyphicon-exclamation-sign
+            '
+            | Issue Tracker
+        li
+          a href="http://rubydoc.info/gems/rundeck/frames" target="_blank"
+            span.glyphicon.glyphicon-book
+            '
+            | Technical Documentation (RDoc)
+        li
+          a href="http://rundeck.org" target="_blank"
+            span.glyphicon.glyphicon-play
+            '
+            | Rundeck.org
 
 
-  .gem-badge
-    a href="http://badge.fury.io/rb/rundeck"
-      img src="https://badge.fury.io/rb/rundeck.svg" height="18"
+        .gem-badge
+          a href="http://badge.fury.io/rb/rundeck"
+            img src="https://badge.fury.io/rb/rundeck.svg" height="18"

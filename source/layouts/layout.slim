@@ -17,10 +17,8 @@ html
 
   body
     .container-fluid
-      .row
-        .col-sm-3.col-md-2.sidebar
-          == partial 'sidebar'
-        .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
-          ==yield
-    /script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
-    /== javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js", "all"
+      == partial 'sidebar'
+      .main
+        ==yield
+    script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
+    == javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js", "all"
