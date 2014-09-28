@@ -1,3 +1,5 @@
+::Slim::Engine.set_default_options format: :html5
+
 ##
 # Compass
 ###
@@ -67,6 +69,8 @@ set :images_dir, 'images'
 
 # Build-specific configuration
 configure :build do
+  PAGES.map {|p| ignore p }
+
   # For example, change the Compass output style for deployment
   activate :minify_css
 
@@ -79,12 +83,14 @@ configure :build do
   # Use relative URLs
   activate :relative_assets
 
+  set :relative_links, true
+
   # Or use a different image path
   # set :http_prefix, "/Content/images/"
 end
 
 helpers do
   def nav_active(page)
-    request.path == page ? 'active' : ''
+    request.path.include?(page) ? 'active' : ''
   end
 end
