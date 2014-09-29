@@ -132,7 +132,7 @@ module Rundeck
       # Delete a key
       #
       # @example
-      # Rundeck.delete_key('path/to/key')
+      #   Rundeck.delete_key('path/to/key')
       #
       # @param  [String] path A key storage path
       # @param  [Hash] options A set of options passed directly to HTTParty
