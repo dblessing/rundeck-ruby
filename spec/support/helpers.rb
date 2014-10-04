@@ -24,7 +24,7 @@ module Helpers
                      'X-Rundeck-Auth-Token' => Rundeck.api_token })
   end
 
-# POST
+  # POST
   def stub_post(path, fixture, status_code = 200, accept = 'xml')
     stub_request(:post, "#{Rundeck.endpoint}#{path}")
     .with(headers: { 'Accept' => "application/#{accept}",
@@ -38,7 +38,7 @@ module Helpers
                      'X-Rundeck-Auth-Token' => Rundeck.api_token })
   end
 
-# PUT
+  # PUT
   def stub_put(path, fixture, accept = 'xml')
     stub_request(:put, "#{Rundeck.endpoint}#{path}")
     .with(headers: { 'Accept' => "application/#{accept}",
@@ -52,7 +52,7 @@ module Helpers
                      'X-Rundeck-Auth-Token' => Rundeck.api_token })
   end
 
-# DELETE
+  # DELETE
   def stub_delete(path, fixture, accept = 'xml')
     stub_request(:delete, "#{Rundeck.endpoint}#{path}")
     .with(headers: { 'Accept' => "application/#{accept}",
