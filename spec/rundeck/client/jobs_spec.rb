@@ -3,24 +3,26 @@ require 'spec_helper'
 describe Rundeck::Client do
   describe '.jobs' do
     before do
-      stub_get('/project/My_Project/jobs', 'jobs_my_project')
-      @jobs = Rundeck.jobs('My_Project')
+      stub_get(path, 'jobs_my_project')
+      @jobs = Rundeck.jobs('My_Project', options)
     end
+    let(:path) { '/project/My_Project/jobs' }
     subject { @jobs }
 
     it { is_expected.to be_an Array }
     its('first.name') { is_expected.to eq('Job 1') }
 
     it 'expects a get to have been made' do
-      expect(a_get('/project/My_Project/jobs')).to have_been_made
+      expect(a_get(path)).to have_been_made
     end
   end
 
   describe '.job' do
     before do
-      stub_get('/job/c07518ef-b697-4792-9a59-5b4f08855b67', 'job')
-      @job = Rundeck.job('c07518ef-b697-4792-9a59-5b4f08855b67')
+      stub_get(path, 'job')
+      @job = Rundeck.job('c07518ef-b697-4792-9a59-5b4f08855b67', options)
     end
+    let(:path) { '/job/c07518ef-b697-4792-9a59-5b4f08855b67' }
     subject { @job }
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
@@ -35,9 +37,11 @@ describe Rundeck::Client do
 
   describe '.delete_job' do
     before do
-      stub_delete('/job/c07518ef-b697-4792-9a59-5b4f08855b67', 'empty')
+      stub_delete(path, 'empty')
       @job = Rundeck.delete_job('c07518ef-b697-4792-9a59-5b4f08855b67')
     end
+    let(:path) { '/job/c07518ef-b697-4792-9a59-5b4f08855b67' }
+    let(:method) { :delete }
     subject { @job }
 
     it { is_expected.to be_nil }
@@ -51,11 +55,11 @@ describe Rundeck::Client do
 
   describe '.job_executions' do
     before do
-      stub_get('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions',
-               'job_executions')
+      stub_get(path, 'job_executions')
       @job_executions =
           Rundeck.job_executions('c07518ef-b697-4792-9a59-5b4f08855b67')
     end
+    let(:path) { '/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions' }
     subject { @job_executions }
 
     it { is_expected.to be_an Array }
@@ -70,11 +74,12 @@ describe Rundeck::Client do
 
   describe '.run_job' do
     before do
-      stub_post('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions',
-                'job_run')
+      stub_post(path, 'job_run')
       @run_job =
           Rundeck.run_job('c07518ef-b697-4792-9a59-5b4f08855b67')
     end
+    let(:path) { '/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions' }
+    let(:method) { :post }
     subject { @run_job }
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
@@ -90,9 +95,11 @@ describe Rundeck::Client do
   describe '.import_job' do
     context 'with valid format' do
       before do
-        stub_post("/jobs/import?format=#{format}", 'jobs_import')
+        stub_post(path, 'jobs_import')
         @import = Rundeck.import_jobs(content, format)
       end
+      let(:path) { "/jobs/import?format=#{format}" }
+      let(:method) { :post }
       subject { @import }
 
       context 'yaml' do
@@ -135,9 +142,10 @@ describe Rundeck::Client do
   describe '.export_job' do
     context 'with valid format' do
       before do
-        stub_get("/jobs/export?project=my_project&format=#{format}", fixture)
+        stub_get(path, fixture)
         @jobs = Rundeck.export_jobs('my_project', format)
       end
+      let(:path) { "/jobs/export?project=my_project&format=#{format}" }
       subject { @jobs }
 
       context 'yaml' do
