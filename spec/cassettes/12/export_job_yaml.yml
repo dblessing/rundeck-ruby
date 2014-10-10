@@ -1,0 +1,228 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/jobs/export?format=yaml&project=anvils
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - i8iMfXUOpYzVJ9SAkh7pRQMTZI1Bnsyu
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - JSESSIONID=16h3xm01qq2qzll49o9v611lc;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - text/yaml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: |
+        - id: 48133ee7-c16f-4782-8217-5a0fdb755866
+          project: anvils
+          loglevel: INFO
+          sequence:
+            keepgoing: false
+            strategy: node-first
+            commands:
+            - script: |-
+                #!/bin/bash
+                set -eu
+                [[ $# != 3 ]] && {
+                  echo >&2 'usage: $0 repository release pkg1,pkg2,pkgN'
+                  exit 2
+                }
+                REPOSITORY=$1 RELEASE=$2 PACKAGELIST=$3
+
+                echo "# PROMOTE"
+                echo "## $REPOSITORY/$RELEASE"
+                echo "## Promote $REPOSITORY/$RELEASE..."
+
+                PACKAGES=( ${PACKAGELIST//,/ } )
+                echo "number  packages: ${#PACKAGES[*]}"
+                echo
+                for package in ${PACKAGES[*]:-}
+                do
+                   echo "- $REPOSITORY/$RELEASE/$package"
+                done
+
+                exit $?
+              args: ${option.repository} ${option.release} ${option.packages}
+          description: promote the packages to the ops repository.
+          name: Promote
+          uuid: 48133ee7-c16f-4782-8217-5a0fdb755866
+          group: anvils
+          options:
+            packages:
+              enforced: true
+              required: true
+              description: packages versions
+              valuesUrl: http://localhost/anvils/options/packages/${option.release.value}.json
+              multivalued: true
+              delimiter: ','
+            release:
+              enforced: true
+              required: true
+              description: release tag
+              valuesUrl: http://localhost/anvils/options/releases/${option.repository.value}.json
+            repository:
+              enforced: true
+              required: true
+              description: repository name
+              valuesUrl: http://localhost/anvils/options/repositories.json
+        - id: 2065685b-776a-4f1a-8fa8-7df90f9060aa
+          project: anvils
+          loglevel: INFO
+          multipleExecutions: true
+          sequence:
+            keepgoing: true
+            strategy: node-first
+            commands:
+            - scripturl: http://localhost/anvils/scripts/status.sh
+              args: ${option.dir}
+              errorhandler:
+                exec: echo "Continuing..."
+                keepgoingOnSuccess: true
+          description: Check the status of anvils
+          name: Status
+          uuid: 2065685b-776a-4f1a-8fa8-7df90f9060aa
+          nodefilters:
+            dispatch:
+              threadcount: 1
+              keepgoing: true
+              excludePrecedence: true
+              rankOrder: ascending
+            filter: 'tags: www'
+          group: anvils
+          options:
+            dir:
+              enforced: true
+              required: true
+              valuesUrl: http://localhost/anvils/options/anvils-dir.json
+        - id: 308f438c-3950-4b62-9e49-97182edab157
+          project: anvils
+          schedule:
+            time:
+              hour: '00'
+              minute: '00'
+              seconds: '0'
+            month: '*'
+            year: '*'
+            weekday:
+              day: '*'
+          loglevel: INFO
+          sequence:
+            keepgoing: false
+            strategy: node-first
+            commands:
+            - script: |-
+                #!/bin/bash
+                set -eu
+                CATALOG=$1
+                echo "# Rebuild catalog: $CATALOG"
+                echo ""
+                echo "- customer: ${RD_NODE_ANVILS_CUSTOMER}"
+                echo "- location: ${RD_NODE_ANVILS_LOCATION}"
+                echo "- database: ${RD_NODE_NAME:-}"
+                echo "Completed."
+                exit $?
+              args: ${option.catalog}
+          description: rebuild the catalog data
+          name: nightly_catalog_rebuild
+          notification:
+            onfailure:
+              email:
+                recipients: bizops@anvils.com
+            onsuccess:
+              email:
+                recipients: bizops@anvils.com
+          uuid: 308f438c-3950-4b62-9e49-97182edab157
+          nodefilters:
+            dispatch:
+              threadcount: 1
+              keepgoing: true
+              excludePrecedence: true
+              rankOrder: ascending
+            filter: 'tags: db'
+          group: anvils
+          options:
+            catalog:
+              enforced: true
+              required: true
+              description: catalog name
+              values:
+              - inventory
+              - partner
+              - shipping-rates
+        - id: 6a4d6655-4a5b-4e40-90ce-9feb03e0b387
+          project: anvils
+          loglevel: INFO
+          sequence:
+            keepgoing: false
+            strategy: node-first
+            commands:
+            - scripturl: http://localhost/anvils/scripts/start.sh
+              args: ${option.dir}
+          description: start the web servers
+          name: start
+          uuid: 6a4d6655-4a5b-4e40-90ce-9feb03e0b387
+          nodefilters:
+            dispatch:
+              threadcount: 1
+              keepgoing: true
+              excludePrecedence: true
+              rankOrder: ascending
+            filter: 'tags: www'
+          group: anvils/web
+          options:
+            dir:
+              enforced: true
+              required: true
+              valuesUrl: http://localhost/anvils/options/anvils-dir.json
+        - id: 33e43e6b-c83d-42a9-b399-76b93bd728c1
+          project: anvils
+          loglevel: INFO
+          sequence:
+            keepgoing: false
+            strategy: node-first
+            commands:
+            - scripturl: http://localhost/anvils/scripts/stop.sh
+              args: ${option.dir} ${option.method}
+              errorhandler:
+                scripturl: http://localhost/anvils/scripts/kill.sh
+                args: ${option.dir}
+                keepgoingOnSuccess: true
+          description: stop the web servers
+          name: stop
+          uuid: 33e43e6b-c83d-42a9-b399-76b93bd728c1
+          nodefilters:
+            dispatch:
+              threadcount: 1
+              keepgoing: true
+              excludePrecedence: true
+              rankOrder: ascending
+            filter: 'tags: www'
+          group: anvils/web
+          options:
+            dir:
+              enforced: true
+              required: true
+              valuesUrl: http://localhost/anvils/options/anvils-dir.json
+            method:
+              enforced: true
+              required: true
+              valuesUrl: http://localhost/anvils/options/stop-method.json
+    http_version: 
+  recorded_at: Sat, 11 Oct 2014 14:24:13 GMT
+recorded_with: VCR 2.9.3

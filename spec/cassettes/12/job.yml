@@ -1,0 +1,84 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/job/2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - i8iMfXUOpYzVJ9SAkh7pRQMTZI1Bnsyu
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - JSESSIONID=1x6qily26j1pm1cx93uonmvie9;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: |-
+        <joblist>
+          <job>
+            <id>48133ee7-c16f-4782-8217-5a0fdb755866</id>
+            <loglevel>INFO</loglevel>
+            <sequence keepgoing='false' strategy='node-first'>
+              <command>
+                <scriptargs>${option.repository} ${option.release} ${option.packages}</scriptargs>
+                <script><![CDATA[#!/bin/bash
+        set -eu
+        [[ $# != 3 ]] && {
+          echo >&2 'usage: $0 repository release pkg1,pkg2,pkgN'
+          exit 2
+        }
+        REPOSITORY=$1 RELEASE=$2 PACKAGELIST=$3
+
+        echo "# PROMOTE"
+        echo "## $REPOSITORY/$RELEASE"
+        echo "## Promote $REPOSITORY/$RELEASE..."
+
+        PACKAGES=( ${PACKAGELIST//,/ } )
+        echo "number  packages: ${#PACKAGES[*]}"
+        echo
+        for package in ${PACKAGES[*]:-}
+        do
+           echo "- $REPOSITORY/$RELEASE/$package"
+        done
+
+        exit $?]]></script>
+              </command>
+            </sequence>
+            <description>promote the packages to the ops repository.</description>
+            <name>Promote</name>
+            <context>
+              <project>anvils</project>
+              <options>
+                <option name='packages' valuesUrl='http://localhost/anvils/options/packages/${option.release.value}.json' enforcedvalues='true' required='true' multivalued='true' delimiter=','>
+                  <description>packages versions</description>
+                </option>
+                <option name='release' valuesUrl='http://localhost/anvils/options/releases/${option.repository.value}.json' enforcedvalues='true' required='true'>
+                  <description>release tag</description>
+                </option>
+                <option name='repository' valuesUrl='http://localhost/anvils/options/repositories.json' enforcedvalues='true' required='true'>
+                  <description>repository name</description>
+                </option>
+              </options>
+            </context>
+            <uuid>48133ee7-c16f-4782-8217-5a0fdb755866</uuid>
+            <group>anvils</group>
+          </job>
+        </joblist>
+    http_version: 
+  recorded_at: Sat, 11 Oct 2014 13:25:26 GMT
+recorded_with: VCR 2.9.3

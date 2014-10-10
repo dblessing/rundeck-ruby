@@ -1,127 +1,167 @@
 require 'spec_helper'
 
 describe Rundeck::Client do
-  describe '.jobs' do
+  describe '.jobs', vcr: { cassette_name: 'jobs' } do
     before do
-      stub_get(path, 'jobs_my_project')
-      @jobs = Rundeck.jobs('My_Project', options)
+      @jobs = Rundeck.jobs('anvils')
     end
-    let(:path) { '/project/My_Project/jobs' }
     subject { @jobs }
 
     it { is_expected.to be_an Array }
-    its('first.name') { is_expected.to eq('Job 1') }
+    its(:length) { is_expected.to eq(6) }
+
+    # Only tests the first element, but it's just a sanity check
+    its('first') { is_expected.to respond_to(:name) }
+    its('first') { is_expected.to respond_to(:group) }
+    its('first') { is_expected.to respond_to(:project) }
+    its('first') { is_expected.to respond_to(:description) }
 
     it 'expects a get to have been made' do
-      expect(a_get(path)).to have_been_made
+      expect(a_get('/project/anvils/jobs')).to have_been_made
     end
   end
 
-  describe '.job' do
+  describe '.job', vcr: { cassette_name: 'job' }  do
     before do
-      stub_get(path, 'job')
-      @job = Rundeck.job('c07518ef-b697-4792-9a59-5b4f08855b67', options)
+      @job = Rundeck.job('2')
     end
-    let(:path) { '/job/c07518ef-b697-4792-9a59-5b4f08855b67' }
     subject { @job }
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
-    its(:name) { is_expected.to eq('Hello World') }
+    it { is_expected.to respond_to(:id) }
+    it { is_expected.to respond_to(:name) }
+    it { is_expected.to respond_to(:description) }
+    it { is_expected.to respond_to(:loglevel) }
+    it { is_expected.to respond_to(:sequence) }
+    its(:sequence) { is_expected.to respond_to(:command) }
 
     it 'expects a get to have been made' do
-      expect(
-        a_get('/job/c07518ef-b697-4792-9a59-5b4f08855b67')
-      ).to have_been_made
+      expect(a_get('/job/2')).to have_been_made
     end
   end
 
   describe '.delete_job' do
-    before do
-      stub_delete(path, 'empty')
-      @job = Rundeck.delete_job('c07518ef-b697-4792-9a59-5b4f08855b67')
+    context 'when a job exists',
+            vcr: { cassette_name: 'delete_job_valid' } do
+      before do
+        @job = Rundeck.delete_job(job_id)
+      end
+      let(:job_id) { '3' }
+      subject { @job }
+
+      it { is_expected.to be_nil }
+
+      it 'expects a delete to have been made' do
+        expect(a_delete('/job/3')).to have_been_made
+      end
     end
-    let(:path) { '/job/c07518ef-b697-4792-9a59-5b4f08855b67' }
-    let(:method) { :delete }
-    subject { @job }
 
-    it { is_expected.to be_nil }
-
-    it 'expects a delete to have been made' do
-      expect(
-          a_delete('/job/c07518ef-b697-4792-9a59-5b4f08855b67')
-      ).to have_been_made
+    context 'when a job does not exist',
+            vcr: { cassette_name: 'delete_job_invalid' } do
+      specify do
+        expect do
+          Rundeck.delete_job('123456')
+        end.to raise_error(Rundeck::Error::NotFound,
+                           /Job ID does not exist: 123456/)
+      end
     end
   end
 
-  describe '.job_executions' do
+  describe '.job_executions', vcr: { cassette_name: 'job_executions' } do
     before do
-      stub_get(path, 'job_executions')
       @job_executions =
-          Rundeck.job_executions('c07518ef-b697-4792-9a59-5b4f08855b67')
+          Rundeck.job_executions('1')
     end
-    let(:path) { '/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions' }
     subject { @job_executions }
 
     it { is_expected.to be_an Array }
-    its('first.job.name') { is_expected.to eq('Job 1') }
 
     it 'expects a get to have been made' do
-      expect(
-        a_get('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions')
-      ).to have_been_made
+      expect(a_get('/job/1/executions')).to have_been_made
     end
   end
 
-  describe '.run_job' do
-    before do
-      stub_post(path, 'job_run')
-      @run_job =
-          Rundeck.run_job('c07518ef-b697-4792-9a59-5b4f08855b67')
+  describe '.run_job'  do
+    context 'with all required options',
+            vcr: { cassette_name: 'run_job_valid' } do
+      before do
+        options = {
+          query: {
+            argString:
+              '-repository ci -release SNAPSHOT -packages app-SNAPSHOT'
+          }
+        }
+        @run_job = Rundeck.run_job('2', options)
+      end
+      subject { @run_job }
+
+      it { is_expected.to be_a Rundeck::ObjectifiedHash }
+      it { is_expected.to respond_to(:user) }
+      it { is_expected.to respond_to(:date_started) }
+      its(:job) { is_expected.to respond_to(:name) }
+      its(:job) { is_expected.to respond_to(:group) }
+      its(:job) { is_expected.to respond_to(:project) }
+      its(:job) { is_expected.to respond_to(:description) }
+
+      it 'expects a post to have been made' do
+        expect(
+            a_post('/job/2/executions?argString=-repository%20ci%20-release%20SNAPSHOT%20-packages%20app-SNAPSHOT')
+        ).to have_been_made
+      end
     end
-    let(:path) { '/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions' }
-    let(:method) { :post }
-    subject { @run_job }
 
-    it { is_expected.to be_a Rundeck::ObjectifiedHash }
-    its('job.name') { is_expected.to eq('My_Job') }
-
-    it 'expects a post to have been made' do
-      expect(
-        a_post('/job/c07518ef-b697-4792-9a59-5b4f08855b67/executions')
-      ).to have_been_made
+    context 'without required options',
+            vcr: { cassette_name: 'run_job_invalid' } do
+      specify do
+        expect do
+          Rundeck.run_job('2')
+        end.to raise_error(Rundeck::Error::BadRequest,
+                           /Job options were not valid:/)
+      end
     end
   end
 
   describe '.import_job' do
     context 'with valid format' do
       before do
-        stub_post(path, 'jobs_import')
         @import = Rundeck.import_jobs(content, format)
       end
-      let(:path) { "/jobs/import?format=#{format}" }
-      let(:method) { :post }
       subject { @import }
 
-      context 'yaml' do
+      context 'yaml', vcr: { cassette_name: 'import_job_yaml' } do
         let(:format) { 'yaml' }
-        let(:content) { '- id: 123456' }
+        let(:content) { job_yaml }
 
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
         its('succeeded.count') { is_expected.to eq('1') }
         its('failed.count') { is_expected.to eq('0') }
+
+        its('succeeded') { is_expected.to respond_to(:job) }
+        its('succeeded.job') { is_expected.to respond_to(:id) }
+        its('succeeded.job') { is_expected.to respond_to(:name) }
+        its('succeeded.job') { is_expected.to respond_to(:group) }
+        its('succeeded.job') { is_expected.to respond_to(:project) }
+        its('succeeded.job') { is_expected.to respond_to(:url) }
 
         it 'expects a post to have been made' do
           expect(a_post('/jobs/import?format=yaml')).to have_been_made
         end
       end
 
-      context 'xml' do
+      context 'xml', vcr: { cassette_name: 'import_job_xml' } do
         let(:format) { 'xml' }
-        let(:content) { '<id>12345</id>' }
+        let(:content) { job_xml }
 
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
         its('succeeded.count') { is_expected.to eq('1') }
         its('failed.count') { is_expected.to eq('0') }
+
+        its('succeeded') { is_expected.to respond_to(:job) }
+        its('succeeded.job') { is_expected.to respond_to(:id) }
+        its('succeeded.job') { is_expected.to respond_to(:name) }
+        its('succeeded.job') { is_expected.to respond_to(:group) }
+        its('succeeded.job') { is_expected.to respond_to(:project) }
+        its('succeeded.job') { is_expected.to respond_to(:url) }
 
         it 'expects a post to have been made' do
           expect(a_post('/jobs/import?format=xml')).to have_been_made
@@ -129,7 +169,7 @@ describe Rundeck::Client do
       end
     end
 
-    context 'with invalid format' do
+    context 'with invalid format', vcr: { cassette_name: 'import_job_invalid' } do
       specify do
         expect do
           Rundeck.import_jobs('content', 'invalid_format')
@@ -142,45 +182,45 @@ describe Rundeck::Client do
   describe '.export_job' do
     context 'with valid format' do
       before do
-        stub_get(path, fixture)
-        @jobs = Rundeck.export_jobs('my_project', format)
+        @jobs = Rundeck.export_jobs('anvils', format)
       end
-      let(:path) { "/jobs/export?project=my_project&format=#{format}" }
       subject { @jobs }
 
-      context 'yaml' do
+      context 'yaml', vcr: { cassette_name: 'export_job_yaml' } do
         let(:format) { 'yaml' }
-        let(:fixture) { 'jobs_yaml' }
 
         it { is_expected.to be_a String }
-        it { is_expected.to include 'id: c07518ef-b697-4792-9a59-5b4f08855b67' }
+        it { is_expected.to include 'project: anvils' }
+        it { is_expected.to include 'loglevel: INFO' }
+        it { is_expected.to include 'sequence:' }
 
         it 'expects a get to have been made' do
           expect(
-              a_get('/jobs/export?project=my_project&format=yaml')
+              a_get('/jobs/export?project=anvils&format=yaml')
           ).to have_been_made
         end
       end
 
-      context 'xml' do
+      context 'xml', vcr: { cassette_name: 'export_job_xml' } do
         let(:format) { 'xml' }
-        let(:fixture) { 'jobs_xml' }
 
         it { is_expected.to be_a String }
-        it { is_expected.to include '<id>c07518ef-b697-4792-9a59-5b4f08855b67</id>' }
+        it { is_expected.to include '<project>anvils</project>' }
+        it { is_expected.to include '<loglevel>INFO</loglevel>' }
+        it { is_expected.to include '<sequence' }
 
         it 'expects a get to have been made' do
           expect(
-              a_get('/jobs/export?project=my_project&format=xml')
+              a_get('/jobs/export?project=anvils&format=xml')
           ).to have_been_made
         end
       end
     end
 
-    context 'with invalid format' do
+    context 'with invalid format', vcr: { cassette_name: 'export_job_invalid' } do
       specify do
         expect do
-          Rundeck.export_jobs('my_project', 'invalid_format')
+          Rundeck.export_jobs('anvils', 'invalid_format')
         end.to raise_error(Rundeck::Error::InvalidAttributes,
                            'format must be yaml or xml')
       end

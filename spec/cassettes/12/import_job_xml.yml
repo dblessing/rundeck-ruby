@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://192.168.50.2:4440/api/12/jobs/import?format=xml
+    body:
+      encoding: UTF-8
+      string: |
+        xmlBatch=<joblist>
+          <job>
+            <loglevel>INFO</loglevel>
+            <sequence keepgoing='true' strategy='node-first'>
+              <command>
+                <exec>echo 'hello world'</exec>
+              </command>
+            </sequence>
+            <description>Check the status of anvils</description>
+            <name>My XML Job</name>
+            <context>
+              <project>anvils</project>
+            </context>
+            <group>anvils</group>
+          </job>
+        </joblist>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Rundeck-Auth-Token:
+      - i8iMfXUOpYzVJ9SAkh7pRQMTZI1Bnsyu
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - JSESSIONID=ztal9jqk86ldot48wlmfki69;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Rundeck-Api-Xml-Response-Wrapper:
+      - 'true'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      X-Rundeck-Api-Version:
+      - '12'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: |-
+        <result success='true' apiversion='12'>
+          <succeeded count='1'>
+            <job index='1' href='http://192.168.50.2:4440/api/12/job/cef53983-fdde-40c7-a969-784268a8b93c'>
+              <id>cef53983-fdde-40c7-a969-784268a8b93c</id>
+              <name>My XML Job</name>
+              <group>anvils</group>
+              <project>anvils</project>
+              <url>http://192.168.50.2:4440/job/show/cef53983-fdde-40c7-a969-784268a8b93c</url>
+            </job>
+          </succeeded>
+          <failed count='0' />
+          <skipped count='0' />
+        </result>
+    http_version: 
+  recorded_at: Sat, 11 Oct 2014 14:41:53 GMT
+recorded_with: VCR 2.9.3

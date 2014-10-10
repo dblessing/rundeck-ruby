@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/project/anvils/jobs
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - i8iMfXUOpYzVJ9SAkh7pRQMTZI1Bnsyu
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - JSESSIONID=161bjed4yj1ab1bq2kyofi20ne;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Rundeck-Api-Xml-Response-Wrapper:
+      - 'false'
+      Content-Type:
+      - application/xml;charset=UTF-8
+      X-Rundeck-Api-Version:
+      - '12'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: |-
+        <jobs count='6'>
+          <job id='48133ee7-c16f-4782-8217-5a0fdb755866'>
+            <name>Promote</name>
+            <group>anvils</group>
+            <project>anvils</project>
+            <description>promote the packages to the ops repository.</description>
+          </job>
+          <job id='576e8baa-55ac-43ad-b777-f5e6f84fc4fd'>
+            <name>Restart</name>
+            <group>anvils/web</group>
+            <project>anvils</project>
+            <description>restart the web servers</description>
+          </job>
+          <job id='2065685b-776a-4f1a-8fa8-7df90f9060aa'>
+            <name>Status</name>
+            <group>anvils</group>
+            <project>anvils</project>
+            <description>Check the status of anvils</description>
+          </job>
+          <job id='308f438c-3950-4b62-9e49-97182edab157'>
+            <name>nightly_catalog_rebuild</name>
+            <group>anvils</group>
+            <project>anvils</project>
+            <description>rebuild the catalog data</description>
+          </job>
+          <job id='6a4d6655-4a5b-4e40-90ce-9feb03e0b387'>
+            <name>start</name>
+            <group>anvils/web</group>
+            <project>anvils</project>
+            <description>start the web servers</description>
+          </job>
+          <job id='33e43e6b-c83d-42a9-b399-76b93bd728c1'>
+            <name>stop</name>
+            <group>anvils/web</group>
+            <project>anvils</project>
+            <description>stop the web servers</description>
+          </job>
+        </jobs>
+    http_version: 
+  recorded_at: Sat, 11 Oct 2014 13:25:26 GMT
+recorded_with: VCR 2.9.3

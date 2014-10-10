@@ -20,5 +20,9 @@ module Rundeck
     def method_missing(key)
       @data.key?(key.to_s) ? @data[key.to_s] : nil
     end
+
+    def respond_to?(method)
+      @data.key?(method.to_s) || super
+    end
   end
 end

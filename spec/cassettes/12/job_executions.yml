@@ -1,0 +1,96 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/job/1/executions
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - i8iMfXUOpYzVJ9SAkh7pRQMTZI1Bnsyu
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - JSESSIONID=ekctkun9qhup1v2fid408gnyl;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      X-Rundeck-Api-Version:
+      - '12'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: |-
+        <result success='true' apiversion='12'>
+          <executions count='2'>
+            <execution id='2' href='http://192.168.50.2:4440/execution/follow/2' status='succeeded' project='anvils'>
+              <user>admin</user>
+              <date-started unixtime='1413035146499'>2014-10-11T13:45:46Z</date-started>
+              <date-ended unixtime='1413035149280'>2014-10-11T13:45:49Z</date-ended>
+              <job id='308f438c-3950-4b62-9e49-97182edab157' averageDuration='4065'>
+                <name>nightly_catalog_rebuild</name>
+                <group>anvils</group>
+                <project>anvils</project>
+                <description>rebuild the catalog data</description>
+                <options>
+                  <option name='catalog' value='inventory' />
+                </options>
+              </job>
+              <description>#!/bin/bash
+        set -eu
+        CATALOG=$1
+        echo "# Rebuild catalog: $CATALOG"
+        echo ""
+        echo "- customer: ${RD_NODE_ANVILS_CUSTOMER}"
+        echo "- location: ${RD_NODE_ANVILS_LOCATION}"
+        echo "- database: ${RD_NODE_NAME:-}"
+        echo "Completed."
+        exit $? -- ${option.catalog}</description>
+              <argstring>-catalog inventory</argstring>
+              <successfulNodes>
+                <node name='db1.anvils.com' />
+              </successfulNodes>
+            </execution>
+            <execution id='1' href='http://192.168.50.2:4440/execution/follow/1' status='succeeded' project='anvils'>
+              <user>admin</user>
+              <date-started unixtime='1413035126917'>2014-10-11T13:45:26Z</date-started>
+              <date-ended unixtime='1413035132266'>2014-10-11T13:45:32Z</date-ended>
+              <job id='308f438c-3950-4b62-9e49-97182edab157' averageDuration='4065'>
+                <name>nightly_catalog_rebuild</name>
+                <group>anvils</group>
+                <project>anvils</project>
+                <description>rebuild the catalog data</description>
+                <options>
+                  <option name='catalog' value='inventory' />
+                </options>
+              </job>
+              <description>#!/bin/bash
+        set -eu
+        CATALOG=$1
+        echo "# Rebuild catalog: $CATALOG"
+        echo ""
+        echo "- customer: ${RD_NODE_ANVILS_CUSTOMER}"
+        echo "- location: ${RD_NODE_ANVILS_LOCATION}"
+        echo "- database: ${RD_NODE_NAME:-}"
+        echo "Completed."
+        exit $? -- ${option.catalog}</description>
+              <argstring>-catalog inventory</argstring>
+              <successfulNodes>
+                <node name='db1.anvils.com' />
+              </successfulNodes>
+            </execution>
+          </executions>
+        </result>
+    http_version: 
+  recorded_at: Sat, 11 Oct 2014 13:46:05 GMT
+recorded_with: VCR 2.9.3

@@ -1,13 +1,43 @@
 module Helpers
-  # Convenience methods to help test
-  # shared context 'an options hash'
-
-  def options
-    { no_follow: true }
+  # Remove this after refactored to vcr
+  def load_fixture(name)
+    File.new(File.dirname(__FILE__) + "/../fixtures/#{name}.xml")
   end
 
-  def method
-    :get
+  def job_yaml
+    <<-EOS
+- project: anvils
+  loglevel: INFO
+  sequence:
+    keepgoing: true
+    strategy: node-first
+    commands:
+    - exec: echo 'hello world'
+  description: Check the status of anvils
+  name: My YAML Job
+  group: anvils
+    EOS
+  end
+
+  def job_xml
+    <<-EOS
+<joblist>
+  <job>
+    <loglevel>INFO</loglevel>
+    <sequence keepgoing='true' strategy='node-first'>
+      <command>
+        <exec>echo 'hello world'</exec>
+      </command>
+    </sequence>
+    <description>Check the status of anvils</description>
+    <name>My XML Job</name>
+    <context>
+      <project>anvils</project>
+    </context>
+    <group>anvils</group>
+  </job>
+</joblist>
+    EOS
   end
 
   # GET

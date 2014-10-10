@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://192.168.50.2:4440/api/12/job/2/executions
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - i8iMfXUOpYzVJ9SAkh7pRQMTZI1Bnsyu
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Set-Cookie:
+      - JSESSIONID=1ydztb99lc2u16catn0wbq7nx;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      X-Rundeck-Api-Version:
+      - '12'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: |-
+        <result error='true' apiversion='12'>
+          <error code='api.error.job.options-invalid'>
+            <message>Job options were not valid: Option 'packages' is required.
+        Option 'release' is required.
+        Option 'repository' is required.
+        </message>
+          </error>
+        </result>
+    http_version: 
+  recorded_at: Sat, 11 Oct 2014 14:12:25 GMT
+recorded_with: VCR 2.9.3

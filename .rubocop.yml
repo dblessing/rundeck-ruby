@@ -5,3 +5,8 @@ inherit_from: .rubocop_todo.yml
 # Lots of crappy false-positives from this cop. Go home!
 GuardClause:
   Enabled: false
+
+# Sometimes the method is legitimately longer but not complex.
+# See spec/support/helpers.rb#job_xml
+Metrics/MethodLength:
+  Max: 20
