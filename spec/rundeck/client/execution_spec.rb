@@ -65,27 +65,37 @@ describe Rundeck::Client do
     end
     subject { @running_jobs }
 
-    context 'when there are multiple executions', vcr: { cassette_name: 'running_jobs_multiple' } do
+    context 'when there are multiple executions',
+            vcr: { cassette_name: 'running_jobs_multiple' } do
       it { is_expected.to be_an Array }
       its('first') { is_expected.to respond_to(:user) }
       its('first') { is_expected.to respond_to(:date_started) }
       its('first') { is_expected.to respond_to(:job) }
+
+      it 'expects a get to have been made' do
+        expect(a_get('/executions/running?project=anvils')).to have_been_made
+      end
     end
 
-    context 'when there is a single execution', vcr: { cassette_name: 'running_jobs_single' } do
+    context 'when there is a single execution',
+            vcr: { cassette_name: 'running_jobs_single' } do
       it { is_expected.to be_a Rundeck::ObjectifiedHash }
       it { is_expected.to respond_to(:user) }
       it { is_expected.to respond_to(:date_started) }
       it { is_expected.to respond_to(:job) }
+
+      it 'expects a get to have been made' do
+        expect(a_get('/executions/running?project=anvils')).to have_been_made
+      end
     end
 
     context 'when there are no running executions',
             vcr: { cassette_name: 'running_jobs_none' } do
       it { is_expected.to be_nil }
-    end
 
-    it 'expects a get to have been made' do
-      expect(a_get('/executions/running?project=anvils')).to have_been_made
+      it 'expects a get to have been made' do
+        expect(a_get('/executions/running?project=anvils')).to have_been_made
+      end
     end
   end
 
