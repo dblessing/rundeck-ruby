@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://192.168.50.2:4440/api/12/storage/keys/path/to/private_key2
+    body:
+      encoding: UTF-8
+      string: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEpQIBAAKCAQEAt6G5YJC4x4UiRQB08dsLavDM92HVnQINs4fiAUgZsPICTAhb
+        Agn7XRXU+P8fX1aReRi2p4LHSItdl5hjT2WkNCH1Niw9fpltiNhnlOlrpoBt/eWM
+        dd2rJtC00jQ4pDv+1edw9pc+Re7fDQYD4HSmhm/expQLAgu+LSFCdL7Fj05OAN7D
+        0RxwFfQ3wrZe5qGt4tr5objA2wXwGEnMpFqFGGI9+uqSKnuw1aUgVf7iRvec1fJT
+        /hmFSastozEnBJmBB/mQoFvjOqz+oSiXmXiwvoHfw9B8AdbxKpmi4+AfSTmJqYT1
+        j4FPO6JJf78Qx0Uh7eWQcC7uxhLa5XpHr6C/qQIDAQABAoIBAAR18ULfQR3XphV3
+        BWA6qfRXFSONRNsjiaGq01qknbsmpdei/FL4WxrPxPSnfeOa/r2qVAWNr7mbaRKd
+        qQvstChwCrzeJkBFCdwhJaMAaJUK2aEpSlgyok23FC1nB1k1++LGVIAo/GJGgzSV
+        yNJTAxiQ7yBzyDCsiFogTLT5TWNFwSPOSWTbUQIMW0BGVnVlecB/VIJN1zrBZSAe
+        T/MZenbjybkuTuXWod09YS9Yvx17eG/21I11AwBcmc5MlAn9nkZbydQs6kbLd9hx
+        KT7d9c42ocrTVrmMBcF7S5W8BdMp90snNc7sG99sQJ4W5BL8a46i4kVf6yURh5dy
+        orDDdAECgYEA4wh/jPEcfW/gP1nE9ydLYvgz7tC6+sWR1I7519W15NFABzoW6cw6
+        wjyWhR61EMir9ylTEc5FPwGgodVFb9ctIE+MMH1JL5XGCvAf5J62Hy+O0QnN2bEp
+        rdSf02Huw+6+6S7VXU50SjazeIU2qJ77ti05ukEe8unG9QNlr+Mk7pkCgYEAzw+e
+        sydIVNdi4IJqiJgcikcaBB8V+CimTC1sPzF3/iDSW0LAWTqhdlZIv8My6O8V85go
+        LjNv2+4ODo3b5wFrDHZ8yFgEzMa2SUDz2EgS3MlpaIrfpqzbr8womAaCJr2RYzGZ
+        kh9LmvbDEjXJqsABnW6XG5wOnSYoajp8cztqU5ECgYEA3DHi3AUCN9rpKShc88WF
+        xXCrleWWZCB5ByrAwYiCSXJ14kyB6rJtDvSKnIQi4ytuNmM7MVrZKHngnPVnykht
+        eRgOBP2OnPtrwDITDL6uLuMGZlJW99tvbCx78x3Z4OjO+wS0ZjHwcgZJ3Qt+7t57
+        jb6hbbc5WCpLEFoCJyxsJokCgYEAyFmv0F/BMD6ccOogFP1CGFZGCRjfFBiZGHqX
+        E+pU1bOCd0V2gqAlnTBOAibo+tRkZCilMFca9C46scB3t+T6ZLu9b8kjE9VuiiDs
+        ESlj/vhwIvTFBSybAVZFLRyXEM86f0V9+BKKAG6mP9eFw883gNKCKffteAd08ZyX
+        0JP8BNECgYEAprEkF/YNMl+Se5V2Rz8jrpstlbwrF3M3QHa6UflmOcnQcLHXKU8B
+        PZdVDER5VyhZdTpTb5wHY3ZDkig3YV0xxdS6uhdG34Gj0M2G2DFMGAQeWEgfJDas
+        c2kwvmY7JQlTx0zrcpGcnFiW2kNyHToI7QiE/Q02BqIdHjr6lrSpu18=
+        -----END RSA PRIVATE KEY-----
+    headers:
+      Content-Type:
+      - application/octet-stream
+      X-Rundeck-Auth-Token:
+      - i8iMfXUOpYzVJ9SAkh7pRQMTZI1Bnsyu
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Set-Cookie:
+      - JSESSIONID=1ptz3vhw04xz01biezeg3fid2g;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: <resource path='keys/path/to/private_key2' type='file' url='http://192.168.50.2:4440/api/12/storage/keys/path/to/private_key2'
+        name='private_key2'><resource-meta><Rundeck-content-type>application/octet-stream</Rundeck-content-type><Rundeck-content-size>1679</Rundeck-content-size><Rundeck-content-mask>content</Rundeck-content-mask><Rundeck-key-type>private</Rundeck-key-type></resource-meta></resource>
+    http_version: 
+  recorded_at: Sat, 11 Oct 2014 19:13:33 GMT
+recorded_with: VCR 2.9.3

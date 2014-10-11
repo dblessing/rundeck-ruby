@@ -1,0 +1,35 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/storage/keys/path/to/key
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - i8iMfXUOpYzVJ9SAkh7pRQMTZI1Bnsyu
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - JSESSIONID=q345xca6qsxa46f64tnyd4f8;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: <resource path='keys/path/to/key' type='file' url='http://192.168.50.2:4440/api/12/storage/keys/path/to/key'
+        name='key'><resource-meta><Rundeck-content-type>application/pgp-key</Rundeck-content-type><Rundeck-content-size>395</Rundeck-content-size></resource-meta></resource>
+    http_version: 
+  recorded_at: Sat, 11 Oct 2014 18:56:02 GMT
+recorded_with: VCR 2.9.3

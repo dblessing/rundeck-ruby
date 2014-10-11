@@ -44,29 +44,26 @@ describe Rundeck::Client do
   end
 
   describe '.key_metadata' do
-    context 'with a direct path to a key' do
+    context 'with a direct path to a key',
+            vcr: { cassette_name: 'key_metadata_direct' } do
       before do
-        stub_get('/storage/keys/path/to/key1', 'key_public')
-        @key = Rundeck.key_metadata('path/to/key1')
+        @key = Rundeck.key_metadata('path/to/key')
       end
       subject { @key }
 
       it { is_expected.to be_a Rundeck::ObjectifiedHash }
-      its(:rundeck_content_type) { is_expected.to eq('application/pgp-keys') }
+      its(:rundeck_content_type) { is_expected.to eq('application/pgp-key') }
 
       it 'expects a get to have been made' do
-        expect(a_get('/storage/keys/path/to/key1')).to have_been_made
+        expect(a_get('/storage/keys/path/to/key')).to have_been_made
       end
     end
 
-    context 'with a path containing multiple keys' do
-      before do
-        stub_get('/storage/keys/path/to/keys', 'keys')
-      end
-
-      it do
+    context 'with a path containing multiple keys',
+            vcr: { cassette_name: 'key_metadata_multiple' } do
+      specify do
         expect do
-          Rundeck.key_metadata('path/to/keys')
+          Rundeck.key_metadata('path/to')
         end.to raise_error(Rundeck::Error::InvalidAttributes,
                            'Please provide a key storage path that ' \
                            'is a direct path to a key')
@@ -75,11 +72,10 @@ describe Rundeck::Client do
   end
 
   describe '.key_contents' do
-    context 'with a direct path to a key' do
+    context 'with a direct path to a key',
+            vcr: { cassette_name: 'key_contents_direct' } do
       before do
-        stub_get('/storage/keys/path/to/key1', 'key_public')
-        stub_get('/storage/keys/path/to/key1', 'key_contents_public', 'pgp-keys')
-        @key = Rundeck.key_contents('path/to/key1')
+        @key = Rundeck.key_contents('path/to/key')
       end
       subject { @key }
 
@@ -87,35 +83,29 @@ describe Rundeck::Client do
       its(:public_key) { is_expected.to include('ssh-rsa') }
 
       it 'expects a get to have been made' do
-        expect(a_get('/storage/keys/path/to/key1')).to have_been_made
+        expect(a_get('/storage/keys/path/to/key')).to have_been_made
       end
       it 'expects a get to have been made' do
-        expect(a_get('/storage/keys/path/to/key1', 'pgp-keys')).to have_been_made
+        expect(a_get('/storage/keys/path/to/key', 'pgp-keys')).to have_been_made
       end
     end
 
-    context 'with a path containing multiple keys' do
-      before do
-        stub_get('/storage/keys/path/to/keys', 'keys')
-      end
-
-      it do
+    context 'with a path containing multiple keys',
+            vcr: { cassette_name: 'key_contents_multiple' } do
+      specify do
         expect do
-          Rundeck.key_contents('path/to/keys')
+          Rundeck.key_contents('path/to')
         end.to raise_error(Rundeck::Error::InvalidAttributes,
                            'Please provide a key storage path that ' \
                            'is a direct path to a key')
       end
     end
 
-    context 'when trying to get a private key' do
-      before do
-        stub_get('/storage/keys/path/to/key2', 'key_private')
-      end
-
-      it do
+    context 'with a path to a private key',
+            vcr: { cassette_name: 'key_contents_private' } do
+      specify do
         expect do
-          Rundeck.key_contents('path/to/key2')
+          Rundeck.key_contents('path/to/private_key')
         end.to raise_error(Rundeck::Error::Unauthorized,
                            'You are not allowed to retrieve the contents ' \
                            'of a private key')
@@ -123,16 +113,10 @@ describe Rundeck::Client do
     end
   end
 
-  describe '.create_private_key' do
+  describe '.create_private_key',
+           vcr: { cassette_name: 'create_private_key' } do
     before do
-      keystring = <<-EOD
------BEGIN RSA PRIVATE KEY-----
-Proc-Type: 4,ENCRYPTED
-DEK-Info: AES-128-CBC,E283774838299...
------END RSA PRIVATE KEY-----
-      EOD
-      stub_post('/storage/keys/path/to/my_key', 'key_private')
-      @key = Rundeck.create_private_key('path/to/my_key', keystring)
+      @key = Rundeck.create_private_key('path/to/private_key2', private_key)
     end
     subject { @key }
 
@@ -141,22 +125,15 @@ DEK-Info: AES-128-CBC,E283774838299...
 
     it 'expects a post to have been made' do
       expect(
-        a_post('/storage/keys/path/to/my_key')
+        a_post('/storage/keys/path/to/private_key2')
       ).to have_been_made
     end
   end
 
-  describe '.update_private_key' do
+  describe '.update_private_key',
+           vcr: { cassette_name: 'update_private_key' } do
     before do
-      keystring = <<-EOD
------BEGIN RSA PRIVATE KEY-----
-Proc-Type: 4,ENCRYPTED
-DEK-Info: AES-128-CBC,E283774838299...
------END RSA PRIVATE KEY-----
-      EOD
-      stub_get('/storage/keys/path/to/key1', 'key_private')
-      stub_put('/storage/keys/path/to/key1', 'key_private')
-      @key = Rundeck.update_private_key('path/to/key1', keystring)
+      @key = Rundeck.update_private_key('path/to/private_key2', private_key)
     end
     subject { @key }
 
@@ -164,64 +141,83 @@ DEK-Info: AES-128-CBC,E283774838299...
     its(:rundeck_key_type) { is_expected.to eq('private') }
 
     it 'expects a get to have been made' do
-      expect(a_get('/storage/keys/path/to/key1')).to have_been_made
+      expect(a_get('/storage/keys/path/to/private_key2')).to have_been_made
     end
     it 'expects a put to have been made' do
-      expect(a_put('/storage/keys/path/to/key1')).to have_been_made
+      expect(a_put('/storage/keys/path/to/private_key2')).to have_been_made
     end
   end
 
-  describe '.create_public_key' do
+  describe '.create_public_key',
+           vcr: { cassette_name: 'create_public_key' } do
     before do
-      keystring = 'ssh-rsa AAAA....3MOj user@example.com'
-      stub_post('/storage/keys/path/to/my_public_key', 'key_public')
-      @key = Rundeck.create_public_key('path/to/my_public_key', keystring)
+      @key = Rundeck.create_public_key('path/to/public_key2', public_key)
     end
     subject { @key }
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
-    its(:rundeck_content_type) { is_expected.to eq('application/pgp-keys') }
+    its(:rundeck_content_type) { is_expected.to eq('application/pgp-key') }
 
     it 'expects a post to have been made' do
       expect(
-          a_post('/storage/keys/path/to/my_public_key')
+          a_post('/storage/keys/path/to/public_key2')
       ).to have_been_made
     end
   end
 
-  describe '.update_public_key' do
+  describe '.update_public_key',
+           vcr: { cassette_name: 'update_public_key' } do
     before do
-      keystring = <<-EOD
-ssh-rsa AAAA....ZlxUH user@example.com
-      EOD
-      stub_get('/storage/keys/path/to/key1', 'key_public')
-      stub_put('/storage/keys/path/to/key1', 'key_public')
-      @key = Rundeck.update_public_key('path/to/key1', keystring)
+      @key = Rundeck.update_public_key('path/to/public_key2', public_key)
     end
     subject { @key }
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
-    its(:rundeck_content_type) { is_expected.to eq('application/pgp-keys') }
+    its(:rundeck_content_type) { is_expected.to eq('application/pgp-key') }
 
     it 'expects a get to have been made' do
-      expect(a_get('/storage/keys/path/to/key1')).to have_been_made
+      expect(a_get('/storage/keys/path/to/public_key2')).to have_been_made
     end
     it 'expects a put to have been made' do
-      expect(a_put('/storage/keys/path/to/key1')).to have_been_made
+      expect(a_put('/storage/keys/path/to/public_key2')).to have_been_made
     end
   end
 
   describe '.delete_key' do
-    before do
-      stub_delete('/storage/keys/path/to/my_key', 'empty')
-      @key = Rundeck.delete_key('path/to/my_key')
+    context 'with a valid' do
+      before do
+        @key = Rundeck.delete_key(path)
+      end
+      subject { @key }
+
+      context 'public key path',
+              vcr: { cassette_name: 'delete_key_public' } do
+        let(:path) { 'path/to/public_key2' }
+
+        it { is_expected.to be_nil }
+        it 'expects a delete to have been made' do
+          expect(a_delete('/storage/keys/path/to/public_key2')).to have_been_made
+        end
+      end
+
+      context 'private key path',
+              vcr: { cassette_name: 'delete_key_private' } do
+        let(:path) { 'path/to/private_key2' }
+
+        it { is_expected.to be_nil }
+        it 'expects a delete to have been made' do
+          expect(a_delete('/storage/keys/path/to/private_key2')).to have_been_made
+        end
+      end
     end
-    subject { @key }
 
-    it { is_expected.to be_nil }
-
-    it 'expects a delete to have been made' do
-      expect(a_delete('/storage/keys/path/to/my_key')).to have_been_made
+    context 'with a bad path',
+            vcr: { cassette_name: 'delete_key_invalid' } do
+      specify do
+        expect do
+          Rundeck.delete_key('path/to/nowhere')
+        end.to raise_error Rundeck::Error::NotFound
+      end
     end
   end
 end

@@ -97,7 +97,7 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       def update_private_key(path, key, options = {})
         key_check(path, 'private', options)
-        create_or_update_key(path, key, 'public', 'put', options)
+        create_or_update_key(path, key, 'private', 'put', options)
       end
 
       # Create a public key
@@ -143,9 +143,10 @@ module Rundeck
 
       private
 
-      def key_check(path, type, options)
+      def key_check(path, key_type, options)
+        content_type = content_type(key_type)
         # Check existence and type
-        if key_metadata(path, options).rundeck_key_type != type
+        if key_metadata(path, options).rundeck_content_type != content_type
           fail Error::NotFound,
                "A #{type} key was not found at the specified path."
         end
@@ -163,10 +164,14 @@ module Rundeck
       end
 
       def key_type_headers(type, options)
-        if type == 'private'
-          options.merge!(headers: { 'Content-Type' => 'application/octet-stream' })
-        elsif type == 'public'
-          options.merge!(headers: { 'Content-Type' => 'application/pgp-key' })
+        options.merge!(headers: { 'Content-Type' => content_type(type) })
+      end
+
+      def content_type(key_type)
+        if key_type == 'private'
+          'application/octet-stream'
+        elsif key_type == 'public'
+          'application/pgp-key'
         else
           fail Error::InvalidAttributes,
                'Invalid key type specified. Must be public or private.'
