@@ -67,6 +67,8 @@ describe Rundeck::Client do
     end
   end
 
+  # The anvils demo doesn't have any executions by default.
+  # Login and run the 'nightly_catalog_rebuild' job a few times.
   describe '.job_executions', vcr: { cassette_name: 'job_executions' } do
     before do
       @job_executions =
