@@ -1,7 +1,0 @@
-<resource path='keys/key1' type='file' url='http://localhost:4440/api/12/storage/keys/key1' name='key1'>
-  <resource-meta>
-    <Rundeck-content-type>application/pgp-keys</Rundeck-content-type>
-    <Rundeck-content-size>406</Rundeck-content-size>
-    <Rundeck-key-type>public</Rundeck-key-type>
-  </resource-meta>
-</resource>

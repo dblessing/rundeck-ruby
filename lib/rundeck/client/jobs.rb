@@ -37,31 +37,6 @@ module Rundeck
         delete("/job/#{id}", options)
       end
 
-      # Get executions for a specific job
-      #
-      # @example
-      #   Rundeck.job_executions('c07518ef-b697-4792-9a59-5b4f08855b67')
-      #
-      # @param  [String] id Job id
-      # @param  [Hash] options A set of options passed directly to HTTParty
-      # @return [Rundeck::ObjectifiedHash]
-      def job_executions(id, options = {})
-        r = get("/job/#{id}/executions", options)['result']['executions']['execution']
-        objectify r
-      end
-
-      # Run a job
-      #
-      # @example
-      #   Rundeck.run_job('c07518ef-b697-4792-9a59-5b4f08855b67', 'DEBUG')
-      #
-      # @param  [String] id Job id
-      # @param  [Hash]   options A set of options passed directly to HTTParty
-      # @return [Rundeck::ObjectifiedHash]
-      def run_job(id, options = {})
-        objectify post("/job/#{id}/executions", options)['result']['executions']['execution']
-      end
-
       # Import a job or multiple jobs
       #
       # @example

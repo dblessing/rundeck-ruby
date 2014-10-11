@@ -67,62 +67,6 @@ describe Rundeck::Client do
     end
   end
 
-  # The anvils demo doesn't have any executions by default.
-  # Login and run the 'nightly_catalog_rebuild' job a few times.
-  describe '.job_executions', vcr: { cassette_name: 'job_executions' } do
-    before do
-      @job_executions =
-          Rundeck.job_executions('1')
-    end
-    subject { @job_executions }
-
-    it { is_expected.to be_an Array }
-
-    it 'expects a get to have been made' do
-      expect(a_get('/job/1/executions')).to have_been_made
-    end
-  end
-
-  describe '.run_job'  do
-    context 'with all required options',
-            vcr: { cassette_name: 'run_job_valid' } do
-      before do
-        options = {
-          query: {
-            argString:
-              '-repository ci -release SNAPSHOT -packages app-SNAPSHOT'
-          }
-        }
-        @run_job = Rundeck.run_job('2', options)
-      end
-      subject { @run_job }
-
-      it { is_expected.to be_a Rundeck::ObjectifiedHash }
-      it { is_expected.to respond_to(:user) }
-      it { is_expected.to respond_to(:date_started) }
-      its(:job) { is_expected.to respond_to(:name) }
-      its(:job) { is_expected.to respond_to(:group) }
-      its(:job) { is_expected.to respond_to(:project) }
-      its(:job) { is_expected.to respond_to(:description) }
-
-      it 'expects a post to have been made' do
-        expect(
-            a_post('/job/2/executions?argString=-repository%20ci%20-release%20SNAPSHOT%20-packages%20app-SNAPSHOT')
-        ).to have_been_made
-      end
-    end
-
-    context 'without required options',
-            vcr: { cassette_name: 'run_job_invalid' } do
-      specify do
-        expect do
-          Rundeck.run_job('2')
-        end.to raise_error(Rundeck::Error::BadRequest,
-                           /Job options were not valid:/)
-      end
-    end
-  end
-
   describe '.import_job' do
     context 'with valid format' do
       before do
