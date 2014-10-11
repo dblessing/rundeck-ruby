@@ -1,7 +1,7 @@
 module Rundeck
   class Client
     # Defines methods related to projects.
-    module Keys
+    module Key
       STORAGE_KEYS_PATH = '/storage/keys'
 
       # Gets a list of keys at a specific path.

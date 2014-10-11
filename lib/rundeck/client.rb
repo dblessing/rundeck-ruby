@@ -3,8 +3,9 @@ module Rundeck
   class Client < API
     Dir[File.expand_path('../client/*.rb', __FILE__)].each { |f| require f }
 
-    include Jobs
-    include Keys
+    include Execution
+    include Job
+    include Key
 
     def objectify(result)
       if result.is_a?(Hash)

@@ -1,7 +1,7 @@
 module Rundeck
   class Client
-    # Defines methods related to projects.
-    module Jobs
+    # Defines methods related to jobs.
+    module Job
       # Gets a list of jobs for a specific project.
       #
       # @example
@@ -32,7 +32,6 @@ module Rundeck
       #
       # @param  [String] id Job id
       # @param  [Hash] options A set of options passed directly to HTTParty
-      # @return [Rundeck::ObjectifiedHash]
       def delete_job(id, options = {})
         delete("/job/#{id}", options)
       end
@@ -48,6 +47,17 @@ module Rundeck
       def job_executions(id, options = {})
         r = get("/job/#{id}/executions", options)['result']['executions']['execution']
         objectify r
+      end
+
+      # Delete all executions for a specific job
+      #
+      # @example
+      #   Rundeck.delete_job_executions('c07518ef-b697-4792-9a59-5b4f08855b67')
+      #
+      # @param  [String] id Job id
+      # @param  [Hash] options A set of options passed directly to HTTParty
+      def delete_job_executions(id, options = {})
+        # delete("/job/#{id}/executions", options)
       end
 
       # Run a job
