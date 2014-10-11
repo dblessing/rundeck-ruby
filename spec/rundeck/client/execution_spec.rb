@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Rundeck::Client do
   # `run_job` is an alias of `execute_job`.
+  # @TODO: This runs twice but only tests `run_job` anyway.
   %w('execute_job', 'run_job').each do |method_name|
     describe ".#{method_name}" do
       context 'with all required options',
@@ -13,9 +14,9 @@ describe Rundeck::Client do
                 '-repository ci -release SNAPSHOT -packages app-SNAPSHOT'
             }
           }
-          @run_job = Rundeck.run_job('2', options)
+          @execute_job = Rundeck.run_job('2', options)
         end
-        subject { @run_job }
+        subject { @execute_job }
 
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
         it { is_expected.to respond_to(:user) }
@@ -121,6 +122,31 @@ describe Rundeck::Client do
       it { is_expected.to respond_to(:successful) }
       its('successful.count') { is_expected.to eq('0') }
       its(:allsuccessful) { is_expected.to eq('true') }
+    end
+  end
+
+  describe '.execution' do
+    context 'with a valid execution id',
+            vcr: { cassette_name: 'execution_valid' } do
+      before do
+        @execution = Rundeck.execution('15')
+      end
+      subject { @execution }
+
+      it { is_expected.to be_a Rundeck::ObjectifiedHash }
+      it { is_expected.to respond_to(:user) }
+      it { is_expected.to respond_to(:date_started) }
+      it { is_expected.to respond_to(:job) }
+    end
+
+    context 'with an invalid id',
+            vcr: { cassette_name: 'execution_invalid' } do
+      specify do
+        expect do
+          Rundeck.execution('2')
+        end.to raise_error(Rundeck::Error::NotFound,
+                           /Execution ID does not exist:/)
+      end
     end
   end
 end

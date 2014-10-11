@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/execution/15
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - i8iMfXUOpYzVJ9SAkh7pRQMTZI1Bnsyu
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - JSESSIONID=jx2abhravop81uc8xyiv9fho9;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      X-Rundeck-Api-Version:
+      - '12'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: |-
+        <result success='true' apiversion='12'>
+          <executions count='1'>
+            <execution id='15' href='http://192.168.50.2:4440/execution/follow/15' status='succeeded' project='anvils'>
+              <user>admin</user>
+              <date-started unixtime='1413059515662'>2014-10-11T20:31:55Z</date-started>
+              <date-ended unixtime='1413059518828'>2014-10-11T20:31:58Z</date-ended>
+              <job id='2065685b-776a-4f1a-8fa8-7df90f9060aa' averageDuration='4669'>
+                <name>Status</name>
+                <group>anvils</group>
+                <project>anvils</project>
+                <description>Check the status of anvils</description>
+                <options>
+                  <option name='dir' value='$HOME/anvils' />
+                </options>
+              </job>
+              <description>http://localhost/anvils/scripts/status.sh -- ${option.dir}</description>
+              <argstring>-dir $HOME/anvils</argstring>
+              <successfulNodes>
+                <node name='www1.anvils.com' />
+                <node name='www2.anvils.com' />
+              </successfulNodes>
+            </execution>
+          </executions>
+        </result>
+    http_version: 
+  recorded_at: Sat, 11 Oct 2014 22:25:15 GMT
+recorded_with: VCR 2.9.3
