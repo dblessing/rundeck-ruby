@@ -9,4 +9,9 @@ GuardClause:
 # Sometimes the method is legitimately longer but not complex.
 # See spec/support/helpers.rb#job_xml
 Metrics/MethodLength:
-  Max: 20
+  Max: 30
+
+# I am a big fan of lines 80 chars and less. However, in some cases it makes
+# sense to let the line exceed that length, especially in specs.
+Metrics/LineLength:
+  Max: 500

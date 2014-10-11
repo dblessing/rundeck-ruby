@@ -1,0 +1,34 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/storage/keys/path/to/nowhere
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - i8iMfXUOpYzVJ9SAkh7pRQMTZI1Bnsyu
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Set-Cookie:
+      - JSESSIONID=tzpmavu87rpz1wj86o5k7f0t7;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: '<error>resource not found: /keys/path/to/nowhere</error>'
+    http_version: 
+  recorded_at: Sat, 11 Oct 2014 16:05:21 GMT
+recorded_with: VCR 2.9.3

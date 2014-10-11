@@ -85,8 +85,14 @@ module Rundeck
     end
 
     def error_message(response)
+      message = if response.parsed_response['result']
+                  response.parsed_response['result']['error'][1]['message']
+                else
+                  'none'
+                end
+
       "Server responded with code #{response.code}, " \
-      "message: #{response.parsed_response['result']['error'][1]['message']}. " \
+      "message: #{message}. " \
       "Request URI: #{response.request.base_uri}#{response.request.path}"
     end
   end

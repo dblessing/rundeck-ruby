@@ -15,7 +15,7 @@ module Rundeck
       def keys(path = '', options = {})
         r = get("#{STORAGE_KEYS_PATH}/#{path}", options)
 
-        #         # In case a user provides a direct path to a key, error.
+        # In case a user provides a direct path to a key, error.
         if r['resource']['contents']
           objectify r['resource']['contents']['resource']
         else

@@ -2,29 +2,40 @@ require 'spec_helper'
 
 describe Rundeck::Client do
   describe '.keys' do
-    context 'with a path containing multiple keys' do
+    # The anvils demo doesn't have any keys by default.
+    # Create a public key at path /path/to/key and a private key
+    # at /path/to/private_key using the data from the helper methods.
+    # Create the public key first.
+    context 'with a path containing multiple keys',
+            vcr: { cassette_name: 'keys_multiple' } do
       before do
-        stub_get('/storage/keys/', 'keys')
-        @keys = Rundeck.keys
+        @keys = Rundeck.keys('path/to')
       end
       subject { @keys }
 
       it { is_expected.to be_an Array }
-      its('first.resource_meta.rundeck_key_type') { is_expected.to eq('public') }
+      its('first.name') { is_expected.to eq('key') }
+      its('first.resource_meta.rundeck_content_type') { is_expected.to eq('application/pgp-key') }
 
       it 'expects a get to have been made' do
-        expect(a_get('/storage/keys/')).to have_been_made
+        expect(a_get('/storage/keys/path/to')).to have_been_made
       end
     end
 
-    context 'with a direct path to a key' do
-      before do
-        stub_get('/storage/keys/path/to/key1', 'key_public')
-      end
-
+    context 'with a path containing no keys',
+            vcr: { cassette_name: 'keys_none' } do
       specify do
         expect do
-          Rundeck.keys('path/to/key1')
+          Rundeck.keys('path/to/nowhere')
+        end.to raise_error Rundeck::Error::NotFound
+      end
+    end
+
+    context 'with a direct path to a key',
+            vcr: { cassette_name: 'keys_direct' } do
+      specify do
+        expect do
+          Rundeck.keys('path/to/key')
         end.to raise_error(Rundeck::Error::InvalidAttributes,
                            'Please provide a key storage path that ' \
                            'isn\'t a direct path to a key')
