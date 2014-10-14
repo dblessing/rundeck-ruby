@@ -69,7 +69,8 @@ module Rundeck
         # Check if key exists first. Otherwise we could return some
         # weird strings. Also, raise error if user is trying to get a
         # private key.
-        if key_metadata(path, options).rundeck_key_type == 'private'
+        key_content_type = key_metadata(path, options).rundeck_content_type
+        if key_content_type == content_type('private')
           fail Error::Unauthorized,
                'You are not allowed to retrieve the contents of a private key'
         end
