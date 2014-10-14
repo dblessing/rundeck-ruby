@@ -8,8 +8,9 @@ module Rundeck
       #   Rundeck.jobs('project')
       #
       # @param  [String] project Project name
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [Array<Rundeck::ObjectifiedHash>]
+      # @!macro exceptions
       def jobs(project, options = {})
         objectify get("/project/#{project}/jobs", options)['jobs']['job']
       end
@@ -19,19 +20,23 @@ module Rundeck
       # @example Rundeck.job('c07518ef-b697-4792-9a59-5b4f08855b67')
       #
       # @param  [String] id Job id
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
       def job(id, options = {})
         objectify get("/job/#{id}", options)['joblist']['job']
       end
 
       # Delete a job
       #
+      # @TODO: What does this return?!
+      #
       # @example
       #   Rundeck.delete_job('c07518ef-b697-4792-9a59-5b4f08855b67')
       #
       # @param  [String] id Job id
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
+      # @!macro exceptions
       def delete_job(id, options = {})
         delete("/job/#{id}", options)
       end
@@ -52,9 +57,11 @@ module Rundeck
       #   Rundeck.import_jobs(job, 'xml')
       #
       # @param  [String] content The job definition(s) as yaml or xml
-      # @param  [String] format The import format. 'yaml|xml', defaults to 'yaml'
-      # @param  [Hash]   options A set of options passed directly to HTTParty
+      # @param  [String] format The import format. 'yaml|xml', defaults to
+      #   'yaml'
+      # @!macro options
       # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
       def import_jobs(content, format = 'yaml', options = {})
         unless format =~ /yaml|xml/
           fail Error::InvalidAttributes, 'format must be yaml or xml'
@@ -75,9 +82,11 @@ module Rundeck
       #   Rundeck.export_jobs('project')
       #
       # @param  [String] project Project name
-      # @param  [String] format The export format. 'yaml|xml', defaults to 'yaml'
-      # @param  [Hash]   options A set of options passed directly to HTTParty
-      # @return [String]
+      # @param  [String] format The export format. Either 'yaml' or 'xml'
+      # @!macro options
+      # @return [String] a string representation of the job in either xml or
+      #   yaml
+      # @!macro exceptions
       def export_jobs(project, format = 'yaml', options = {})
         unless format =~ /yaml|xml/
           fail Error::InvalidAttributes, 'format must be yaml or xml'

@@ -2,7 +2,9 @@ module Rundeck
   class Client
     # Defines methods related to projects.
     module Key
+      # The endpoint for key storage
       STORAGE_KEYS_PATH = '/storage/keys'
+      private_constant :STORAGE_KEYS_PATH
 
       # Gets a list of keys at a specific path.
       #
@@ -10,8 +12,11 @@ module Rundeck
       #   Rundeck.keys('path')
       #
       # @param  [String] path A key storage path
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [Array<Rundeck::ObjectifiedHash>]
+      # @!macro exceptions
+      # @raise  [Rundeck::Error::InvalidAttributes] if the path is a direct key
+      #   path
       def keys(path = '', options = {})
         r = get("#{STORAGE_KEYS_PATH}/#{path}", options)
 
@@ -31,8 +36,11 @@ module Rundeck
       #   Rundeck.key_metadata('path/to/key1')
       #
       # @param  [String] path A key storage path, including key name
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
+      # @raise  [Rundeck::Error::InvalidAttributes] if the path is a direct key
+      #   path
       def key_metadata(path, options = {})
         r = get("#{STORAGE_KEYS_PATH}/#{path}", options)
 
@@ -54,8 +62,9 @@ module Rundeck
       #   Rundeck.key_contents('path/to/key1')
       #
       # @param  [String] path A key storage path, including key name
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
       def key_contents(path, options = {})
         # Check if key exists first. Otherwise we could return some
         # weird strings. Also, raise error if user is trying to get a
@@ -79,8 +88,9 @@ module Rundeck
       #
       # @param  [String] path A key storage path
       # @param  [String] key The entire private key value
-      # @param  [Hash] options A set of options passed directory to HTTParty
+      # @!macro options
       # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
       def create_private_key(path, key, options = {})
         create_or_update_key(path, key, 'private', 'post', options)
       end
@@ -93,8 +103,10 @@ module Rundeck
       #
       # @param  [String] path A key storage path
       # @param  [String] key The entire private key value
-      # @param  [Hash] options A set of options passed directory to HTTParty
+      # @!macro options
       # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
+      # @raise  [Rundeck::Error::NotFound] if the key was not found
       def update_private_key(path, key, options = {})
         key_check(path, 'private', options)
         create_or_update_key(path, key, 'private', 'put', options)
@@ -108,8 +120,9 @@ module Rundeck
       #
       # @param  [String] path A key storage path
       # @param  [String] key The entire private key value
-      # @param  [Hash] options A set of options passed directory to HTTParty
-      # @return [Array<Rundeck::ObjectifiedHash>]
+      # @!macro options
+      # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
       def create_public_key(path, key, options = {})
         create_or_update_key(path, key, 'public', 'post', options)
       end
@@ -122,8 +135,10 @@ module Rundeck
       #
       # @param  [String] path A key storage path
       # @param  [String] key The entire private key value
-      # @param  [Hash] options A set of options passed directory to HTTParty
-      # @return [Array<Rundeck::ObjectifiedHash>]
+      # @!macro options
+      # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
+      # @raise  [Rundeck::Error::NotFound] if the key was not foun
       def update_public_key(path, key, options = {})
         key_check(path, 'public', options)
         create_or_update_key(path, key, 'public', 'put', options)
@@ -135,8 +150,9 @@ module Rundeck
       #   Rundeck.delete_key('path/to/key')
       #
       # @param  [String] path A key storage path
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [nil]
+      # @!macro exceptions
       def delete_key(path, options = {})
         delete("#{STORAGE_KEYS_PATH}/#{path}", options)
       end

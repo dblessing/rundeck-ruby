@@ -9,8 +9,9 @@ module Rundeck
       #   Rundeck.run_job('c07518ef-b697-4792-9a59-5b4f08855b67')
       #
       # @param  [String] id Job id
-      # @param  [Hash]   options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
       def execute_job(id, options = {})
         objectify post("/job/#{id}/executions", options)['result']['executions']['execution']
       end
@@ -22,8 +23,9 @@ module Rundeck
       #   Rundeck.job_executions('c07518ef-b697-4792-9a59-5b4f08855b67')
       #
       # @param  [String] id Job id
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
       def job_executions(id, options = {})
         r = get("/job/#{id}/executions", options)['result']['executions']['execution']
         objectify r
@@ -35,10 +37,11 @@ module Rundeck
       #   Rundeck.running_job_executions('anvils')
       #
       # @param  [String] project List running executions from this project
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [nil] if no running executions
       # @return [Rundeck::ObjectifiedHash] if a single running job execution
       # @return [Array<Rundeck::ObjectifiedHash>] if multiple running job executions
+      # @!macro exceptions
       def running_job_executions(project, options = {})
         options[:query] = {} if options[:query].nil?
         options[:query]['project'] = project
@@ -57,8 +60,9 @@ module Rundeck
       #   Rundeck.delete_job_executions('c07518ef-b697-4792-9a59-5b4f08855b67')
       #
       # @param  [String] id Job id
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
       def delete_job_executions(id, options = {})
         objectify delete("/job/#{id}/executions", options)['deleteExecutions']
       end
@@ -69,8 +73,9 @@ module Rundeck
       #   Rundeck.execution('c07518ef-b697-4792-9a59-5b4f08855b67'')
       #
       # @param  [String] id Job id
-      # @param  [Hash] options A set of options passed directly to HTTParty
+      # @!macro options
       # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
       def execution(id, options = {})
         objectify get("/execution/#{id}", options)['result']['executions']['execution']
       end
