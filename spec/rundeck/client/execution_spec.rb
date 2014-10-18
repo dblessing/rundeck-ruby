@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe Rundeck::Client do
-  describe ".execute_job" do
+  describe '.execute_job' do
     context 'with all required options',
             vcr: { cassette_name: 'run_job_valid' } do
       before do
         options = {
-            query: {
-                argString:
-                    '-repository ci -release SNAPSHOT -packages app-SNAPSHOT'
-            }
+          query: {
+            argString:
+              '-repository ci -release SNAPSHOT -packages app-SNAPSHOT'
+          }
         }
         @execute_job = Rundeck.run_job('2', options)
       end
@@ -153,9 +153,20 @@ describe Rundeck::Client do
     end
   end
 
-
   describe '.abort_execution' do
+    context 'when the execution is running',
+            vcr: { cassette_name: 'abort_execution_valid' } do
+      before do
+        @execution = Rundeck.abort_execution('5')
+      end
+      subject { @execution }
 
+      it { is_expected.to be_nil }
+
+      it 'expects a post to have been made' do
+        expect(a_post('/execution/5/abort')).to have_been_made
+      end
+    end
   end
 
   describe '.execution' do

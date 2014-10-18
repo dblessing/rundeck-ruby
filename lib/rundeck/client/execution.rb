@@ -95,13 +95,26 @@ module Rundeck
       #
       # @param  [String] id Execution id
       # @!macro options
-      # @TODO: Return
+      # @return [nil] If the delete was successful
+      # @!macro exceptions
       def delete_execution(id, options = {})
         delete("/execution/#{id}", options)
       end
 
+      # Abort a running execution
+      #
+      # @!macro has_optional_params
+      #
+      # @see http://rundeck.org/docs/api/index.html#aborting-executions
+      #   Rundeck API documentation for 'POST /api/1/execution/[ID]/abort'
+      #   endpoint
+      #
+      # @param  [String] id Execution id
+      # @!macro options
+      # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
       def abort_execution(id, options = {})
-
+        objectify post("/execution/#{id}/abort")['abort']['execution']
       end
 
       # Get info for an execution
