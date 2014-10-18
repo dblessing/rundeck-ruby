@@ -1,48 +1,51 @@
 require 'spec_helper'
 
 describe Rundeck::Client do
-  # `run_job` is an alias of `execute_job`.
-  # @TODO: This runs twice but only tests `run_job` anyway.
-  %w('execute_job', 'run_job').each do |method_name|
-    describe ".#{method_name}" do
-      context 'with all required options',
-              vcr: { cassette_name: 'run_job_valid' } do
-        before do
-          options = {
+  describe ".execute_job" do
+    context 'with all required options',
+            vcr: { cassette_name: 'run_job_valid' } do
+      before do
+        options = {
             query: {
-              argString:
-                '-repository ci -release SNAPSHOT -packages app-SNAPSHOT'
+                argString:
+                    '-repository ci -release SNAPSHOT -packages app-SNAPSHOT'
             }
-          }
-          @execute_job = Rundeck.run_job('2', options)
-        end
-        subject { @execute_job }
-
-        it { is_expected.to be_a Rundeck::ObjectifiedHash }
-        it { is_expected.to respond_to(:user) }
-        it { is_expected.to respond_to(:date_started) }
-        its(:job) { is_expected.to respond_to(:name) }
-        its(:job) { is_expected.to respond_to(:group) }
-        its(:job) { is_expected.to respond_to(:project) }
-        its(:job) { is_expected.to respond_to(:description) }
-
-        it 'expects a post to have been made' do
-          expect(
-              a_post('/job/2/executions?argString=-repository%20ci%20-release%20SNAPSHOT%20-packages%20app-SNAPSHOT')
-          ).to have_been_made
-        end
+        }
+        @execute_job = Rundeck.run_job('2', options)
       end
+      subject { @execute_job }
 
-      context 'without required options',
-              vcr: { cassette_name: 'run_job_invalid' } do
-        specify do
-          expect do
-            Rundeck.run_job('2')
-          end.to raise_error(Rundeck::Error::BadRequest,
-                             /Job options were not valid:/)
-        end
+      it { is_expected.to be_a Rundeck::ObjectifiedHash }
+      it { is_expected.to respond_to(:user) }
+      it { is_expected.to respond_to(:date_started) }
+      its(:job) { is_expected.to respond_to(:name) }
+      its(:job) { is_expected.to respond_to(:group) }
+      its(:job) { is_expected.to respond_to(:project) }
+      its(:job) { is_expected.to respond_to(:description) }
+
+      it 'expects a post to have been made' do
+        expect(
+            a_post('/job/2/executions?argString=-repository%20ci%20-release%20SNAPSHOT%20-packages%20app-SNAPSHOT')
+        ).to have_been_made
       end
     end
+
+    context 'without required options',
+            vcr: { cassette_name: 'run_job_invalid' } do
+      specify do
+        expect do
+          Rundeck.run_job('2')
+        end.to raise_error(Rundeck::Error::BadRequest,
+                           /Job options were not valid:/)
+      end
+    end
+  end
+
+  # Alias of execute job
+  describe '.run_job' do
+    subject { Rundeck }
+
+    it { is_expected.to respond_to(:run_job) }
   end
 
   # The anvils demo doesn't have any executions by default.
@@ -125,6 +128,36 @@ describe Rundeck::Client do
     end
   end
 
+  describe '.delete_execution' do
+    context 'when an execution exists',
+            vcr: { cassette_name: 'delete_execution_valid' } do
+      before do
+        @execution = Rundeck.delete_execution('1')
+      end
+      subject { @execution }
+
+      it { is_expected.to be_nil }
+      it 'expects a delete to have been made' do
+        expect(a_delete('/execution/1')).to have_been_made
+      end
+    end
+
+    context 'when an execution does not exist',
+            vcr: { cassette_name: 'delete_execution_invalid' } do
+      specify do
+        expect do
+          Rundeck.delete_execution('123456')
+        end.to raise_error(Rundeck::Error::NotFound,
+                           /Execution ID does not exist: 123456/)
+      end
+    end
+  end
+
+
+  describe '.abort_execution' do
+
+  end
+
   describe '.execution' do
     context 'with a valid execution id',
             vcr: { cassette_name: 'execution_valid' } do
@@ -148,5 +181,25 @@ describe Rundeck::Client do
                            /Execution ID does not exist:/)
       end
     end
+  end
+
+  describe '.bulk_delete_executions' do
+
+  end
+
+  describe '.execution_state' do
+
+  end
+
+  describe '.execution_query' do
+
+  end
+
+  describe '.execution_output' do
+
+  end
+
+  describe '.execution_output_with_state' do
+
   end
 end

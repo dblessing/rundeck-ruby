@@ -31,6 +31,24 @@ module Rundeck
     #   @raise [Rundeck::Error::ServiceUnavailable] 503 error - Indicates an
     #     issue on the Rundeck server.
 
+    # @!macro [new] has_optional_params
+    #   @note This method has optional Rundeck parameters that can be passed
+    #     to the options parameter. See Rundeck API documentation
+    #     for more information.
+    #     - +query: { param1: 'value', param2: 'value' }+
+
+    # @!macro [new] has_required_params
+    #   @note This method has required Rundeck parameters that can be passed
+    #     to the options parameter. See Rundeck API documentation
+    #     for more information.
+    #     - +query: { param1: 'value', param2: 'value' }+
+
+    # @!macro [new] has_required_and_optional_params
+    #   @note This method has both required and optional Rundeck parameters that
+    #     can be passed to the options parameter. See Rundeck API documentation
+    #     for more information.
+    #     - +query { param1: 'value', param2: 'value' }+
+
     Dir[File.expand_path('../client/*.rb', __FILE__)].each { |f| require f }
 
     include Execution
