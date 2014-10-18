@@ -221,27 +221,38 @@ describe Rundeck::Client do
   end
 
   describe '.bulk_delete_executions' do
-    before do
-      @executions = Rundeck.bulk_delete_executions(ids)
+    context 'with the correct parameters' do
+      before do
+        @executions = Rundeck.bulk_delete_executions(ids)
+      end
+      subject { @executions }
+
+      context 'with valid executions',
+              vcr: { cassette_name: 'bulk_delete_executions_valid' } do
+        let(:ids) { %w(3 4 5) }
+
+        its(:requestcount) { is_expected.to eq('3') }
+        its(:allsuccessful) { is_expected.to eq('true') }
+        its('successful.count') { is_expected.to eq('3') }
+      end
+
+      context 'with invalid executions',
+              vcr: { cassette_name: 'bulk_delete_executions_invalid' } do
+        let(:ids) { %w(1000 2000 3000) }
+
+        its(:requestcount) { is_expected.to eq('3') }
+        its('successful.count') { is_expected.to eq('0') }
+        its('failed.count') { is_expected.to eq('3') }
+      end
     end
-    subject { @executions }
 
-    context 'with valid executions',
-            vcr: { cassette_name: 'bulk_delete_executions_valid' } do
-      let(:ids) { %w(3 4 5) }
-
-      its(:requestcount) { is_expected.to eq('3') }
-      its(:allsuccessful) { is_expected.to eq('true') }
-      its('successful.count') { is_expected.to eq('3') }
-    end
-
-    context 'with invalid executions',
-            vcr: { cassette_name: 'bulk_delete_executions_invalid' } do
-      let(:ids) { %w(1000 2000 3000) }
-
-      its(:requestcount) { is_expected.to eq('3') }
-      its('successful.count') { is_expected.to eq('0') }
-      its('failed.count') { is_expected.to eq('3') }
+    context 'with a non-array id' do
+      specify do
+        expect do
+          Rundeck.bulk_delete_executions('123')
+        end.to raise_error(Rundeck::Error::InvalidAttributes,
+                           '`ids` must be an array of ids')
+      end
     end
   end
 
