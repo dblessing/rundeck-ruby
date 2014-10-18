@@ -85,7 +85,7 @@ module Rundeck
     end
 
     def error_message(response)
-      message = if response.parsed_response['result']
+      message = if response.parsed_response && response.parsed_response['result']
                   response.parsed_response['result']['error'][1]['message']
                 else
                   'none'

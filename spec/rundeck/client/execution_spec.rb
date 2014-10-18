@@ -154,17 +154,43 @@ describe Rundeck::Client do
   end
 
   describe '.abort_execution' do
-    context 'when the execution is running',
-            vcr: { cassette_name: 'abort_execution_valid' } do
+    context 'with a valid execution id' do
       before do
-        @execution = Rundeck.abort_execution('5')
+        @execution = Rundeck.abort_execution(id)
       end
       subject { @execution }
 
-      it { is_expected.to be_nil }
+      context 'when the execution is running',
+              vcr: { cassette_name: 'abort_execution_valid' } do
+        let(:id) { '5' }
 
-      it 'expects a post to have been made' do
-        expect(a_post('/execution/5/abort')).to have_been_made
+        it { is_expected.to be_a Rundeck::ObjectifiedHash }
+        its('execution.id') { is_expected.to eq('5') }
+        its(:status) { is_expected.to eq('aborted') }
+
+        it 'expects a post to have been made' do
+          expect(a_post('/execution/5/abort')).to have_been_made
+        end
+      end
+
+      context 'when the execution is not running',
+              vcr: { cassette_name: 'abort_execution_not_running' } do
+        let(:id) { '4' }
+
+        it { is_expected.to be_a Rundeck::ObjectifiedHash }
+        its('execution.id') { is_expected.to eq('4') }
+        its(:status) { is_expected.to eq('failed') }
+        its(:reason) { is_expected.to eq('Job is not running') }
+      end
+    end
+
+    context 'when the execution does not exist',
+            vcr: { cassette_name: 'abort_executions_invalid' } do
+      specify do
+        expect do
+          Rundeck.abort_execution('123456')
+        end.to raise_error(Rundeck::Error::NotFound,
+                           /Execution ID does not exist: 123456/)
       end
     end
   end
@@ -195,7 +221,28 @@ describe Rundeck::Client do
   end
 
   describe '.bulk_delete_executions' do
+    before do
+      @executions = Rundeck.bulk_delete_executions(ids)
+    end
+    subject { @executions }
 
+    context 'with valid executions',
+            vcr: { cassette_name: 'bulk_delete_executions_valid' } do
+      let(:ids) { %w(3 4 5) }
+
+      its(:requestcount) { is_expected.to eq('3') }
+      its(:allsuccessful) { is_expected.to eq('true') }
+      its('successful.count') { is_expected.to eq('3') }
+    end
+
+    context 'with invalid executions',
+            vcr: { cassette_name: 'bulk_delete_executions_invalid' } do
+      let(:ids) { %w(1000 2000 3000) }
+
+      its(:requestcount) { is_expected.to eq('3') }
+      its('successful.count') { is_expected.to eq('0') }
+      its('failed.count') { is_expected.to eq('3') }
+    end
   end
 
   describe '.execution_state' do

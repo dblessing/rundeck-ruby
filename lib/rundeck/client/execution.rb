@@ -114,7 +114,7 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
       def abort_execution(id, options = {})
-        objectify post("/execution/#{id}/abort")['abort']['execution']
+        objectify post("/execution/#{id}/abort", options)['abort']
       end
 
       # Get info for an execution
@@ -133,25 +133,41 @@ module Rundeck
         objectify get("/execution/#{id}", options)['result']['executions']['execution']
       end
 
+      # Bulk delete executions
+      #
+      # @see http://rundeck.org/docs/api/index.html#bulk-delete-executions
+      #   Rundeck API documentation for 'POST /api/12/executions/delete'
+      #
+      # @param  [String] ids An array of execution ids to delete
+      # @!macro options
+      # @return [Rundeck::ObjectifiedHash]
+      # @raise  [Rundeck::Error::InvalidAttribites] if ids is not an array
+      # @!macro exceptions
       def bulk_delete_executions(ids, options = {})
+        unless ids.is_a?(Array)
+          fail Rundeck::Error::InvalidAttributes, '`ids` must be an array of ids'
+        end
 
+        options[:query] = {} if options[:query].nil?
+        options[:query].merge!(ids: ids.join(','))
+        objectify post('/executions/delete', options)['deleteExecutions']
       end
 
-      def execution_state(id, options = {})
-
-      end
-
-      def execution_query(options = {})
-
-      end
-
-      def execution_output()
-
-      end
-
-      def execution_output_with_state()
-
-      end
+      # def execution_state(id, options = {})
+      #
+      # end
+      #
+      # def execution_query(options = {})
+      #
+      # end
+      #
+      # def execution_output()
+      #
+      # end
+      #
+      # def execution_output_with_state()
+      #
+      # end
     end
   end
 end
