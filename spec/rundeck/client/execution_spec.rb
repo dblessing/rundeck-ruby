@@ -305,35 +305,35 @@ describe Rundeck::Client do
   #     context 'without any query parameters',
   #             vcr: { cassette_name: 'execution_query_no_params_valid' } do
   #       let(:query) { {} }
-
-        # its('count.to_i') { is_expected.to be > 0 }
-        # it { is_expected.to respond_to(:execution) }
-
-        # it 'expects a get to have been made' do
-        #   expect(a_get('/executions?project=anvils')).to have_been_made
-        # end
-      # end
-
-      # context 'with query parameters',
-      #         vcr: { cassette_name: 'execution_query_params_valid' } do
-      #
-      #   it 'expects a get to have been made' do
-      #     expect(a_get('/executions')).to have_been_made
-      #   end
-      # end
-    # end
-    #
-    # context 'with an invalid project id',
-    #         vcr: { cassette_name: 'execution_query_invalid' } do
-    #   let(:project) { 'other_project' }
-    #   let(:query) { {} }
-    #
-    #   its(:count) { is_expected.to eq('0') }
-    #
-    #   it 'expects a get to have been made' do
-    #     expect(a_get('/executions?project=other_project')).to have_been_made
-    #   end
-    # end
+  #
+  #       its('count.to_i') { is_expected.to be > 0 }
+  #       it { is_expected.to respond_to(:execution) }
+  #
+  #       it 'expects a get to have been made' do
+  #         expect(a_get('/executions?project=anvils')).to have_been_made
+  #       end
+  #     end
+  #
+  #     context 'with query parameters',
+  #             vcr: { cassette_name: 'execution_query_params_valid' } do
+  #
+  #       it 'expects a get to have been made' do
+  #         expect(a_get('/executions')).to have_been_made
+  #       end
+  #     end
+  #   end
+  #
+  #   context 'with an invalid project id',
+  #           vcr: { cassette_name: 'execution_query_invalid' } do
+  #     let(:project) { 'other_project' }
+  #     let(:query) { {} }
+  #
+  #     its(:count) { is_expected.to eq('0') }
+  #
+  #     it 'expects a get to have been made' do
+  #       expect(a_get('/executions?project=other_project')).to have_been_made
+  #     end
+  #   end
   # end
 
   describe '.execution_output' do
