@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/execution/6/state
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - cmJQYoy9EAsSd0905yNjKDNGs0ESIwEd
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - JSESSIONID=1cllbbmih6u0fbvwnmdfn21h4;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: <result success='true' apiversion='12'><executionState id='6'><startTime>2014-10-18T02:04:07Z</startTime><stepCount>1</stepCount><allNodes><nodes><node
+        name='db1.anvils.com'></node></nodes></allNodes><targetNodes><nodes><node
+        name='db1.anvils.com'></node></nodes></targetNodes><updateTime>2014-10-18T02:04:09Z</updateTime><executionId>6</executionId><serverNode>localhost</serverNode><endTime>2014-10-18T02:04:09Z</endTime><executionState>SUCCEEDED</executionState><completed>true</completed><steps><step
+        stepctx='1' id='1'><startTime>2014-10-18T02:04:07Z</startTime><nodeStep>true</nodeStep><updateTime>2014-10-18T02:04:07Z</updateTime><parameterStates></parameterStates><endTime>2014-10-18T02:04:09Z</endTime><executionState>SUCCEEDED</executionState><nodeStates><nodeState
+        name='db1.anvils.com'><startTime>2014-10-18T02:04:07Z</startTime><updateTime>2014-10-18T02:04:09Z</updateTime><endTime>2014-10-18T02:04:09Z</endTime><executionState>SUCCEEDED</executionState></nodeState></nodeStates></step></steps><nodes><node
+        name='db1.anvils.com'><steps><step><stepctx>1</stepctx><executionState>SUCCEEDED</executionState></step></steps></node></nodes></executionState></result>
+    http_version: 
+  recorded_at: Sat, 25 Oct 2014 14:20:43 GMT
+recorded_with: VCR 2.9.3

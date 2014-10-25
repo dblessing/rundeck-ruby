@@ -125,7 +125,7 @@ module Rundeck
       # @example
       #   Rundeck.execution('c07518ef-b697-4792-9a59-5b4f08855b67'')
       #
-      # @param  [String] id Job id
+      # @param  [String] id Execution id
       # @!macro options
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
@@ -153,14 +153,35 @@ module Rundeck
         objectify post('/executions/delete', options)['deleteExecutions']
       end
 
-      # def execution_state(id, options = {})
+      # Get the state of an execution
       #
+      # @see http://rundeck.org/docs/api/index.html#execution-state
+      #   Rundeck API documentation for 'GET /api/12/execution/[ID]/state'
+      #
+      # @param  [String] id Execution ID
+      # @!macro options
+      # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
+      def execution_state(id, options = {})
+        objectify get("/execution/#{id}/state", options)['result']['executionState']
+      end
+
+      # Query for executions based on job or execution details.
+      #
+      # @note This method maps to an advanced Rundeck endpoint. View the Rundeck
+      #   API documentation and understand what query parameters are required.
+      #   Responses may include paging details. Recall this method with the
+      #   next set of paging values to retrieve more elements.
+      #
+      # @see http://rundeck.org/docs/api/index.html#execution-query
+      #   Rundeck API documentation for 'GET /api/12/executions'
+      # def execution_query(project, options = {})
+      #   options[:query] = {} if options[:query].nil?
+      #   options[:query]['project'] = project
+      #
+      #   objectify get('/executions', options)['result']
       # end
-      #
-      # def execution_query(options = {})
-      #
-      # end
-      #
+
       # def execution_output()
       #
       # end

@@ -67,7 +67,7 @@ module Rundeck
     def objectify(result)
       if result.is_a?(Hash)
         ObjectifiedHash.new(result)
-      elsif result.is_a? Array
+      elsif result.is_a?(Array)
         result.map! { |e| ObjectifiedHash.new(e) }
       elsif result.nil?
         nil

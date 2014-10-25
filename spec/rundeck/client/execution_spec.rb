@@ -207,6 +207,10 @@ describe Rundeck::Client do
       it { is_expected.to respond_to(:user) }
       it { is_expected.to respond_to(:date_started) }
       it { is_expected.to respond_to(:job) }
+
+      it 'expects a get to have been made' do
+        expect(a_get('/execution/15')).to have_been_made
+      end
     end
 
     context 'with an invalid id',
@@ -234,6 +238,10 @@ describe Rundeck::Client do
         its(:requestcount) { is_expected.to eq('3') }
         its(:allsuccessful) { is_expected.to eq('true') }
         its('successful.count') { is_expected.to eq('3') }
+
+        it 'expects a post to have been made' do
+          expect(a_post('/executions/delete?ids=3,4,5')).to have_been_made
+        end
       end
 
       context 'with invalid executions',
@@ -257,12 +265,76 @@ describe Rundeck::Client do
   end
 
   describe '.execution_state' do
+    context 'with a valid execution id',
+            vcr: { cassette_name: 'execution_state_valid' } do
+      before do
+        @state = Rundeck.execution_state('6')
+      end
+      subject { @state }
 
+      it { is_expected.to respond_to(:starttime) }
+      it { is_expected.to respond_to(:updatetime) }
+      it { is_expected.to respond_to(:steps) }
+      its(:executionid) { is_expected.to eq('6') }
+      its(:executionstate) { is_expected.to eq('SUCCEEDED') }
+
+      it 'expects a get to have been made' do
+        expect(a_get('/execution/6/state')).to have_been_made
+      end
+    end
+
+    context 'with an invalid execution id',
+            vcr: { cassette_name: 'execution_state_invalid' } do
+      specify do
+        expect do
+          Rundeck.execution_state('123456')
+        end.to raise_error(Rundeck::Error::NotFound)
+      end
+    end
   end
 
-  describe '.execution_query' do
+  # describe '.execution_query' do
+  #   before do
+  #     @executions = Rundeck.execution_query(project, { query: query })
+  #   end
+  #   subject { @executions }
+  #
+  #   context 'with a valid project id' do
+  #     let(:project) { 'anvils' }
+  #
+  #     context 'without any query parameters',
+  #             vcr: { cassette_name: 'execution_query_no_params_valid' } do
+  #       let(:query) { {} }
 
-  end
+        # its('count.to_i') { is_expected.to be > 0 }
+        # it { is_expected.to respond_to(:execution) }
+
+        # it 'expects a get to have been made' do
+        #   expect(a_get('/executions?project=anvils')).to have_been_made
+        # end
+      # end
+
+      # context 'with query parameters',
+      #         vcr: { cassette_name: 'execution_query_params_valid' } do
+      #
+      #   it 'expects a get to have been made' do
+      #     expect(a_get('/executions')).to have_been_made
+      #   end
+      # end
+    # end
+    #
+    # context 'with an invalid project id',
+    #         vcr: { cassette_name: 'execution_query_invalid' } do
+    #   let(:project) { 'other_project' }
+    #   let(:query) { {} }
+    #
+    #   its(:count) { is_expected.to eq('0') }
+    #
+    #   it 'expects a get to have been made' do
+    #     expect(a_get('/executions?project=other_project')).to have_been_made
+    #   end
+    # end
+  # end
 
   describe '.execution_output' do
 
