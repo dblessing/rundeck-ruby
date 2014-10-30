@@ -59,17 +59,17 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash] if a single running job execution
       # @return [Array<Rundeck::ObjectifiedHash>] if multiple running job executions
       # @!macro exceptions
-      def running_job_executions(project, options = {})
-        options[:query] = {} if options[:query].nil?
-        options[:query]['project'] = project
-        r = get('/executions/running', options)
-
-        if objectify(r['result']['executions']).count != '0'
-          objectify r['result']['executions']['execution']
-        else
-          nil
-        end
-      end
+      # def running_job_executions(project, options = {})
+      #   options[:query] = {} if options[:query].nil?
+      #   options[:query]['project'] = project
+      #   r = get('/executions/running', options)
+      #
+      #   if objectify(r['result']['executions']).count != '0'
+      #     objectify r['result']['executions']['execution']
+      #   else
+      #     nil
+      #   end
+      # end
 
       # Delete all executions for a specific job
       #
