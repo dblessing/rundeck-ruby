@@ -17,7 +17,8 @@ module Rundeck
 
       # Gets a single job by id
       #
-      # @example Rundeck.job('c07518ef-b697-4792-9a59-5b4f08855b67')
+      # @example
+      #   Rundeck.job('c07518ef-b697-4792-9a59-5b4f08855b67')
       #
       # @param  [String] id Job id
       # @!macro options

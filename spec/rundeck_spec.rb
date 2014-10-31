@@ -45,7 +45,7 @@ describe Rundeck do
           Rundeck.configure do |config|
             config.send("#{key}=", key)
           end
-          @key = key == :endpoint ? "#{key}/api/12" : key
+          @key = key == :endpoint ? "#{key}/api/#{Rundeck.api_version}" : key
         end
 
         it { is_expected.to eq(@key) }

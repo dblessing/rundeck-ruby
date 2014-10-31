@@ -76,9 +76,5 @@ module Rundeck
         fail Error::Parsing, "Couldn't parse a response body"
       end
     end
-
-    def objectify!(result)
-      result = objectify result
-    end
   end
 end
