@@ -54,6 +54,7 @@ module Rundeck
     include Execution
     include Job
     include Key
+    include Project
 
     # Turn a hash into an object for easy accessibility.
     #
@@ -74,6 +75,10 @@ module Rundeck
       else
         fail Error::Parsing, "Couldn't parse a response body"
       end
+    end
+
+    def objectify!(result)
+      result = objectify result
     end
   end
 end
