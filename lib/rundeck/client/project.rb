@@ -14,8 +14,7 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
       def projects(options = {})
-        projects = objectify get('/projects', options)['projects']
-        objectify projects.project
+        objectify get('/projects', options)['projects']
       end
     end
   end

@@ -5,7 +5,13 @@ module Rundeck
     def initialize(hash)
       @hash = hash
       @data = hash.each_with_object({}) do |(key, value), data|
-        value = ObjectifiedHash.new(value) if value.is_a? Hash
+        value = if value.is_a?(Hash)
+                  ObjectifiedHash.new(value)
+                elsif value.is_a?(Array)
+                  value.map { |e| ObjectifiedHash.new(e) }
+                else
+                  value
+                end
         data[key.to_s.downcase] = value
         data
       end

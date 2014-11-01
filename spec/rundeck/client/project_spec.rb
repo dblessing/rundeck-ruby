@@ -7,7 +7,7 @@ describe Rundeck::Client do
     end
     subject { @projects }
 
-    it { is_expected.to be_an Array }
+    its(:project) { is_expected.to be_an Array }
 
     it 'expects a get to have been made' do
       expect(a_get('/projects')).to have_been_made
