@@ -28,7 +28,7 @@ describe Rundeck::Request do
         before do
           @rundeck_request = Rundeck::Request.new
           @rundeck_request
-              .set_request_defaults('http://api.example.org', 'secret')
+            .set_request_defaults('http://api.example.org', 'secret')
         end
         subject { @rundeck_request }
 
