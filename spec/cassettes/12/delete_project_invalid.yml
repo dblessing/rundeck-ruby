@@ -1,8 +1,8 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://192.168.50.2:4440/api/12/projects
+    method: delete
+    uri: http://192.168.50.2:4440/api/12/project/project1
     body:
       encoding: US-ASCII
       string: ''
@@ -13,17 +13,15 @@ http_interactions:
       - application/xml
   response:
     status:
-      code: 200
-      message: OK
+      code: 404
+      message: Not Found
     headers:
       Set-Cookie:
-      - JSESSIONID=jdrjk0hpsehg8rdfzj4a4ssy;Path=/
+      - JSESSIONID=1x1jz735m5pf41dyllrj4dbj9h;Path=/
       Expires:
       - Thu, 01 Jan 1970 00:00:00 GMT
-      X-Rundeck-Api-Xml-Response-Wrapper:
-      - 'false'
       Content-Type:
-      - application/xml;charset=UTF-8
+      - text/xml;charset=UTF-8
       X-Rundeck-Api-Version:
       - '12'
       Transfer-Encoding:
@@ -33,12 +31,11 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |-
-        <projects count='1'>
-          <project url='http://192.168.50.2:4440/api/12/project/anvils'>
-            <name>anvils</name>
-            <description></description>
-          </project>
-        </projects>
+        <result error='true' apiversion='12'>
+          <error code='api.error.item.doesnotexist'>
+            <message>Project does not exist: project1</message>
+          </error>
+        </result>
     http_version: 
-  recorded_at: Fri, 31 Oct 2014 21:02:49 GMT
+  recorded_at: Sun, 02 Nov 2014 18:46:21 GMT
 recorded_with: VCR 2.9.3
