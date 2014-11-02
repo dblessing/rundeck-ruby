@@ -63,45 +63,58 @@ describe Rundeck::Client do
     end
   end
 
-  # describe '.running_job_executions' do
-  #   before do
-  #     @running_jobs = Rundeck.running_job_executions('anvils')
-  #   end
-  #   subject { @running_jobs }
-  #
-  #   context 'when there are multiple executions',
-  #           vcr: { cassette_name: 'running_jobs_multiple' } do
-  #     it { is_expected.to be_an Array }
-  #     its('first') { is_expected.to respond_to(:user) }
-  #     its('first') { is_expected.to respond_to(:date_started) }
-  #     its('first') { is_expected.to respond_to(:job) }
-  #
-  #     it 'expects a get to have been made' do
-  #       expect(a_get('/executions/running?project=anvils')).to have_been_made
-  #     end
-  #   end
-  #
-  #   context 'when there is a single execution',
-  #           vcr: { cassette_name: 'running_jobs_single' } do
-  #     it { is_expected.to be_a Rundeck::ObjectifiedHash }
-  #     it { is_expected.to respond_to(:user) }
-  #     it { is_expected.to respond_to(:date_started) }
-  #     it { is_expected.to respond_to(:job) }
-  #
-  #     it 'expects a get to have been made' do
-  #       expect(a_get('/executions/running?project=anvils')).to have_been_made
-  #     end
-  #   end
-  #
-  #   context 'when there are no running executions',
-  #           vcr: { cassette_name: 'running_jobs_none' } do
-  #     it { is_expected.to be_nil }
-  #
-  #     it 'expects a get to have been made' do
-  #       expect(a_get('/executions/running?project=anvils')).to have_been_made
-  #     end
-  #   end
-  # end
+  describe '.running_job_executions' do
+    before do
+      @running_jobs = Rundeck.running_job_executions('anvils')
+    end
+    subject { @running_jobs }
+
+    context 'when there are multiple executions',
+            vcr: { cassette_name: 'running_jobs_multiple' } do
+      it { is_expected.to be_a Rundeck::ObjectifiedHash }
+
+      context 'each execution' do
+        subject { @running_jobs.execution }
+
+        it { is_expected.to be_an Array }
+        its('first') { is_expected.to respond_to(:user) }
+        its('first') { is_expected.to respond_to(:date_started) }
+        its('first') { is_expected.to respond_to(:job) }
+      end
+
+      it 'expects a get to have been made' do
+        expect(a_get('/executions/running?project=anvils')).to have_been_made
+      end
+    end
+
+    context 'when there is a single execution',
+            vcr: { cassette_name: 'running_jobs_single' } do
+      it { is_expected.to be_a Rundeck::ObjectifiedHash }
+
+      context 'the execution' do
+        subject { @running_jobs.execution }
+
+        it { is_expected.to be_a Rundeck::ObjectifiedHash }
+        it { is_expected.to respond_to(:user) }
+        it { is_expected.to respond_to(:date_started) }
+        it { is_expected.to respond_to(:job) }
+      end
+
+      it 'expects a get to have been made' do
+        expect(a_get('/executions/running?project=anvils')).to have_been_made
+      end
+    end
+
+    context 'when there are no running executions',
+            vcr: { cassette_name: 'running_jobs_none' } do
+      it { is_expected.to be_a Rundeck::ObjectifiedHash }
+      its(:count) { is_expected.to eq('0') }
+
+      it 'expects a get to have been made' do
+        expect(a_get('/executions/running?project=anvils')).to have_been_made
+      end
+    end
+  end
 
   describe '.delete_job_executions' do
     before do
@@ -293,48 +306,50 @@ describe Rundeck::Client do
     end
   end
 
-  # describe '.execution_query' do
-  #   before do
-  #     @executions = Rundeck.execution_query(project, { query: query })
-  #   end
-  #   subject { @executions }
-  #
-  #   context 'with a valid project id' do
-  #     let(:project) { 'anvils' }
-  #
-  #     context 'without any query parameters',
-  #             vcr: { cassette_name: 'execution_query_no_params_valid' } do
-  #       let(:query) { {} }
-  #
-  #       its('count.to_i') { is_expected.to be > 0 }
-  #       it { is_expected.to respond_to(:execution) }
-  #
-  #       it 'expects a get to have been made' do
-  #         expect(a_get('/executions?project=anvils')).to have_been_made
-  #       end
-  #     end
-  #
-  #     context 'with query parameters',
-  #             vcr: { cassette_name: 'execution_query_params_valid' } do
-  #
-  #       it 'expects a get to have been made' do
-  #         expect(a_get('/executions')).to have_been_made
-  #       end
-  #     end
-  #   end
-  #
-  #   context 'with an invalid project id',
-  #           vcr: { cassette_name: 'execution_query_invalid' } do
-  #     let(:project) { 'other_project' }
-  #     let(:query) { {} }
-  #
-  #     its(:count) { is_expected.to eq('0') }
-  #
-  #     it 'expects a get to have been made' do
-  #       expect(a_get('/executions?project=other_project')).to have_been_made
-  #     end
-  #   end
-  # end
+  describe '.execution_query' do
+    before do
+      @executions = Rundeck.execution_query(project, query: query)
+    end
+    subject { @executions }
+
+    context 'with a valid project id' do
+      let(:project) { 'anvils' }
+
+      context 'without any query parameters',
+              vcr: { cassette_name: 'execution_query_no_params_valid' } do
+        let(:query) { {} }
+
+        its('count.to_i') { is_expected.to be > 0 }
+        it { is_expected.to respond_to(:execution) }
+        its(:execution) { is_expected.to be_an Array }
+
+        it 'expects a get to have been made' do
+          expect(a_get('/executions?project=anvils')).to have_been_made
+        end
+      end
+
+      # context 'with query parameters',
+      #         vcr: { cassette_name: 'execution_query_params_valid' } do
+      #   let(:query) {  }
+      #
+      #   it 'expects a get to have been made' do
+      #     expect(a_get('/executions')).to have_been_made
+      #   end
+      # end
+    end
+
+    context 'with an invalid project id',
+            vcr: { cassette_name: 'execution_query_invalid' } do
+      let(:project) { 'other_project' }
+      let(:query) { {} }
+
+      its(:count) { is_expected.to eq('0') }
+
+      it 'expects a get to have been made' do
+        expect(a_get('/executions?project=other_project')).to have_been_made
+      end
+    end
+  end
 
   describe '.execution_output' do
 

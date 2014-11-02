@@ -55,21 +55,13 @@ module Rundeck
       #
       # @param  [String] project List running executions from this project
       # @!macro options
-      # @return [nil] if no running executions
-      # @return [Rundeck::ObjectifiedHash] if a single running job execution
-      # @return [Array<Rundeck::ObjectifiedHash>] if multiple running job executions
+      # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
-      # def running_job_executions(project, options = {})
-      #   options[:query] = {} if options[:query].nil?
-      #   options[:query]['project'] = project
-      #   r = get('/executions/running', options)
-      #
-      #   if objectify(r['result']['executions']).count != '0'
-      #     objectify r['result']['executions']['execution']
-      #   else
-      #     nil
-      #   end
-      # end
+      def running_job_executions(project, options = {})
+        options[:query] = {} if options[:query].nil?
+        options[:query]['project'] = project
+        objectify get('/executions/running', options)['result']['executions']
+      end
 
       # Delete all executions for a specific job
       #
@@ -175,12 +167,12 @@ module Rundeck
       #
       # @see http://rundeck.org/docs/api/index.html#execution-query
       #   Rundeck API documentation for 'GET /api/12/executions'
-      # def execution_query(project, options = {})
-      #   options[:query] = {} if options[:query].nil?
-      #   options[:query]['project'] = project
-      #
-      #   objectify get('/executions', options)['result']
-      # end
+      def execution_query(project, options = {})
+        options[:query] = {} if options[:query].nil?
+        options[:query]['project'] = project
+
+        objectify get('/executions', options)['result']['executions']
+      end
 
       # def execution_output()
       #
