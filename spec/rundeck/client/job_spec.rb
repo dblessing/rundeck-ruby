@@ -7,14 +7,20 @@ describe Rundeck::Client do
     end
     subject { @jobs }
 
-    it { is_expected.to be_an Array }
-    its(:length) { is_expected.to eq(6) }
+    it { is_expected.to be_a Rundeck::ObjectifiedHash }
 
-    # Only tests the first element, but it's just a sanity check
-    its('first') { is_expected.to respond_to(:name) }
-    its('first') { is_expected.to respond_to(:group) }
-    its('first') { is_expected.to respond_to(:project) }
-    its('first') { is_expected.to respond_to(:description) }
+    context 'each job' do
+      subject { @jobs.job }
+
+      it { is_expected.to be_an Array }
+      its(:length) { is_expected.to eq(6) }
+
+      # Only tests the first element, but it's just a sanity check
+      its('first') { is_expected.to respond_to(:name) }
+      its('first') { is_expected.to respond_to(:group) }
+      its('first') { is_expected.to respond_to(:project) }
+      its('first') { is_expected.to respond_to(:description) }
+    end
 
     it 'expects a get to have been made' do
       expect(a_get('/project/anvils/jobs')).to have_been_made

@@ -12,7 +12,7 @@ module Rundeck
       # @return [Array<Rundeck::ObjectifiedHash>]
       # @!macro exceptions
       def jobs(project, options = {})
-        objectify get("/project/#{project}/jobs", options)['jobs']['job']
+        objectify get("/project/#{project}/jobs", options)['jobs']
       end
 
       # Gets a single job by id
