@@ -2,6 +2,12 @@ module Rundeck
   class Client
     # Defines methods related to executions.
     module Execution
+      def project_options_query(project, options)
+        options[:query] = {} if options[:query].nil?
+        options[:query]['project'] = project
+        options
+      end
+
       # Execute a job
       #
       # @!macro has_optional_params
@@ -58,8 +64,7 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
       def running_job_executions(project, options = {})
-        options[:query] = {} if options[:query].nil?
-        options[:query]['project'] = project
+        options = project_options_query(project, options)
         objectify get('/executions/running', options)['result']['executions']
       end
 
@@ -168,9 +173,7 @@ module Rundeck
       # @see http://rundeck.org/docs/api/index.html#execution-query
       #   Rundeck API documentation for 'GET /api/12/executions'
       def execution_query(project, options = {})
-        options[:query] = {} if options[:query].nil?
-        options[:query]['project'] = project
-
+        options = project_options_query(project, options)
         objectify get('/executions', options)['result']['executions']
       end
 
