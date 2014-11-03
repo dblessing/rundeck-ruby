@@ -96,6 +96,22 @@ module Helpers
     EOS
   end
 
+  def project_anvils
+    '{ "name": "anvils" }'
+  end
+
+  def project_json
+    '{ "name": "json_project" }'
+  end
+
+  def project_xml
+    <<-EOS
+<project>
+  <name>xml_project</name>
+</project>
+    EOS
+  end
+
   def private_key
     <<-EOS
 -----BEGIN RSA PRIVATE KEY-----

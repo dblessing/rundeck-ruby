@@ -20,6 +20,51 @@ describe Rundeck::Client do
     end
   end
 
+  describe '.create_project' do
+    context 'when project does not yet exist' do
+      before do
+        @project = Rundeck.create_project(content, format)
+      end
+      subject { @project }
+
+      context 'create with json format',
+              vcr: { cassette_name: 'create_project_json' } do
+        let(:content) { project_json }
+        let(:format) { 'json' }
+
+        it { is_expected.to be_a Rundeck::ObjectifiedHash }
+        its(:name) { is_expected.to eq('json_project') }
+
+        it 'expects a post to have been made' do
+          expect(a_post('/projects')).to have_been_made
+        end
+      end
+
+      context 'create with xml format',
+              vcr: { cassette_name: 'create_project_xml' } do
+        let(:content) { project_xml }
+        let(:format) { 'xml' }
+
+        it { is_expected.to be_a Rundeck::ObjectifiedHash }
+        its(:name) { is_expected.to eq('xml_project') }
+
+        it 'expects a post to have been made' do
+          expect(a_post('/projects')).to have_been_made
+        end
+      end
+    end
+
+    context 'when project already exists',
+            vcr: { cassette_name: 'create_project_invalid' } do
+      specify do
+        expect do
+          Rundeck.create_project(project_anvils, 'json')
+        end.to raise_error(Rundeck::Error::Conflict,
+                           /project already exists/)
+      end
+    end
+  end
+
   describe '.project' do
     context 'when the project exists',
             vcr: { cassette_name: 'project_valid' } do

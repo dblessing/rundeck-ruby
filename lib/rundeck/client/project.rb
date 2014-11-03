@@ -31,19 +31,22 @@ module Rundeck
       # @!macro options
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
-      # def create_project(content, format = 'json', options = {})
-      #   unless format =~ /json|xml/
-      #     fail Error::InvalidAttributes, 'format must be yaml or xml'
-      #   end
-      #   options[:headers] = {} if options[:headers].nil?
-      #   options[:headers].merge!(
-      #       'Content-Type' => 'application/x-www-form-urlencoded')
-      #   options[:body] = "xmlBatch=#{content}"
-      #   options[:query] = {} if options[:query].nil?
-      #   options[:query]['format'] = format
-      #
-      #   objectify post('/jobs/import', options)['result']
-      # end
+      def create_project(content, format = 'json', options = {})
+        options[:headers] = {} if options[:headers].nil?
+        options[:headers] = if format == 'json'
+                              options[:headers].merge!(
+                                  'Content-Type' => 'application/json')
+                            elsif format == 'xml'
+                              options[:headers].merge!(
+                                  'Content-Type' => 'application/xml')
+                            else
+                              fail Error::InvalidAttributes,
+                                   'format must be json or xml'
+                            end
+        options[:body] = content
+
+        objectify post('/projects', options)['project']
+      end
 
       # Get a project by name
       #
