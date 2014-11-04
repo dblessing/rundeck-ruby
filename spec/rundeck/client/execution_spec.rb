@@ -17,7 +17,7 @@ describe Rundeck::Client do
 
       its(:count) { is_expected.to eq('1') }
 
-      context '#execution' do
+      describe '#execution' do
         subject { @execute_job.execution }
 
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
@@ -64,7 +64,7 @@ describe Rundeck::Client do
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
 
-    context '#execution' do
+    describe '#execution' do
       subject { @job_executions.execution }
 
       it { is_expected.to be_an Array }
@@ -97,7 +97,7 @@ describe Rundeck::Client do
             vcr: { cassette_name: 'running_jobs_multiple' } do
       it { is_expected.to be_a Rundeck::ObjectifiedHash }
 
-      context '#execution' do
+      describe '#execution' do
         subject { @running_jobs.execution }
 
         it { is_expected.to be_an Array }
@@ -115,7 +115,7 @@ describe Rundeck::Client do
             vcr: { cassette_name: 'running_jobs_single' } do
       it { is_expected.to be_a Rundeck::ObjectifiedHash }
 
-      context 'the execution' do
+      describe '#execution' do
         subject { @running_jobs.execution }
 
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
