@@ -15,13 +15,19 @@ describe Rundeck::Client do
       end
       subject { @execute_job }
 
-      it { is_expected.to be_a Rundeck::ObjectifiedHash }
-      it { is_expected.to respond_to(:user) }
-      it { is_expected.to respond_to(:date_started) }
-      its(:job) { is_expected.to respond_to(:name) }
-      its(:job) { is_expected.to respond_to(:group) }
-      its(:job) { is_expected.to respond_to(:project) }
-      its(:job) { is_expected.to respond_to(:description) }
+      its(:count) { is_expected.to eq('1') }
+
+      context '#execution' do
+        subject { @execute_job.execution }
+
+        it { is_expected.to be_a Rundeck::ObjectifiedHash }
+        it { is_expected.to respond_to(:user) }
+        it { is_expected.to respond_to(:date_started) }
+        its(:job) { is_expected.to respond_to(:name) }
+        its(:job) { is_expected.to respond_to(:group) }
+        its(:job) { is_expected.to respond_to(:project) }
+        its(:job) { is_expected.to respond_to(:description) }
+      end
 
       it 'expects a post to have been made' do
         expect(
@@ -56,7 +62,25 @@ describe Rundeck::Client do
     end
     subject { @job_executions }
 
-    it { is_expected.to be_an Array }
+    it { is_expected.to be_a Rundeck::ObjectifiedHash }
+
+    context '#execution' do
+      subject { @job_executions.execution }
+
+      it { is_expected.to be_an Array }
+
+      context '#first' do
+        subject { @job_executions.execution[0] }
+
+        it { is_expected.to be_a Rundeck::ObjectifiedHash }
+        it { is_expected.to respond_to(:user) }
+        it { is_expected.to respond_to(:date_started) }
+        its(:job) { is_expected.to respond_to(:name) }
+        its(:job) { is_expected.to respond_to(:group) }
+        its(:job) { is_expected.to respond_to(:project) }
+        its(:job) { is_expected.to respond_to(:description) }
+      end
+    end
 
     it 'expects a get to have been made' do
       expect(a_get('/job/1/executions')).to have_been_made
@@ -73,7 +97,7 @@ describe Rundeck::Client do
             vcr: { cassette_name: 'running_jobs_multiple' } do
       it { is_expected.to be_a Rundeck::ObjectifiedHash }
 
-      context 'each execution' do
+      context '#execution' do
         subject { @running_jobs.execution }
 
         it { is_expected.to be_an Array }

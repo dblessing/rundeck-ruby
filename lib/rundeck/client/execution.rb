@@ -25,7 +25,7 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
       def execute_job(id, options = {})
-        objectify post("/job/#{id}/executions", options)['result']['executions']['execution']
+        objectify post("/job/#{id}/executions", options)['result']['executions']
       end
       alias_method :run_job, :execute_job
 
@@ -45,7 +45,7 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
       def job_executions(id, options = {})
-        r = get("/job/#{id}/executions", options)['result']['executions']['execution']
+        r = get("/job/#{id}/executions", options)['result']['executions']
         objectify r
       end
 

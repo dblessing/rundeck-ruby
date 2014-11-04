@@ -9,7 +9,7 @@ describe Rundeck::Client do
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
 
-    context 'each job' do
+    context '#job' do
       subject { @jobs.job }
 
       it { is_expected.to be_an Array }
