@@ -14,8 +14,21 @@ describe Rundeck::Client do
       subject { @keys }
 
       it { is_expected.to be_an Array }
-      its('first.name') { is_expected.to eq('key') }
-      its('first.resource_meta.rundeck_content_type') { is_expected.to eq('application/pgp-key') }
+
+      context 'the first key' do
+        subject { @keys.first }
+
+        its(:name) { is_expected.to eq('key') }
+        its(:type) { is_expected.to eq('file') }
+        it { is_expected.to respond_to(:url) }
+        it { is_expected.to respond_to(:path) }
+
+        describe '#resource_meta' do
+          subject { @keys.first.resource_meta }
+
+          its(:rundeck_content_type) { is_expected.to eq('application/pgp-key') }
+        end
+      end
 
       it 'expects a get to have been made' do
         expect(a_get('/storage/keys/path/to')).to have_been_made
@@ -53,6 +66,7 @@ describe Rundeck::Client do
 
       it { is_expected.to be_a Rundeck::ObjectifiedHash }
       its(:rundeck_content_type) { is_expected.to eq('application/pgp-key') }
+
 
       it 'expects a get to have been made' do
         expect(a_get('/storage/keys/path/to/key')).to have_been_made
