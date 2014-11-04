@@ -15,11 +15,12 @@ describe Rundeck::Client do
       it { is_expected.to be_an Array }
       its(:length) { is_expected.to eq(6) }
 
-      # Only tests the first element, but it's just a sanity check
-      its('first') { is_expected.to respond_to(:name) }
-      its('first') { is_expected.to respond_to(:group) }
-      its('first') { is_expected.to respond_to(:project) }
-      its('first') { is_expected.to respond_to(:description) }
+      context 'the first job' do
+        subject { @jobs.job[0] }
+
+        it_behaves_like 'a job'
+        its(:project) { is_expected.to eq('anvils') }
+      end
     end
 
     it 'expects a get to have been made' do
@@ -34,12 +35,29 @@ describe Rundeck::Client do
     subject { @job }
 
     it { is_expected.to be_a Rundeck::ObjectifiedHash }
-    it { is_expected.to respond_to(:id) }
-    it { is_expected.to respond_to(:name) }
-    it { is_expected.to respond_to(:description) }
-    it { is_expected.to respond_to(:loglevel) }
-    it { is_expected.to respond_to(:sequence) }
-    its(:sequence) { is_expected.to respond_to(:command) }
+
+    it_behaves_like 'a job'
+    its(:loglevel) { is_expected.to eq('INFO') }
+
+    describe '#context' do
+      subject { @job.context }
+
+      its(:project) { is_expected.to eq('anvils') }
+    end
+
+    describe '#sequence' do
+      subject { @job.sequence }
+
+      it { is_expected.to respond_to(:keepgoing) }
+      it { is_expected.to respond_to(:strategy) }
+
+      describe '#command' do
+        subject { @job.sequence.command }
+
+        it { is_expected.to respond_to(:scriptargs) }
+        it { is_expected.to respond_to(:script) }
+      end
+    end
 
     it 'expects a get to have been made' do
       expect(a_get('/job/2')).to have_been_made
@@ -76,24 +94,28 @@ describe Rundeck::Client do
   describe '.import_job' do
     context 'with valid format' do
       before do
-        @import = Rundeck.import_jobs(content, format)
+        @job_import = Rundeck.import_jobs(content, format)
       end
-      subject { @import }
+      subject { @job_import }
 
       context 'yaml', vcr: { cassette_name: 'import_job_yaml' } do
         let(:format) { 'yaml' }
         let(:content) { job_yaml }
 
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
-        its('succeeded.count') { is_expected.to eq('1') }
         its('failed.count') { is_expected.to eq('0') }
 
-        its('succeeded') { is_expected.to respond_to(:job) }
-        its('succeeded.job') { is_expected.to respond_to(:id) }
-        its('succeeded.job') { is_expected.to respond_to(:name) }
-        its('succeeded.job') { is_expected.to respond_to(:group) }
-        its('succeeded.job') { is_expected.to respond_to(:project) }
-        its('succeeded.job') { is_expected.to respond_to(:url) }
+        describe '#succeeded' do
+          subject { @job_import.succeeded }
+
+          its(:count) { is_expected.to eq('1') }
+
+          describe '#job' do
+            subject { @job_import.succeeded.job }
+
+            it_behaves_like 'a job import'
+          end
+        end
 
         it 'expects a post to have been made' do
           expect(a_post('/jobs/import?format=yaml')).to have_been_made
@@ -105,15 +127,18 @@ describe Rundeck::Client do
         let(:content) { job_xml }
 
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
-        its('succeeded.count') { is_expected.to eq('1') }
         its('failed.count') { is_expected.to eq('0') }
 
-        its('succeeded') { is_expected.to respond_to(:job) }
-        its('succeeded.job') { is_expected.to respond_to(:id) }
-        its('succeeded.job') { is_expected.to respond_to(:name) }
-        its('succeeded.job') { is_expected.to respond_to(:group) }
-        its('succeeded.job') { is_expected.to respond_to(:project) }
-        its('succeeded.job') { is_expected.to respond_to(:url) }
+        describe '#succeeded' do
+          subject { @job_import.succeeded }
+          its(:count) { is_expected.to eq('1') }
+
+          describe '#job' do
+            subject { @job_import.succeeded.job }
+
+            it_behaves_like 'a job import'
+          end
+        end
 
         it 'expects a post to have been made' do
           expect(a_post('/jobs/import?format=xml')).to have_been_made

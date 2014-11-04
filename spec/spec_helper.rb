@@ -8,6 +8,7 @@ require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
 require 'support/helpers'
+require 'support/shared_examples'
 
 require File.expand_path('../../lib/rundeck', __FILE__)
 
