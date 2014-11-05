@@ -34,8 +34,6 @@ describe Rundeck::Client do
     end
     subject { @job }
 
-    it { is_expected.to be_a Rundeck::ObjectifiedHash }
-
     it_behaves_like 'a job'
     its(:loglevel) { is_expected.to eq('INFO') }
 

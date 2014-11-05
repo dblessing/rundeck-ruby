@@ -11,22 +11,22 @@ describe Rundeck::Client do
               '-repository ci -release SNAPSHOT -packages app-SNAPSHOT'
           }
         }
-        @execute_job = Rundeck.run_job('2', options)
+        @job = Rundeck.run_job('2', options)
       end
-      subject { @execute_job }
+      subject { @job }
 
       its(:count) { is_expected.to eq('1') }
 
       describe '#execution' do
-        subject { @execute_job.execution }
+        subject { @job.execution }
 
-        it { is_expected.to be_a Rundeck::ObjectifiedHash }
-        it { is_expected.to respond_to(:user) }
-        it { is_expected.to respond_to(:date_started) }
-        its(:job) { is_expected.to respond_to(:name) }
-        its(:job) { is_expected.to respond_to(:group) }
-        its(:job) { is_expected.to respond_to(:project) }
-        its(:job) { is_expected.to respond_to(:description) }
+        it_behaves_like 'an execution'
+
+        describe '#job' do
+          subject { @job.execution.job }
+
+          it_behaves_like 'a job with a project attribute'
+        end
       end
 
       it 'expects a post to have been made' do
@@ -72,13 +72,13 @@ describe Rundeck::Client do
       context '#first' do
         subject { @job_executions.execution[0] }
 
-        it { is_expected.to be_a Rundeck::ObjectifiedHash }
-        it { is_expected.to respond_to(:user) }
-        it { is_expected.to respond_to(:date_started) }
-        its(:job) { is_expected.to respond_to(:name) }
-        its(:job) { is_expected.to respond_to(:group) }
-        its(:job) { is_expected.to respond_to(:project) }
-        its(:job) { is_expected.to respond_to(:description) }
+        it_behaves_like 'a past execution'
+
+        describe '#job' do
+          subject { @job_executions.execution[0].job }
+
+          it_behaves_like 'a job with a project attribute'
+        end
       end
     end
 
@@ -101,9 +101,12 @@ describe Rundeck::Client do
         subject { @running_jobs.execution }
 
         it { is_expected.to be_an Array }
-        its('first') { is_expected.to respond_to(:user) }
-        its('first') { is_expected.to respond_to(:date_started) }
-        its('first') { is_expected.to respond_to(:job) }
+
+        context 'the first execution' do
+          subject { @running_jobs.execution[0] }
+
+          it_behaves_like 'an execution'
+        end
       end
 
       it 'expects a get to have been made' do
@@ -118,10 +121,7 @@ describe Rundeck::Client do
       describe '#execution' do
         subject { @running_jobs.execution }
 
-        it { is_expected.to be_a Rundeck::ObjectifiedHash }
-        it { is_expected.to respond_to(:user) }
-        it { is_expected.to respond_to(:date_started) }
-        it { is_expected.to respond_to(:job) }
+        it_behaves_like 'an execution'
       end
 
       it 'expects a get to have been made' do
@@ -150,6 +150,7 @@ describe Rundeck::Client do
             vcr: { cassette_name: 'delete_job_executions' } do
 
       it { is_expected.to respond_to(:successful) }
+      it { is_expected.to respond_to(:allsuccessful) }
       it { is_expected.to respond_to(:requestcount) }
 
       it 'expects a delete to have been made' do
@@ -159,9 +160,14 @@ describe Rundeck::Client do
 
     context 'when a job does not have executions',
             vcr: { cassette_name: 'delete_job_executions_invalid' } do
-      it { is_expected.to respond_to(:successful) }
-      its('successful.count') { is_expected.to eq('0') }
       its(:allsuccessful) { is_expected.to eq('true') }
+      its(:requestcount) { is_expected.to eq('0') }
+
+      describe '#successful' do
+        subject { @job_executions.successful }
+
+        its(:count) { is_expected.to eq('0') }
+      end
     end
   end
 
@@ -202,8 +208,13 @@ describe Rundeck::Client do
         let(:id) { '5' }
 
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
-        its('execution.id') { is_expected.to eq('5') }
         its(:status) { is_expected.to eq('aborted') }
+
+        describe '#execution' do
+          subject { @execution.execution }
+
+          it { is_expected.to respond_to(:id) }
+        end
 
         it 'expects a post to have been made' do
           expect(a_post('/execution/5/abort')).to have_been_made
@@ -215,9 +226,14 @@ describe Rundeck::Client do
         let(:id) { '4' }
 
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
-        its('execution.id') { is_expected.to eq('4') }
         its(:status) { is_expected.to eq('failed') }
         its(:reason) { is_expected.to eq('Job is not running') }
+
+        describe '#execution' do
+          subject { @execution.execution }
+
+          it { is_expected.to respond_to(:id) }
+        end
       end
     end
 
@@ -240,10 +256,13 @@ describe Rundeck::Client do
       end
       subject { @execution }
 
-      it { is_expected.to be_a Rundeck::ObjectifiedHash }
-      it { is_expected.to respond_to(:user) }
-      it { is_expected.to respond_to(:date_started) }
-      it { is_expected.to respond_to(:job) }
+      it_behaves_like 'a past execution'
+
+      describe '#job' do
+        subject { @execution.job }
+
+        it_behaves_like 'a job with a project attribute'
+      end
 
       it 'expects a get to have been made' do
         expect(a_get('/execution/15')).to have_been_made
@@ -274,7 +293,12 @@ describe Rundeck::Client do
 
         its(:requestcount) { is_expected.to eq('3') }
         its(:allsuccessful) { is_expected.to eq('true') }
-        its('successful.count') { is_expected.to eq('3') }
+
+        describe '#successful' do
+          subject { @executions.successful }
+
+          it { is_expected.to respond_to(:count) }
+        end
 
         it 'expects a post to have been made' do
           expect(a_post('/executions/delete?ids=3,4,5')).to have_been_made
@@ -343,9 +367,31 @@ describe Rundeck::Client do
               vcr: { cassette_name: 'execution_query_no_params_valid' } do
         let(:query) { {} }
 
-        its('count.to_i') { is_expected.to be > 0 }
         it { is_expected.to respond_to(:execution) }
-        its(:execution) { is_expected.to be_an Array }
+
+        describe '#count' do
+          subject { @executions.count.to_i }
+
+          it { is_expected.to be > 0 }
+        end
+
+        describe '#execution' do
+          subject { @executions.execution }
+
+          it { is_expected.to be_an Array }
+
+          context 'the first execution' do
+            subject { @executions.execution[0] }
+
+            it_behaves_like 'an execution'
+
+            describe '#job' do
+              subject { @executions.execution[0].job }
+
+              it_behaves_like 'a job with a project attribute'
+            end
+          end
+        end
 
         it 'expects a get to have been made' do
           expect(a_get('/executions?project=anvils')).to have_been_made
