@@ -67,7 +67,6 @@ describe Rundeck::Client do
       it { is_expected.to be_a Rundeck::ObjectifiedHash }
       its(:rundeck_content_type) { is_expected.to eq('application/pgp-key') }
 
-
       it 'expects a get to have been made' do
         expect(a_get('/storage/keys/path/to/key')).to have_been_made
       end
