@@ -55,7 +55,7 @@ module Rundeck
       end
       @api_token = api_token
 
-      self.class.base_uri endpoint
+      self.class.base_uri "#{endpoint}/api/#{Rundeck.api_version}"
     end
 
     private

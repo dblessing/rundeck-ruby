@@ -4,34 +4,38 @@ module Helpers
     File.new(File.dirname(__FILE__) + "/../fixtures/#{name}.xml")
   end
 
+  def endpoint
+    "#{Rundeck.endpoint}/api/#{Rundeck.api_version}"
+  end
+
   # GET
   def a_get(path, accept = 'xml')
-    a_request(:get, "#{Rundeck.endpoint}#{path}")
+    a_request(:get, "#{endpoint}#{path}")
       .with(headers: { 'Accept' => "application/#{accept}",
                        'X-Rundeck-Auth-Token' => Rundeck.api_token })
   end
 
   # POST
   def a_post(path, accept = 'xml')
-    a_request(:post, "#{Rundeck.endpoint}#{path}")
+    a_request(:post, "#{endpoint}#{path}")
       .with(headers: { 'Accept' => "application/#{accept}",
                        'X-Rundeck-Auth-Token' => Rundeck.api_token })
   end
 
   def a_simple_post(path)
-    a_request(:post, "#{Rundeck.endpoint}#{path}")
+    a_request(:post, "#{endpoint}#{path}")
   end
 
   # PUT
   def a_put(path, accept = 'xml')
-    a_request(:put, "#{Rundeck.endpoint}#{path}")
+    a_request(:put, "#{endpoint}#{path}")
       .with(headers: { 'Accept' => "application/#{accept}",
                        'X-Rundeck-Auth-Token' => Rundeck.api_token })
   end
 
   # DELETE
   def a_delete(path, accept = 'xml')
-    a_request(:delete, "#{Rundeck.endpoint}#{path}")
+    a_request(:delete, "#{endpoint}#{path}")
       .with(headers: { 'Accept' => "application/#{accept}",
                        'X-Rundeck-Auth-Token' => Rundeck.api_token })
   end

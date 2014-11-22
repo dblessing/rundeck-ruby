@@ -32,9 +32,9 @@ module Rundeck
       '12'
     end
 
-    def endpoint=(endpoint)
-      @endpoint = "#{endpoint}/api/#{api_version}"
-    end
+    # def endpoint=(endpoint)
+    #   @endpoint = "#{endpoint}/api/#{api_version}"
+    # end
 
     # Resets all configuration options to the defaults.
     def reset
