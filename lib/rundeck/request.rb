@@ -44,9 +44,7 @@ module Rundeck
       when 503 then fail Error::ServiceUnavailable, error_message(response)
       end
 
-      response.parsed_response
-    rescue MultiXml::ParseError
-      fail Error::Parsing, 'An unexpected error occurred. Please try again'
+      handle_response(response)
     end
 
     # Sets a base_uri and default_params for requests.
@@ -84,6 +82,12 @@ module Rundeck
       unless options[:headers].include?('Accept')
         options[:headers].merge!('Accept' => 'application/xml')
       end
+    end
+
+    def handle_response(response)
+      response.parsed_response
+    rescue MultiXml::ParseError
+      raise Error::Parsing, 'An unexpected error occurred. Please try again'
     end
 
     def error_message(response)
