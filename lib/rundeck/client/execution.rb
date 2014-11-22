@@ -2,12 +2,6 @@ module Rundeck
   class Client
     # Defines methods related to executions.
     module Execution
-      def project_options_query(project, options)
-        options[:query] = {} if options[:query].nil?
-        options[:query]['project'] = project
-        options
-      end
-
       # Execute a job
       #
       # @!macro has_optional_params
@@ -184,6 +178,14 @@ module Rundeck
       # def execution_output_with_state()
       #
       # end
+
+      private
+
+      def project_options_query(project, options)
+        options[:query] = {} if options[:query].nil?
+        options[:query]['project'] = project
+        options
+      end
     end
   end
 end
