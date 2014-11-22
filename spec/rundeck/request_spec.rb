@@ -32,7 +32,10 @@ describe Rundeck::Request do
         end
         subject { @rundeck_request }
 
-        it { expect(Rundeck::Request.base_uri).to eq("http://api.example.org/api/#{Rundeck.api_version}") }
+        it do
+          expect(Rundeck::Request.base_uri)
+            .to eq("http://api.example.org/api/#{Rundeck.api_version}")
+        end
         its(:api_token) { is_expected.to eq('secret') }
       end
     end
