@@ -45,6 +45,8 @@ module Rundeck
       end
 
       response.parsed_response
+    rescue MultiXml::ParseError
+      fail Error::Parsing, 'An unexpected error occurred. Please try again'
     end
 
     # Sets a base_uri and default_params for requests.
