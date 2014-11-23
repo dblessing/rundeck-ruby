@@ -1,0 +1,2908 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: Rundeck::Client::Execution
+  
+    &mdash; Documentation by YARD 0.8.7.4
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!Rundeck/Client/Execution.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (E)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Rundeck.html" title="Rundeck (module)">Rundeck</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Client.html" title="Rundeck::Client (class)">Client</a></span></span>
+     &raquo; 
+    <span class="title">Execution</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: Rundeck::Client::Execution
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r1">Included in:</dt>
+    <dd class="r1"><span class='object_link'><a href="../Client.html" title="Rundeck::Client (class)">Rundeck::Client</a></span></dd>
+    
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/rundeck/client/execution.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Defines methods related to executions.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#abort_execution-instance_method" title="#abort_execution (instance method)">- (Rundeck::ObjectifiedHash) <strong>abort_execution</strong>(id, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Abort a running execution.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bulk_delete_executions-instance_method" title="#bulk_delete_executions (instance method)">- (Rundeck::ObjectifiedHash) <strong>bulk_delete_executions</strong>(ids, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Bulk delete executions.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_execution-instance_method" title="#delete_execution (instance method)">- (nil) <strong>delete_execution</strong>(id, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Delete an execution.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_job_executions-instance_method" title="#delete_job_executions (instance method)">- (Rundeck::ObjectifiedHash) <strong>delete_job_executions</strong>(id, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Delete all executions for a specific job.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#execute_job-instance_method" title="#execute_job (instance method)">- (Rundeck::ObjectifiedHash) <strong>execute_job</strong>(id, options = {}) </a>
+    
+
+    
+      (also: #run_job)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Execute a job.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#execution-instance_method" title="#execution (instance method)">- (Rundeck::ObjectifiedHash) <strong>execution</strong>(id, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get info for an execution.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#execution_query-instance_method" title="#execution_query (instance method)">- (Object) <strong>execution_query</strong>(project, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Query for executions based on job or execution details.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#execution_state-instance_method" title="#execution_state (instance method)">- (Rundeck::ObjectifiedHash) <strong>execution_state</strong>(id, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the state of an execution.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#job_executions-instance_method" title="#job_executions (instance method)">- (Rundeck::ObjectifiedHash) <strong>job_executions</strong>(id, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get executions for a specific job.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#running_job_executions-instance_method" title="#running_job_executions (instance method)">- (Rundeck::ObjectifiedHash) <strong>running_job_executions</strong>(project, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get all running job executions.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="abort_execution-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>) <strong>abort_execution</strong>(id, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>This method has optional Rundeck parameters that can be passed to the
+options parameter. See Rundeck API documentation for more information.</p>
+<ul><li>
+<p><tt>query: { param1: &#39;value&#39;, param2: &#39;value&#39; }</tt></p>
+</li></ul>
+</div>
+  </div>
+
+
+<p>Abort a running execution</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Execution id</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A set of options passed directly to HTTParty. See <a
+href="http://rubydoc.info/gems/httparty/HTTParty/ClassMethods">rubydoc.info/gems/httparty/HTTParty/ClassMethods</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:query</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The parameters to pass with the request Use this hash to specify Rundeck
+parameters.</p>
+<ul><li>
+<p><tt>query: { project: &#39;anvils&#39;, id: &#39;123456&#39; }</tt></p>
+</li></ul>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadRequest.html" title="Rundeck::Error::BadRequest (class)">Rundeck::Error::BadRequest</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>400 error - Most likely indicates a required parameter is missing.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Unauthorized.html" title="Rundeck::Error::Unauthorized (class)">Rundeck::Error::Unauthorized</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>401 error - Unauthorized</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Forbidden.html" title="Rundeck::Error::Forbidden (class)">Rundeck::Error::Forbidden</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>403 forbidden - ACL policies prevent accessing the given resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/NotFound.html" title="Rundeck::Error::NotFound (class)">Rundeck::Error::NotFound</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>404 not found - Indicates a resource could not be found at the location</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/MethodNotAllowed.html" title="Rundeck::Error::MethodNotAllowed (class)">Rundeck::Error::MethodNotAllowed</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>405 method not allowed - The request method is not allowed. This probably
+indicates a misconfiguration in a reverse proxy, such as Nginx or Apache</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Conflict.html" title="Rundeck::Error::Conflict (class)">Rundeck::Error::Conflict</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>409 conflict - A conflicting resource exists.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/InternalServerError.html" title="Rundeck::Error::InternalServerError (class)">Rundeck::Error::InternalServerError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>500 server error - Indicates the Rundeck server experienced an error.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadGateway.html" title="Rundeck::Error::BadGateway (class)">Rundeck::Error::BadGateway</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>502 bad gateway - Indicates something probably isn&#39;t working right or
+is misconfigured on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/ServiceUnavailable.html" title="Rundeck::Error::ServiceUnavailable (class)">Rundeck::Error::ServiceUnavailable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>503 error - Indicates an issue on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://rundeck.org/docs/api/index.html#aborting-executions" target="_parent" title="Rundeck API documentation for &#39;POST /api/1/execution/[ID]/abort&#39; endpoint">Rundeck API documentation for 'POST /api/1/execution/[ID]/abort' endpoint</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+107
+108
+109</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rundeck/client/execution.rb', line 107</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_abort_execution'>abort_execution</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_objectify'>objectify</span> <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/execution/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/abort</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abort</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bulk_delete_executions-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>) <strong>bulk_delete_executions</strong>(ids, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Bulk delete executions</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ids</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>An array of execution ids to delete</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A set of options passed directly to HTTParty. See <a
+href="http://rubydoc.info/gems/httparty/HTTParty/ClassMethods">rubydoc.info/gems/httparty/HTTParty/ClassMethods</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:query</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The parameters to pass with the request Use this hash to specify Rundeck
+parameters.</p>
+<ul><li>
+<p><tt>query: { project: &#39;anvils&#39;, id: &#39;123456&#39; }</tt></p>
+</li></ul>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Rundeck::Error::InvalidAttribites</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if ids is not an array</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadRequest.html" title="Rundeck::Error::BadRequest (class)">Rundeck::Error::BadRequest</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>400 error - Most likely indicates a required parameter is missing.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Unauthorized.html" title="Rundeck::Error::Unauthorized (class)">Rundeck::Error::Unauthorized</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>401 error - Unauthorized</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Forbidden.html" title="Rundeck::Error::Forbidden (class)">Rundeck::Error::Forbidden</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>403 forbidden - ACL policies prevent accessing the given resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/NotFound.html" title="Rundeck::Error::NotFound (class)">Rundeck::Error::NotFound</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>404 not found - Indicates a resource could not be found at the location</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/MethodNotAllowed.html" title="Rundeck::Error::MethodNotAllowed (class)">Rundeck::Error::MethodNotAllowed</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>405 method not allowed - The request method is not allowed. This probably
+indicates a misconfiguration in a reverse proxy, such as Nginx or Apache</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Conflict.html" title="Rundeck::Error::Conflict (class)">Rundeck::Error::Conflict</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>409 conflict - A conflicting resource exists.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/InternalServerError.html" title="Rundeck::Error::InternalServerError (class)">Rundeck::Error::InternalServerError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>500 server error - Indicates the Rundeck server experienced an error.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadGateway.html" title="Rundeck::Error::BadGateway (class)">Rundeck::Error::BadGateway</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>502 bad gateway - Indicates something probably isn&#39;t working right or
+is misconfigured on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/ServiceUnavailable.html" title="Rundeck::Error::ServiceUnavailable (class)">Rundeck::Error::ServiceUnavailable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>503 error - Indicates an issue on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://rundeck.org/docs/api/index.html#bulk-delete-executions" target="_parent" title="Rundeck API documentation for &#39;POST /api/12/executions/delete&#39;">Rundeck API documentation for 'POST /api/12/executions/delete'</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+137
+138
+139
+140
+141
+142
+143
+144
+145</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rundeck/client/execution.rb', line 137</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bulk_delete_executions'>bulk_delete_executions</span><span class='lparen'>(</span><span class='id identifier rubyid_ids'>ids</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_ids'>ids</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_fail'>fail</span> <span class='const'>Rundeck</span><span class='op'>::</span><span class='const'>Error</span><span class='op'>::</span><span class='const'>InvalidAttributes</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>`ids` must be an array of ids</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:query</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:query</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:query</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='label'>ids:</span> <span class='id identifier rubyid_ids'>ids</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>,</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_objectify'>objectify</span> <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/executions/delete</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>deleteExecutions</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_execution-instance_method">
+  
+    - (<tt>nil</tt>) <strong>delete_execution</strong>(id, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Delete an execution</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Execution id</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A set of options passed directly to HTTParty. See <a
+href="http://rubydoc.info/gems/httparty/HTTParty/ClassMethods">rubydoc.info/gems/httparty/HTTParty/ClassMethods</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:query</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The parameters to pass with the request Use this hash to specify Rundeck
+parameters.</p>
+<ul><li>
+<p><tt>query: { project: &#39;anvils&#39;, id: &#39;123456&#39; }</tt></p>
+</li></ul>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If the delete was successful</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadRequest.html" title="Rundeck::Error::BadRequest (class)">Rundeck::Error::BadRequest</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>400 error - Most likely indicates a required parameter is missing.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Unauthorized.html" title="Rundeck::Error::Unauthorized (class)">Rundeck::Error::Unauthorized</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>401 error - Unauthorized</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Forbidden.html" title="Rundeck::Error::Forbidden (class)">Rundeck::Error::Forbidden</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>403 forbidden - ACL policies prevent accessing the given resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/NotFound.html" title="Rundeck::Error::NotFound (class)">Rundeck::Error::NotFound</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>404 not found - Indicates a resource could not be found at the location</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/MethodNotAllowed.html" title="Rundeck::Error::MethodNotAllowed (class)">Rundeck::Error::MethodNotAllowed</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>405 method not allowed - The request method is not allowed. This probably
+indicates a misconfiguration in a reverse proxy, such as Nginx or Apache</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Conflict.html" title="Rundeck::Error::Conflict (class)">Rundeck::Error::Conflict</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>409 conflict - A conflicting resource exists.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/InternalServerError.html" title="Rundeck::Error::InternalServerError (class)">Rundeck::Error::InternalServerError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>500 server error - Indicates the Rundeck server experienced an error.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadGateway.html" title="Rundeck::Error::BadGateway (class)">Rundeck::Error::BadGateway</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>502 bad gateway - Indicates something probably isn&#39;t working right or
+is misconfigured on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/ServiceUnavailable.html" title="Rundeck::Error::ServiceUnavailable (class)">Rundeck::Error::ServiceUnavailable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>503 error - Indicates an issue on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://rundeck.org/docs/api/index.html#delete-an-execution" target="_parent" title="Rundeck API documentation for &#39;DELETE /api/12/execution/[ID]&#39; endpoint">Rundeck API documentation for 'DELETE /api/12/execution/[ID]' endpoint</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rundeck/client/execution.rb', line 91</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_execution'>delete_execution</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/execution/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_job_executions-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>) <strong>delete_job_executions</strong>(id, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Delete all executions for a specific job</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='const'>Rundeck</span><span class='period'>.</span><span class='id identifier rubyid_delete_job_executions'>delete_job_executions</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c07518ef-b697-4792-9a59-5b4f08855b67</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Job id</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A set of options passed directly to HTTParty. See <a
+href="http://rubydoc.info/gems/httparty/HTTParty/ClassMethods">rubydoc.info/gems/httparty/HTTParty/ClassMethods</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:query</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The parameters to pass with the request Use this hash to specify Rundeck
+parameters.</p>
+<ul><li>
+<p><tt>query: { project: &#39;anvils&#39;, id: &#39;123456&#39; }</tt></p>
+</li></ul>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadRequest.html" title="Rundeck::Error::BadRequest (class)">Rundeck::Error::BadRequest</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>400 error - Most likely indicates a required parameter is missing.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Unauthorized.html" title="Rundeck::Error::Unauthorized (class)">Rundeck::Error::Unauthorized</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>401 error - Unauthorized</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Forbidden.html" title="Rundeck::Error::Forbidden (class)">Rundeck::Error::Forbidden</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>403 forbidden - ACL policies prevent accessing the given resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/NotFound.html" title="Rundeck::Error::NotFound (class)">Rundeck::Error::NotFound</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>404 not found - Indicates a resource could not be found at the location</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/MethodNotAllowed.html" title="Rundeck::Error::MethodNotAllowed (class)">Rundeck::Error::MethodNotAllowed</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>405 method not allowed - The request method is not allowed. This probably
+indicates a misconfiguration in a reverse proxy, such as Nginx or Apache</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Conflict.html" title="Rundeck::Error::Conflict (class)">Rundeck::Error::Conflict</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>409 conflict - A conflicting resource exists.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/InternalServerError.html" title="Rundeck::Error::InternalServerError (class)">Rundeck::Error::InternalServerError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>500 server error - Indicates the Rundeck server experienced an error.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadGateway.html" title="Rundeck::Error::BadGateway (class)">Rundeck::Error::BadGateway</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>502 bad gateway - Indicates something probably isn&#39;t working right or
+is misconfigured on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/ServiceUnavailable.html" title="Rundeck::Error::ServiceUnavailable (class)">Rundeck::Error::ServiceUnavailable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>503 error - Indicates an issue on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://rundeck.org/docs/api/index.html#delete-all-executions-for-a-job" target="_parent" title="Rundeck API documentation for &#39;DELETE /api/12/job/[ID]/executions&#39; endpoint">Rundeck API documentation for 'DELETE /api/12/job/[ID]/executions' endpoint</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rundeck/client/execution.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_job_executions'>delete_job_executions</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_objectify'>objectify</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/job/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/executions</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>deleteExecutions</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="execute_job-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>) <strong>execute_job</strong>(id, options = {}) 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='run_job-instance_method'>run_job</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>This method has optional Rundeck parameters that can be passed to the
+options parameter. See Rundeck API documentation for more information.</p>
+<ul><li>
+<p><tt>query: { param1: &#39;value&#39;, param2: &#39;value&#39; }</tt></p>
+</li></ul>
+</div>
+  </div>
+
+
+<p>Execute a job</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='const'>Rundeck</span><span class='period'>.</span><span class='id identifier rubyid_execute_job'>execute_job</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c07518ef-b697-4792-9a59-5b4f08855b67</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='const'>Rundeck</span><span class='period'>.</span><span class='id identifier rubyid_run_job'>run_job</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c07518ef-b697-4792-9a59-5b4f08855b67</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Job id</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A set of options passed directly to HTTParty. See <a
+href="http://rubydoc.info/gems/httparty/HTTParty/ClassMethods">rubydoc.info/gems/httparty/HTTParty/ClassMethods</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:query</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The parameters to pass with the request Use this hash to specify Rundeck
+parameters.</p>
+<ul><li>
+<p><tt>query: { project: &#39;anvils&#39;, id: &#39;123456&#39; }</tt></p>
+</li></ul>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadRequest.html" title="Rundeck::Error::BadRequest (class)">Rundeck::Error::BadRequest</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>400 error - Most likely indicates a required parameter is missing.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Unauthorized.html" title="Rundeck::Error::Unauthorized (class)">Rundeck::Error::Unauthorized</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>401 error - Unauthorized</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Forbidden.html" title="Rundeck::Error::Forbidden (class)">Rundeck::Error::Forbidden</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>403 forbidden - ACL policies prevent accessing the given resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/NotFound.html" title="Rundeck::Error::NotFound (class)">Rundeck::Error::NotFound</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>404 not found - Indicates a resource could not be found at the location</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/MethodNotAllowed.html" title="Rundeck::Error::MethodNotAllowed (class)">Rundeck::Error::MethodNotAllowed</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>405 method not allowed - The request method is not allowed. This probably
+indicates a misconfiguration in a reverse proxy, such as Nginx or Apache</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Conflict.html" title="Rundeck::Error::Conflict (class)">Rundeck::Error::Conflict</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>409 conflict - A conflicting resource exists.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/InternalServerError.html" title="Rundeck::Error::InternalServerError (class)">Rundeck::Error::InternalServerError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>500 server error - Indicates the Rundeck server experienced an error.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadGateway.html" title="Rundeck::Error::BadGateway (class)">Rundeck::Error::BadGateway</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>502 bad gateway - Indicates something probably isn&#39;t working right or
+is misconfigured on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/ServiceUnavailable.html" title="Rundeck::Error::ServiceUnavailable (class)">Rundeck::Error::ServiceUnavailable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>503 error - Indicates an issue on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://rundeck.org/docs/api/index.html#running-a-job" target="_parent" title="Rundeck API documentation for &#39;POST /api/12/job/[ID]/executions&#39; endpoint">Rundeck API documentation for 'POST /api/12/job/[ID]/executions' endpoint</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rundeck/client/execution.rb', line 21</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_execute_job'>execute_job</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_objectify'>objectify</span> <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/job/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/executions</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>executions</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="execution-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>) <strong>execution</strong>(id, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get info for an execution</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code>Rundeck.execution(&#39;c07518ef-b697-4792-9a59-5b4f08855b67&#39;&#39;)</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Execution id</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A set of options passed directly to HTTParty. See <a
+href="http://rubydoc.info/gems/httparty/HTTParty/ClassMethods">rubydoc.info/gems/httparty/HTTParty/ClassMethods</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:query</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The parameters to pass with the request Use this hash to specify Rundeck
+parameters.</p>
+<ul><li>
+<p><tt>query: { project: &#39;anvils&#39;, id: &#39;123456&#39; }</tt></p>
+</li></ul>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadRequest.html" title="Rundeck::Error::BadRequest (class)">Rundeck::Error::BadRequest</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>400 error - Most likely indicates a required parameter is missing.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Unauthorized.html" title="Rundeck::Error::Unauthorized (class)">Rundeck::Error::Unauthorized</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>401 error - Unauthorized</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Forbidden.html" title="Rundeck::Error::Forbidden (class)">Rundeck::Error::Forbidden</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>403 forbidden - ACL policies prevent accessing the given resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/NotFound.html" title="Rundeck::Error::NotFound (class)">Rundeck::Error::NotFound</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>404 not found - Indicates a resource could not be found at the location</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/MethodNotAllowed.html" title="Rundeck::Error::MethodNotAllowed (class)">Rundeck::Error::MethodNotAllowed</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>405 method not allowed - The request method is not allowed. This probably
+indicates a misconfiguration in a reverse proxy, such as Nginx or Apache</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Conflict.html" title="Rundeck::Error::Conflict (class)">Rundeck::Error::Conflict</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>409 conflict - A conflicting resource exists.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/InternalServerError.html" title="Rundeck::Error::InternalServerError (class)">Rundeck::Error::InternalServerError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>500 server error - Indicates the Rundeck server experienced an error.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadGateway.html" title="Rundeck::Error::BadGateway (class)">Rundeck::Error::BadGateway</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>502 bad gateway - Indicates something probably isn&#39;t working right or
+is misconfigured on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/ServiceUnavailable.html" title="Rundeck::Error::ServiceUnavailable (class)">Rundeck::Error::ServiceUnavailable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>503 error - Indicates an issue on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://rundeck.org/docs/api/index.html#execution-info" target="_parent" title="Rundeck API documentation for &#39;GET /api/1/execution/[ID]&#39; endpoint">Rundeck API documentation for 'GET /api/1/execution/[ID]' endpoint</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rundeck/client/execution.rb', line 123</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_execution'>execution</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_objectify'>objectify</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/execution/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>executions</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>execution</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="execution_query-instance_method">
+  
+    - (<tt>Object</tt>) <strong>execution_query</strong>(project, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>This method maps to an advanced Rundeck endpoint. View the Rundeck API
+documentation and understand what query parameters are required. Responses
+may include paging details. Recall this method with the next set of paging
+values to retrieve more elements.</p>
+</div>
+  </div>
+
+
+<p>Query for executions based on job or execution details.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://rundeck.org/docs/api/index.html#execution-query" target="_parent" title="Rundeck API documentation for &#39;GET /api/12/executions&#39;">Rundeck API documentation for 'GET /api/12/executions'</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+169
+170
+171
+172</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rundeck/client/execution.rb', line 169</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_execution_query'>execution_query</span><span class='lparen'>(</span><span class='id identifier rubyid_project'>project</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_project_options_query'>project_options_query</span><span class='lparen'>(</span><span class='id identifier rubyid_project'>project</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_objectify'>objectify</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/executions</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>executions</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="execution_state-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>) <strong>execution_state</strong>(id, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the state of an execution</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Execution ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A set of options passed directly to HTTParty. See <a
+href="http://rubydoc.info/gems/httparty/HTTParty/ClassMethods">rubydoc.info/gems/httparty/HTTParty/ClassMethods</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:query</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The parameters to pass with the request Use this hash to specify Rundeck
+parameters.</p>
+<ul><li>
+<p><tt>query: { project: &#39;anvils&#39;, id: &#39;123456&#39; }</tt></p>
+</li></ul>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadRequest.html" title="Rundeck::Error::BadRequest (class)">Rundeck::Error::BadRequest</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>400 error - Most likely indicates a required parameter is missing.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Unauthorized.html" title="Rundeck::Error::Unauthorized (class)">Rundeck::Error::Unauthorized</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>401 error - Unauthorized</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Forbidden.html" title="Rundeck::Error::Forbidden (class)">Rundeck::Error::Forbidden</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>403 forbidden - ACL policies prevent accessing the given resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/NotFound.html" title="Rundeck::Error::NotFound (class)">Rundeck::Error::NotFound</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>404 not found - Indicates a resource could not be found at the location</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/MethodNotAllowed.html" title="Rundeck::Error::MethodNotAllowed (class)">Rundeck::Error::MethodNotAllowed</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>405 method not allowed - The request method is not allowed. This probably
+indicates a misconfiguration in a reverse proxy, such as Nginx or Apache</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Conflict.html" title="Rundeck::Error::Conflict (class)">Rundeck::Error::Conflict</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>409 conflict - A conflicting resource exists.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/InternalServerError.html" title="Rundeck::Error::InternalServerError (class)">Rundeck::Error::InternalServerError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>500 server error - Indicates the Rundeck server experienced an error.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadGateway.html" title="Rundeck::Error::BadGateway (class)">Rundeck::Error::BadGateway</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>502 bad gateway - Indicates something probably isn&#39;t working right or
+is misconfigured on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/ServiceUnavailable.html" title="Rundeck::Error::ServiceUnavailable (class)">Rundeck::Error::ServiceUnavailable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>503 error - Indicates an issue on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://rundeck.org/docs/api/index.html#execution-state" target="_parent" title="Rundeck API documentation for &#39;GET /api/12/execution/[ID]/state&#39;">Rundeck API documentation for 'GET /api/12/execution/[ID]/state'</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+156
+157
+158</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rundeck/client/execution.rb', line 156</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_execution_state'>execution_state</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_objectify'>objectify</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/execution/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/state</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>executionState</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="job_executions-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>) <strong>job_executions</strong>(id, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>This method has optional Rundeck parameters that can be passed to the
+options parameter. See Rundeck API documentation for more information.</p>
+<ul><li>
+<p><tt>query: { param1: &#39;value&#39;, param2: &#39;value&#39; }</tt></p>
+</li></ul>
+</div>
+  </div>
+
+
+<p>Get executions for a specific job.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='const'>Rundeck</span><span class='period'>.</span><span class='id identifier rubyid_job_executions'>job_executions</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c07518ef-b697-4792-9a59-5b4f08855b67</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Job id</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A set of options passed directly to HTTParty. See <a
+href="http://rubydoc.info/gems/httparty/HTTParty/ClassMethods">rubydoc.info/gems/httparty/HTTParty/ClassMethods</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:query</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The parameters to pass with the request Use this hash to specify Rundeck
+parameters.</p>
+<ul><li>
+<p><tt>query: { project: &#39;anvils&#39;, id: &#39;123456&#39; }</tt></p>
+</li></ul>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadRequest.html" title="Rundeck::Error::BadRequest (class)">Rundeck::Error::BadRequest</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>400 error - Most likely indicates a required parameter is missing.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Unauthorized.html" title="Rundeck::Error::Unauthorized (class)">Rundeck::Error::Unauthorized</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>401 error - Unauthorized</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Forbidden.html" title="Rundeck::Error::Forbidden (class)">Rundeck::Error::Forbidden</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>403 forbidden - ACL policies prevent accessing the given resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/NotFound.html" title="Rundeck::Error::NotFound (class)">Rundeck::Error::NotFound</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>404 not found - Indicates a resource could not be found at the location</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/MethodNotAllowed.html" title="Rundeck::Error::MethodNotAllowed (class)">Rundeck::Error::MethodNotAllowed</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>405 method not allowed - The request method is not allowed. This probably
+indicates a misconfiguration in a reverse proxy, such as Nginx or Apache</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Conflict.html" title="Rundeck::Error::Conflict (class)">Rundeck::Error::Conflict</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>409 conflict - A conflicting resource exists.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/InternalServerError.html" title="Rundeck::Error::InternalServerError (class)">Rundeck::Error::InternalServerError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>500 server error - Indicates the Rundeck server experienced an error.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadGateway.html" title="Rundeck::Error::BadGateway (class)">Rundeck::Error::BadGateway</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>502 bad gateway - Indicates something probably isn&#39;t working right or
+is misconfigured on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/ServiceUnavailable.html" title="Rundeck::Error::ServiceUnavailable (class)">Rundeck::Error::ServiceUnavailable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>503 error - Indicates an issue on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://rundeck.org/docs/api/index.html#getting-executions-for-a-job" target="_parent" title="Rundeck API documentation for &#39;GET /api/1/job/[ID]/executions&#39; endpoint">Rundeck API documentation for 'GET /api/1/job/[ID]/executions' endpoint</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+41
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rundeck/client/execution.rb', line 41</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_job_executions'>job_executions</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/job/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/executions</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>executions</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_objectify'>objectify</span> <span class='id identifier rubyid_r'>r</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="running_job_executions-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>) <strong>running_job_executions</strong>(project, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>This method has required Rundeck parameters that can be passed to the
+options parameter. See Rundeck API documentation for more information.</p>
+<ul><li>
+<p><tt>query: { param1: &#39;value&#39;, param2: &#39;value&#39; }</tt></p>
+</li></ul>
+</div>
+  </div>
+
+
+<p>Get all running job executions</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='const'>Rundeck</span><span class='period'>.</span><span class='id identifier rubyid_running_job_executions'>running_job_executions</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>anvils</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>project</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>List running executions from this project</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A set of options passed directly to HTTParty. See <a
+href="http://rubydoc.info/gems/httparty/HTTParty/ClassMethods">rubydoc.info/gems/httparty/HTTParty/ClassMethods</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:query</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The parameters to pass with the request Use this hash to specify Rundeck
+parameters.</p>
+<ul><li>
+<p><tt>query: { project: &#39;anvils&#39;, id: &#39;123456&#39; }</tt></p>
+</li></ul>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../ObjectifiedHash.html" title="Rundeck::ObjectifiedHash (class)">Rundeck::ObjectifiedHash</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadRequest.html" title="Rundeck::Error::BadRequest (class)">Rundeck::Error::BadRequest</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>400 error - Most likely indicates a required parameter is missing.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Unauthorized.html" title="Rundeck::Error::Unauthorized (class)">Rundeck::Error::Unauthorized</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>401 error - Unauthorized</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Forbidden.html" title="Rundeck::Error::Forbidden (class)">Rundeck::Error::Forbidden</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>403 forbidden - ACL policies prevent accessing the given resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/NotFound.html" title="Rundeck::Error::NotFound (class)">Rundeck::Error::NotFound</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>404 not found - Indicates a resource could not be found at the location</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/MethodNotAllowed.html" title="Rundeck::Error::MethodNotAllowed (class)">Rundeck::Error::MethodNotAllowed</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>405 method not allowed - The request method is not allowed. This probably
+indicates a misconfiguration in a reverse proxy, such as Nginx or Apache</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/Conflict.html" title="Rundeck::Error::Conflict (class)">Rundeck::Error::Conflict</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>409 conflict - A conflicting resource exists.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/InternalServerError.html" title="Rundeck::Error::InternalServerError (class)">Rundeck::Error::InternalServerError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>500 server error - Indicates the Rundeck server experienced an error.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/BadGateway.html" title="Rundeck::Error::BadGateway (class)">Rundeck::Error::BadGateway</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>502 bad gateway - Indicates something probably isn&#39;t working right or
+is misconfigured on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Error/ServiceUnavailable.html" title="Rundeck::Error::ServiceUnavailable (class)">Rundeck::Error::ServiceUnavailable</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>503 error - Indicates an issue on the Rundeck server.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://rundeck.org/docs/api/index.html#listing-running-executions" target="_parent" title="Rundeck API documentation for &#39;GET /api/1/executions/running&#39; endpoint">Rundeck API documentation for 'GET /api/1/executions/running' endpoint</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+60
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rundeck/client/execution.rb', line 60</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_running_job_executions'>running_job_executions</span><span class='lparen'>(</span><span class='id identifier rubyid_project'>project</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_project_options_query'>project_options_query</span><span class='lparen'>(</span><span class='id identifier rubyid_project'>project</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_objectify'>objectify</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/executions/running</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>executions</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Sun Nov 23 16:03:17 2014 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.4 (ruby-2.0.0).
+</div>
+
+  </body>
+</html>
