@@ -1,10 +1,9 @@
 # Rundeck Ruby Gem
 
-[Website](http://dblessing.github.io/rundeck-ruby)
+[Official Website](http://dblessing.github.io/rundeck-ruby) with examples,
+documentation, and links to the RDoc technical documentation.
 
-## Work in progress. Not yet stable
-
-**Note: Although the git repository is called 'rundeck-ruby', the gem is called 'Rundeck' on Rubygems.org. There is another gem called 'rundeck-ruby' on Rubygems.org and it is not affiliated with this project.**
+**Note: Although the git repository is called 'rundeck-ruby', the gem is called 'rundeck' on Rubygems.org. There is another gem called 'rundeck-ruby' on Rubygems.org and it is not affiliated with this project.**
 
 [![Gem Version](https://badge.fury.io/rb/rundeck.svg)](http://badge.fury.io/rb/rundeck)
 [![Build Status](https://travis-ci.org/dblessing/rundeck-ruby.svg?branch=master)](https://travis-ci.org/dblessing/rundeck-ruby)
@@ -14,12 +13,17 @@
 
 A Ruby wrapper around the Rundeck API.  
 
-This library will strive to achieve reliable, 
-100% coverage of the Rundeck API. Please submit an issue if you find a bug and feel
+This library will strive to achieve reliable coverage of the Rundeck API.
+Please submit an issue if you find a bug and feel
 free to submit a pull request to contribute fixes or new features.
 
-The layout and the code in this library is inspired by https://github.com/NARKOZ/gitlab. 
-NARKOZ does a fantastic job of keeping code simple and achieving API feature parity.
+Initial versions of this gem to not achieve 100% coverage of the Rundeck API.
+Each release will include more and more endpoint support until there is 100%
+coverage.
+
+The layout and the code in this library is inspired by
+https://github.com/NARKOZ/gitlab. NARKOZ does a fantastic job of keeping code
+simple and achieving API feature parity.
 
 See http://dblessing.github.io/rundeck-ruby for documentation
 
