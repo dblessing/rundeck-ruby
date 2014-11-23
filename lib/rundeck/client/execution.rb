@@ -171,14 +171,6 @@ module Rundeck
         objectify get('/executions', options)['result']['executions']
       end
 
-      # def execution_output()
-      #
-      # end
-      #
-      # def execution_output_with_state()
-      #
-      # end
-
       private
 
       def project_options_query(project, options)
