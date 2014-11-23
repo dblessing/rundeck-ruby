@@ -46,10 +46,18 @@ module Rundeck
         objectify post("/tokens/#{user}", options)['token']
       end
 
+      # Delete a token
       #
-      # def delete_token
+      # @example
+      #   Rundeck.delete_token('cmJQYoy9EAsSd0905yNjKDNGs0ESIwEd')
       #
-      # end
+      # @param  [String] id The token id
+      # @!macro options
+      # @return nil
+      # @!macro exceptions
+      def delete_token(id, options = {})
+        delete("/token/#{id}", options)
+      end
     end
   end
 end

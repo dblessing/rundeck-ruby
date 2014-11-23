@@ -83,4 +83,31 @@ describe Rundeck::Client do
       end
     end
   end
+
+  describe '.delete_token' do
+    context 'when a token exists', vcr: { cassette_name: 'delete_token' } do
+      before do
+        @token = Rundeck.delete_token('cmJQYoy9EAsSd0905yNjKDNGs0ESIwEd')
+      end
+      subject { @token }
+
+      it { is_expected.to be_nil }
+
+      it 'expects a delete to have been made' do
+        expect(
+            a_delete('/token/cmJQYoy9EAsSd0905yNjKDNGs0ESIwEd')
+        ).to have_been_made
+      end
+    end
+
+    context 'when a token does not exist',
+            vcr: { cassette_name: 'delete_token_invalid' } do
+      specify do
+        expect do
+          Rundeck.delete_token('123456')
+        end.to raise_error(Rundeck::Error::NotFound,
+                           /Token does not exist: 123456/)
+      end
+    end
+  end
 end

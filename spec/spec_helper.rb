@@ -20,7 +20,7 @@ RSpec.configure do |config|
   config.before(:each) do
     # Configuration for Anvils Demo Vagrant Box. API token might change.
     Rundeck.endpoint = 'http://192.168.50.2:4440'
-    Rundeck.api_token = 'cmJQYoy9EAsSd0905yNjKDNGs0ESIwEd'
+    Rundeck.api_token = 'cbsQgUIZBOyCgoipJAwKd1YgfcwPJ0FY'
     WebMock.reset!
   end
 end
