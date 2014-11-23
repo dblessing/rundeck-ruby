@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><!--Always force latest IE rendering engine or request Chrome Frame--><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="Rundeck Ruby Client · Welcome" name="description"><title>Welcome - Rundeck Ruby Client</title><!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--><link href="stylesheets/bootstrap.min-8154ed26.css" rel="stylesheet" type="text/css" /><link href="stylesheets/all-872e26d3.css" rel="stylesheet" type="text/css" /></head><body><div class="container-fluid"><nav class="navbar-default" role="navigation"><button class="navbar-toggle collapsed" data-target="#sidebar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="sidebar"><div class="collapse navbar-collapse" id="sidebar"><ul class="nav nav-sidebar"><li class="sidebar-brand"><a href="/">Rundeck Ruby</a></li><li class="active"><a href="./">Home</a></li><li><a href="overview">Overview</a></li><hr class="side-hr"><li><a href="http://rubygems.org/gems/rundeck" target="_blank"><span class="glyphicon glyphicon-globe"></span> RubyGems Page</a></li><li><a href="https://github.com/dblessing/rundeck-ruby" target="_blank"><span class="glyphicon glyphicon-star"></span> GitHub page</a></li><li><a href="https://github.com/dblessing/rundeck-ruby/issues" target="_blank"><span class="glyphicon glyphicon-exclamation-sign"></span> Issue Tracker</a></li><li><a href="http://rubydoc.info/gems/rundeck/frames" target="_blank"><span class="glyphicon glyphicon-book"></span> Technical Documentation (RDoc)</a></li><li><a href="http://rundeck.org" target="_blank"><span class="glyphicon glyphicon-play"></span> Rundeck.org</a></li><div class="gem-badge"><a href="http://badge.fury.io/rb/rundeck"><img height="18" src="https://badge.fury.io/rb/rundeck.svg"></a></div></ul></div></div></nav><div class="main"><div class="welcome"><h1>Rundeck Ruby Client <small>A Ruby wrapper around the Rundeck API.</small></h1><p>This library will strive to achieve reliable coverage of the Rundeck API.
+Please submit an issue if you find a bug and feel free to submit a pull
+request to contribute fixes or new features.</p><p>Initial versions of this gem to not achieve 100% coverage of the Rundeck
+API. However, there is sufficient support for the primary endpoints that
+many users will not miss the features at this point. However, if you
+require support for specific endpoints sooner, please submit an issue
+indicating which endpoints. I will keep requests in mind when planning
+future feature support. Each release will include more and more endpoint
+support until there is 100% coverage.</p><p>The layout and the code in this library is inspired by <a href="https://github.com/NARKOZ/gitlab" target="_blank">NARKOZ/gitlab</a>. NARKOZ does a fantastic job of keeping
+code simple and achieving API feature parity.</p><p>Note: This guide is geared more toward entry-level users.
+If you are a more advanced user you may find the <a href="http://rubydoc.info/gems/rundeck/frames">Technical Documentation (RDoc)</a> more helpful.</p><h2>Features</h2><ul><li>Basic CRUD on projects</li><li>Job endpoints</li><li>Token endpoints</li><li>Private/Public Key endpoints</li><li>Most execution endpoints</li></ul><a class="btn btn-primary btn-lg" href="http://rubydoc.info/gems/rundeck/frames" target="_blank" type="button">Technical Docs</a><a class="btn btn-primary btn-lg" href="https://github.com/dblessing/rundeck-ruby/issues" target="_blank" type="button">Issue Tracker</a><a class="btn btn-primary btn-lg" href="https://github.com/dblessing/rundeck-ruby" target="_blank" type="button">GitHub Page</a><hr><h2>Rundeck API Reference</h2><p>The Rundeck API reference
+is a great resource because this library is a pretty thin
+wrapper around Rundeck's API. This makes it very flexible, but also means
+a lot of the parameters/options are not explicitly defined as
+method parameters. Many API options will need to be expressed via the <code>options</code> hash. See the <a href="overview">Overview</a> page for more information.</p><a class="btn btn-primary" href="http://rundeck.org/docs/api/" target="_blank" type="button">Rundeck API Reference</a><h2>Installation</h2>Add this line to your application's Gemfile or gemspec:<pre># Gemfile
+gem 'rundeck', '~> x.x.x'
+
+# gemspec
+spec.add_runtime_dependency 'rundeck', '~> x.x.x'</pre>Then execute:<pre>bundle install</pre><hr>Or install it yourself as:<pre>gem install rundeck</pre><h2>Configuration</h2>Require the rundeck gem:<pre>require 'rundeck'</pre><hr> <code>endpoint</code>and <code>api_token</code> are required configuration parameters. <code>user_agent</code> is optional and defaults to 'Rundeck Ruby Gem {gem_version}':<p></p><pre># Environment Variables (Recommended!)
+export RUNDECK_ENDPOINT=https://rundeck.example.com
+export RUNDECK_API_TOKEN=super_secret</pre><pre># Ruby
+Rundeck.endpoint = 'https://rundeck.example.com'
+Rundeck.api_token = 'super_secret'
+Rundeck.user_agent = 'Custom User Agent'</pre><pre># Ruby with multiple clients
+client1 = Rundeck.client(endpoint: 'https://rundeck.example.com',
+                         api_token: 'super_secret',
+                         user_agent: 'Custom User Agent')
+client2 = Rundeck.client(endpoint: 'https://rundeck2.example.com',
+                         api_token: 'super_secret2')</pre><pre># Ruby on Rails
+Rundeck.configure do |config|
+  config.endpoint       = 'https://rundeck.example.com'
+  config.api_token      = 'super_secret'
+  config.user_agent     = 'Custom User Agent'
+end</pre><div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span> Find your api token by logging in to Rundeck and going
+ to your user dropdown > Profile and selecting the API token</div></div></div></div><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script src="javascripts/all-da39a3ee.js" type="text/javascript"></script></body></html>
