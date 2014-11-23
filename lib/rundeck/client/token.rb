@@ -53,7 +53,7 @@ module Rundeck
       #
       # @param  [String] id The token id
       # @!macro options
-      # @return nil
+      # @return [nil] if the delete is successful
       # @!macro exceptions
       def delete_token(id, options = {})
         delete("/token/#{id}", options)

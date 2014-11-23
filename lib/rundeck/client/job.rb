@@ -30,13 +30,12 @@ module Rundeck
 
       # Delete a job
       #
-      # @TODO: What does this return?!
-      #
       # @example
       #   Rundeck.delete_job('c07518ef-b697-4792-9a59-5b4f08855b67')
       #
       # @param  [String] id Job id
       # @!macro options
+      # @return [nil] if the delete is successful
       # @!macro exceptions
       def delete_job(id, options = {})
         delete("/job/#{id}", options)

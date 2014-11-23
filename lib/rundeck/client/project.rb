@@ -23,7 +23,10 @@ module Rundeck
       #   Rundeck API documentation for 'POST /api/11/projects' endpoint
       #
       # @example
-      #   @TODO: Example
+      #   Rundeck.create_project('{ "name": "json_project" }', 'json')
+      #
+      # @example
+      #   Rundeck.create_project('<project><name>xml_project</name></project>', 'xml')
       #
       # @param  [String] content The job definition(s) as yaml or xml
       # @param  [String] format The project creation format. 'json|xml',
