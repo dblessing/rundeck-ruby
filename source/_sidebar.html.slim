@@ -15,7 +15,7 @@ nav.navbar-default role="navigation"
         li[class="#{nav_active('index.html')}"]
           a href='./' Home
 
-        - for page in ['overview', 'examples'] do
+        - for page in ['overview'] do
           li[class="#{nav_active(page)}"]
             a href="#{page}" = page.capitalize
 

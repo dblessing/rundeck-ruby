@@ -1,8 +1,314 @@
 ---
-title: Welcome
+title: Overview
 ---
 
-.welcome
-  h1 Middleman is Watching with slim
-  p.doc
-    == link_to "Read Online Documentation", "http://middlemanapp.com/"
+a name="top"
+h1 Overview
+
+
+
+h2
+  a href="#basic-examples" Basic examples
+
+p
+  | This page shows a few things that will give you an idea
+    of how this library works. For a list of all library endpoints
+    see the
+  a<> href="http://rubydoc.info/gems/rundeck/Rundeck/Client" target="_blank"
+    | Client class
+  | under 'Instance Attribute Summary'
+
+p
+  | All examples here will use the class method pattern as opposed to
+    instantiating a client object. All methods can be accessed similarly
+    if the client is instantiated.
+
+ul
+  li
+    strong
+      a href="#list-projects" List Projects
+  li
+    strong
+      a href="#create-projects" Create a new project
+  li
+    strong
+      a href="#list-jobs" List jobs
+  li
+    strong
+      a href="#list-job" List a specific job
+  li
+    strong
+      a href="#import-jobs" Create/Import Jobs
+
+h2
+  a href="#options-hash" Options Hash
+
+p
+  | The options hash provides a way to pass configuration options directly to
+    the HTTParty library. It is also the method for specifying query parameters
+    to Rundeck, especially for creating or updating resources.
+
+ul
+  li
+    strong
+      a href="#query-params" Query parameters
+  li
+    strong
+      a href="#httparty-options" Pass options to HTTParty
+
+hr
+
+h2
+  a name="basic-examples" Basic Examples
+h3
+  a name="list-projects" List Projects
+small
+  a href="#top" Top
+pre
+  | projects = Rundeck.projects
+
+h4 Result
+pre
+  | { "count"=>"2",
+      "project"=>
+      [
+        {
+          "name"=>"anvils",
+          "description"=>nil,
+          "url"=>"http://192.168.50.2:4440/api/12/project/anvils"
+        },
+        {
+          "name"=>"json_project",
+          "description"=>nil,
+          "url"=>"http://192.168.50.2:4440/api/12/project/json_project"
+        }
+      ]
+    }
+
+| The above result consists of
+code<> Rundeck::ObjectifiedHash
+| objects that can be accessed with dot notation.
+  For example, to access the first project entry above, use
+code<> projects.project[0]
+| and similarly access the first project's name via
+code<> projects.project[0].name
+
+h3
+  a name="create-projects" Create a new project
+small
+  a href="#top" Top
+h4 JSON (default format)
+pre
+  | project = Rundeck.create_project('{ "name": "My_Project" }')
+h4 XML
+pre
+  | project = Rundeck.create_project('&lt;project&gt;&lt;name&gt;My_Project&lt;/name&gt;&lt;/project&gt;', 'xml')
+
+h4 Result
+pre
+  | {
+      "name"=>"My_Project",
+      "description"=>nil,
+      "config"=> ...
+    }
+
+h3
+  a name="list-jobs" List Jobs
+small
+  a href="#top" Top
+pre
+  | jobs = Rundeck.jobs('anvils')
+
+h4 Result
+pre
+  | {
+      "count"=>"2",
+      "job"=>
+      {
+        "name"=>"My Job 1",
+        "group"=>nil,
+        "project"=>"anvils",
+        "description"=>nil,
+        "id"=>"608564aa-7042-4a1b-b408-d55405a17cae"
+      },
+      {
+        "name"=>"My Job 2",
+        "group"=>nil,
+        "project"=>"anvils",
+        "description"=>nil,
+        "id"=>"283948bb-9082-7a1c-g808-e57405a17eac"
+      }
+    }
+
+h3
+  a name="list-job" List a specific job
+small
+  a href="#top" Top
+pre
+  | job = Rundeck.job('608564aa-7042-4a1b-b408-d55405a17cae')
+
+h4 Result
+pre
+  | {
+      "id"=>"608564aa-7042-4a1b-b408-d55405a17cae",
+      "loglevel"=>"INFO",
+      "sequence"=>
+      {
+        "command"=>
+        {
+          "exec"=>"echo 'Hello World'"
+        },
+        "keepgoing"=>"false",
+        "strategy"=>"node-first"
+      },
+      "description"=>nil,
+      "name"=>"My Job 1",
+      "context"=>
+      {
+        "project"=>"anvils"
+      },
+      "uuid"=>"608564aa-7042-4a1b-b408-d55405a17cae"},
+
+h3
+  a name="import-jobs" Create/Import jobs
+small
+  a href="#top" Top
+h4 YAML (default format)
+pre
+  | job = Rundeck.import_jobs("
+      - project: anvils
+        name: My YAML Job
+        description: Check the status of anvils
+        loglevel: INFO
+        sequence:
+          keepgoing: true
+          strategy: node-first
+          commands:
+          - exec: echo 'hello world'
+    ")
+
+h4 XML
+pre
+  | job = Rundeck.import_jobs("
+      &lt;joblist&gt;
+        &lt;job&gt;
+          &lt;description&gt;Check the status of anvils&lt;/description&gt;
+          &lt;name&gt;My XML Job&lt;/name&gt;
+          &lt;loglevel&gt;INFO&lt;/loglevel&gt;
+          &lt;sequence keepgoing='true' strategy='node-first'&gt;
+            &lt;command&gt;
+              &lt;exec&gt;echo 'hello world'&lt;/exec&gt;
+            &lt;/command&gt;
+          &lt;/sequence&gt;
+          &lt;context&gt;
+            &lt;project&gt;anvils&lt;/project&gt;
+          &lt;/context&gt;
+        &lt;/job&gt;
+      &lt;/joblist&gt;
+    ", "xml")
+
+h4 Result
+| If multiple jobs are imported at the same time, the
+code<> job
+| object will be an array. Also, any failed imports will be inside a
+code<> failed
+| object just as successful imports are inside a
+code<> succeeded
+| object.
+pre
+  | {
+      "succeeded"=>
+      {
+        "count"=>"1",
+        "job"=>
+        {
+          "id"=>"1addde25-4112-47cd-9323-470d761347e4",
+          "name"=>"My Job",
+          "group"=>nil,
+          "project"=>"anvils",
+          "url"=>"http://192.168.50.2:4440/job/show/1addde25-4112-47cd-9323-470d761347e4",
+          "index"=>"1",
+          "href"=>"http://192.168.50.2:4440/api/12/job/1addde25-4112-47cd-9323-470d761347e4"
+        }
+      }
+    }
+
+h2
+  a name="options-hash" Options Hash
+small
+  a href="#top" Top
+
+h3
+  a name="query-params" Query Parameters
+small
+  a href="#top" Top
+
+p
+  | There are not very many endpoints that require specifying parameters as
+    raw query parameters. More advanced endpoints like execution query and
+    running/executing a job may require query parameters.
+
+h4 Running/Executing a job
+
+| Some jobs require arguments as a way to set options on a job. In this case,
+  pass an argString query parameter where each argument is preceded with a
+  dash.
+pre
+  | execution = Rundeck.execute_job(
+      'c07518ef-b697-4792-9a59-5b4f08855b67',
+      query:
+      {
+        argString: '-repository ci -release SNAPSHOT -packages app-SNAPSHOT'
+      }
+    )
+
+h4 Result
+pre
+  | {
+      "count"=>"1",
+      "execution"=>
+      {
+        "user"=>"admin",
+        "date_started"=>
+        {
+          "__content__"=>"2014-11-23T21:35:33Z",
+          "unixtime"=>"1416778533638"
+        },
+        "job"=>
+        {
+          "name"=>"My Job 1",
+          "group"=>nil,
+          "project"=>"anvils",
+          "description"=>nil,
+          "id"=>"608564aa-7042-4a1b-b408-d55405a17cae",
+          "averageduration"=>"2774"
+        },
+        "description"=>"echo 'Hello World'",
+        "argstring"=>"-repository ci -release SNAPSHOT -packages app-SNAPSHOT",
+        "id"=>"10",
+        "href"=>"http://192.168.50.2:4440/execution/follow/10",
+        "status"=>"running",
+        "project"=>"anvils"
+      }
+    }
+
+h3
+  a name="httparty-options" HTTParty Options
+small
+  a href="#top" Top
+
+p
+  | You can pass any HTTParty option directly via the options hash. Two examples
+    include
+  code<> ssl_ca_file
+  | and
+  code<> no_follow. See
+  a<> href="http://www.rubydoc.info/gems/httparty/HTTParty/ClassMethods" target="_blank" HTTParty Class Methods
+  | for all options.
+    For example:
+pre
+  | project = Rundeck.project(
+      'anvils',
+      no_follow:   true,
+      ssl_ca_file: '/etc/pki/tls/my_ca.crt'
+    )
