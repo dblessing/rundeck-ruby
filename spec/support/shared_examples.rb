@@ -34,6 +34,7 @@ shared_examples 'a past execution' do
 end
 
 shared_examples 'a token' do
+  it { is_expected.to be_a Rundeck::ObjectifiedHash }
   it { is_expected.to respond_to(:id) }
   it { is_expected.to respond_to(:user) }
 end

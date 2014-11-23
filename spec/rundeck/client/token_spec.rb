@@ -68,4 +68,19 @@ describe Rundeck::Client do
       end
     end
   end
+
+  describe '.create_token' do
+    context 'when the user exists', vcr: { cassette_name: 'create_token' } do
+      before do
+        @token = Rundeck.create_token('admin')
+      end
+      subject { @token }
+
+      it_behaves_like 'a token'
+
+      it 'expects a post to have been made' do
+        expect(a_post('/tokens/admin')).to have_been_made
+      end
+    end
+  end
 end

@@ -25,7 +25,7 @@ module Rundeck
       # @example
       #   Rundeck.token('admin')
       #
-      # @param  [id] The token id
+      # @param  [String] id The token id
       # @!macro options
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
@@ -33,10 +33,19 @@ module Rundeck
         objectify get("/token/#{id}", options)['token']
       end
 
+      # Create a new token for a user
       #
-      # def create_token
+      # @example
+      #   Rundeck.create_token('user1')
       #
-      # end
+      # @param  [String] user Create a token for this user
+      # @!macro options
+      # @return [Rundeck::ObjectifiedHash]
+      # @!macro exceptions
+      def create_token(user, options = {})
+        objectify post("/tokens/#{user}", options)['token']
+      end
+
       #
       # def delete_token
       #
