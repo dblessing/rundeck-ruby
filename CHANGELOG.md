@@ -1,4 +1,4 @@
-1.0.0
+1.0.0 (November 23, 2014)
   - First stable release
   - Feature: Basic CRUD on Projects
   - Feature: Token endpoints
