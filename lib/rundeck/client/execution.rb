@@ -19,7 +19,7 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
       def execute_job(id, options = {})
-        objectify post("/job/#{id}/executions", options)['result']['executions']
+        objectify post("/job/#{id}/executions", options)['executions']
       end
       alias_method :run_job, :execute_job
 
