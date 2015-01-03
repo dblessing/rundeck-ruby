@@ -148,7 +148,6 @@ describe Rundeck::Client do
 
     context 'when a job has executions',
             vcr: { cassette_name: 'delete_job_executions' } do
-
       it { is_expected.to respond_to(:successful) }
       it { is_expected.to respond_to(:allsuccessful) }
       it { is_expected.to respond_to(:requestcount) }
@@ -421,11 +420,11 @@ describe Rundeck::Client do
     end
   end
 
-  describe '.execution_output' do
+  # describe '.execution_output' do
+  #
+  # end
 
-  end
-
-  describe '.execution_output_with_state' do
-
-  end
+  # describe '.execution_output_with_state' do
+  #
+  # end
 end
