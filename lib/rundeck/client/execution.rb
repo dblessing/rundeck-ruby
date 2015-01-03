@@ -19,7 +19,13 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
       def execute_job(id, options = {})
-        objectify post("/job/#{id}/executions", options)['result']['executions']
+        e = post("/job/#{id}/executions", options)
+        # Temporary fix for https://github.com/dblessing/rundeck-ruby/issues/25
+        begin
+          objectify e['result']['executions']
+        rescue
+          objectify e['executions']
+        end
       end
       alias_method :run_job, :execute_job
 
@@ -121,7 +127,13 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
       def execution(id, options = {})
-        objectify get("/execution/#{id}", options)['result']['executions']['execution']
+        e = get("/execution/#{id}", options)
+        # Temporary fix for https://github.com/dblessing/rundeck-ruby/issues/25
+        begin
+          objectify e['result']['executions']['execution']
+        rescue
+          objectify e['executions']['execution']
+        end
       end
 
       # Bulk delete executions
@@ -168,7 +180,13 @@ module Rundeck
       #   Rundeck API documentation for 'GET /api/12/executions'
       def execution_query(project, options = {})
         options = project_options_query(project, options)
-        objectify get('/executions', options)['result']['executions']
+        q = get('/executions', options)
+        # Temporary fix for https://github.com/dblessing/rundeck-ruby/issues/25
+        begin
+          objectify q['result']['executions']
+        rescue
+          objectify q['executions']
+        end
       end
 
       private
