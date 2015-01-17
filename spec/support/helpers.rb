@@ -14,6 +14,15 @@ module Helpers
     )
   end
 
+  def prepare
+    unless cassette_exist?
+      cassette = RSpec.current_example.metadata[:vcr][:cassette_name]
+      VCR.eject_cassette(cassette)
+      VCR.turned_off{ yield }
+      VCR.insert_cassette(cassette)
+    end
+  end
+
   def endpoint
     "#{Rundeck.endpoint}/api/#{Rundeck.api_version}"
   end
@@ -92,6 +101,10 @@ module Helpers
 
   def project_json
     '{ "name": "json_project" }'
+  end
+
+  def project_deleteme
+    '{ "name": "deleteme" }'
   end
 
   def project_xml
