@@ -18,15 +18,17 @@ http_interactions:
       - application/xml
   response:
     status:
-      code: 403
-      message: Forbidden
+      code: 201
+      message: Created
     headers:
       Set-Cookie:
-      - JSESSIONID=13p7pxfaqgfvhdhk6tl03hmft;Path=/
+      - JSESSIONID=qoqg580wq1i4159q83dg8ydcr;Path=/
       Expires:
       - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Rundeck-Api-Xml-Response-Wrapper:
+      - 'false'
       Content-Type:
-      - text/xml;charset=UTF-8
+      - application/xml;charset=UTF-8
       X-Rundeck-Api-Version:
       - '12'
       Transfer-Encoding:
@@ -36,11 +38,21 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |-
-        <result error='true' apiversion='12'>
-          <error code='api.error.item.unauthorized'>
-            <message>Not authorized for action "create" for Rundeck Project</message>
-          </error>
-        </result>
+        <project url='http://192.168.50.2:4440/api/12/project/xml_project'>
+          <name>xml_project</name>
+          <description></description>
+          <config>
+            <property key='project.name' value='xml_project' />
+            <property key='project.ssh-authentication' value='privateKey' />
+            <property key='service.NodeExecutor.default.provider' value='jsch-ssh' />
+            <property key='resources.source.1.config.includeServerNode' value='true' />
+            <property key='resources.source.1.config.generateFileAutomatically' value='true' />
+            <property key='resources.source.1.config.file' value='/var/rundeck/projects/xml_project/etc/resources.xml' />
+            <property key='project.ssh-keypath' value='/var/lib/rundeck/.ssh/id_rsa' />
+            <property key='service.FileCopier.default.provider' value='jsch-scp' />
+            <property key='resources.source.1.type' value='file' />
+          </config>
+        </project>
     http_version: 
-  recorded_at: Sat, 17 Jan 2015 20:43:47 GMT
+  recorded_at: Sat, 17 Jan 2015 20:55:45 GMT
 recorded_with: VCR 2.9.3

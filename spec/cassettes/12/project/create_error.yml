@@ -15,11 +15,11 @@ http_interactions:
       - application/xml
   response:
     status:
-      code: 403
-      message: Forbidden
+      code: 409
+      message: Conflict
     headers:
       Set-Cookie:
-      - JSESSIONID=1c54plfx9q8jkdu4nmg3gzwff;Path=/
+      - JSESSIONID=1cbwk5yz3uw4j19dqszudy8ave;Path=/
       Expires:
       - Thu, 01 Jan 1970 00:00:00 GMT
       Content-Type:
@@ -34,10 +34,10 @@ http_interactions:
       encoding: UTF-8
       string: |-
         <result error='true' apiversion='12'>
-          <error code='api.error.item.unauthorized'>
-            <message>Not authorized for action "create" for Rundeck Project</message>
+          <error code='api.error.item.alreadyexists'>
+            <message>project already exists: anvils</message>
           </error>
         </result>
     http_version: 
-  recorded_at: Sat, 17 Jan 2015 20:43:47 GMT
+  recorded_at: Sat, 17 Jan 2015 20:55:45 GMT
 recorded_with: VCR 2.9.3

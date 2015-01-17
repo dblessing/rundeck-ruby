@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: delete
-    uri: http://192.168.50.2:4440/api/12/project/deleteme
+    uri: http://192.168.50.2:4440/api/12/project/nonexistent
     body:
       encoding: US-ASCII
       string: ''
@@ -17,7 +17,7 @@ http_interactions:
       message: Not Found
     headers:
       Set-Cookie:
-      - JSESSIONID=1p0ekgfkqugo292rj7vcvu9pb;Path=/
+      - JSESSIONID=8cunlfebem7noivz6y9lw5b8;Path=/
       Expires:
       - Thu, 01 Jan 1970 00:00:00 GMT
       Content-Type:
@@ -33,9 +33,9 @@ http_interactions:
       string: |-
         <result error='true' apiversion='12'>
           <error code='api.error.item.doesnotexist'>
-            <message>Project does not exist: deleteme</message>
+            <message>Project does not exist: nonexistent</message>
           </error>
         </result>
     http_version: 
-  recorded_at: Sat, 17 Jan 2015 20:43:47 GMT
+  recorded_at: Sat, 17 Jan 2015 20:55:46 GMT
 recorded_with: VCR 2.9.3

@@ -3,9 +3,7 @@ require 'spec_helper'
 describe Rundeck::Client do
   describe '.projects', vcr: { cassette_name: 'project/projects' } do
     before do
-      prepare do
-        Rundeck.create_project(project_anvils, 'json')
-      end
+      prepare { Rundeck.create_project(project_anvils, 'json') }
       @projects = Rundeck.projects
     end
     subject { @projects }
@@ -95,9 +93,7 @@ describe Rundeck::Client do
     context 'when a project exists',
             vcr: { cassette_name: 'project/delete' } do
       before do
-        unless cassette_exist?
-          Rundeck.create_project(project_deleteme)
-        end
+        prepare { Rundeck.create_project(project_deleteme) }
         @project = Rundeck.delete_project(project)
       end
 
@@ -115,7 +111,7 @@ describe Rundeck::Client do
             vcr: { cassette_name: 'project/delete_error' } do
       specify do
         expect do
-          Rundeck.delete_project('deleteme')
+          Rundeck.delete_project('nonexistent')
         end.to raise_error(Rundeck::Error::NotFound,
                            /Project does not exist/)
       end

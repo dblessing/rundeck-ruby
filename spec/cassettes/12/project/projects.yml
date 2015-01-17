@@ -17,7 +17,7 @@ http_interactions:
       message: OK
     headers:
       Set-Cookie:
-      - JSESSIONID=11cq5ay69egrl8kbwlzmlmc2p;Path=/
+      - JSESSIONID=o31rte11b1hk1pwfo7pehllih;Path=/
       Expires:
       - Thu, 01 Jan 1970 00:00:00 GMT
       X-Rundeck-Api-Xml-Response-Wrapper:
@@ -40,5 +40,5 @@ http_interactions:
           </project>
         </projects>
     http_version: 
-  recorded_at: Sat, 17 Jan 2015 20:49:51 GMT
+  recorded_at: Sat, 17 Jan 2015 20:55:45 GMT
 recorded_with: VCR 2.9.3
