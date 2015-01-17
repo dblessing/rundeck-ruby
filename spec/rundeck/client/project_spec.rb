@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe Rundeck::Client do
-  describe '.projects', vcr: { cassette_name: 'projects' } do
+  describe '.projects', vcr: { cassette_name: 'project/projects' } do
     before do
+      prepare { Rundeck.create_project(project_anvils, 'json') }
       @projects = Rundeck.projects
     end
     subject { @projects }
@@ -28,7 +29,7 @@ describe Rundeck::Client do
       subject { @project }
 
       context 'create with json format',
-              vcr: { cassette_name: 'create_project_json' } do
+              vcr: { cassette_name: 'project/create_json' } do
         let(:content) { project_json }
         let(:format) { 'json' }
 
@@ -41,7 +42,7 @@ describe Rundeck::Client do
       end
 
       context 'create with xml format',
-              vcr: { cassette_name: 'create_project_xml' } do
+              vcr: { cassette_name: 'project/create_xml' } do
         let(:content) { project_xml }
         let(:format) { 'xml' }
 
@@ -55,7 +56,7 @@ describe Rundeck::Client do
     end
 
     context 'when project already exists',
-            vcr: { cassette_name: 'create_project_invalid' } do
+            vcr: { cassette_name: 'project/create_error' } do
       specify do
         expect do
           Rundeck.create_project(project_anvils, 'json')
@@ -67,7 +68,7 @@ describe Rundeck::Client do
 
   describe '.project' do
     context 'when the project exists',
-            vcr: { cassette_name: 'project_valid' } do
+            vcr: { cassette_name: 'project/project' } do
       before do
         @project = Rundeck.project('anvils')
       end
@@ -78,7 +79,7 @@ describe Rundeck::Client do
     end
 
     context 'when the project does not exist',
-            vcr: { cassette_name: 'project_invalid' } do
+            vcr: { cassette_name: 'project/project_error' } do
       specify do
         expect do
           Rundeck.project('nonexistent')
@@ -90,10 +91,12 @@ describe Rundeck::Client do
 
   describe '.delete_project' do
     context 'when a project exists',
-            vcr: { cassette_name: 'delete_project_valid' } do
+            vcr: { cassette_name: 'project/delete' } do
       before do
+        prepare { Rundeck.create_project(project_deleteme) }
         @project = Rundeck.delete_project(project)
       end
+
       let(:project) { 'anvils' }
       subject { @project }
 
@@ -105,10 +108,10 @@ describe Rundeck::Client do
     end
 
     context 'when a project does not exist',
-            vcr: { cassette_name: 'delete_project_invalid' } do
+            vcr: { cassette_name: 'project/delete_error' } do
       specify do
         expect do
-          Rundeck.delete_project('project1')
+          Rundeck.delete_project('nonexistent')
         end.to raise_error(Rundeck::Error::NotFound,
                            /Project does not exist/)
       end

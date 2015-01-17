@@ -2,21 +2,21 @@ require 'spec_helper'
 
 describe Rundeck::Client do
   describe '.keys' do
-    # The anvils demo doesn't have any keys by default.
-    # Create a public key at path /path/to/key and a private key
-    # at /path/to/private_key using the data from the helper methods.
-    # Create the public key first.
     context 'with a path containing multiple keys',
-            vcr: { cassette_name: 'keys_multiple' } do
+            vcr: { cassette_name: 'key/key_multiple' } do
       before do
+        prepare do
+          Rundeck.create_public_key('path/to/key', public_key)
+          Rundeck.create_private_key('path/to/private_key', private_key)
+        end
         @keys = Rundeck.keys('path/to')
       end
       subject { @keys }
 
       it { is_expected.to be_an Array }
 
-      context 'the first key' do
-        subject { @keys.first }
+      context 'the public key' do
+        subject { @keys.detect { |key| key.name == 'key' } }
 
         its(:name) { is_expected.to eq('key') }
         its(:type) { is_expected.to eq('file') }
@@ -24,9 +24,11 @@ describe Rundeck::Client do
         it { is_expected.to respond_to(:path) }
 
         describe '#resource_meta' do
-          subject { @keys.first.resource_meta }
+          subject { @keys.detect { |key| key.name == 'key' }.resource_meta }
 
-          its(:rundeck_content_type) { is_expected.to eq('application/pgp-key') }
+          its(:rundeck_content_type) do
+            is_expected.to eq('application/pgp-key')
+          end
         end
       end
 
@@ -36,7 +38,7 @@ describe Rundeck::Client do
     end
 
     context 'with a path containing no keys',
-            vcr: { cassette_name: 'keys_none' } do
+            vcr: { cassette_name: 'key/key_error' } do
       specify do
         expect do
           Rundeck.keys('path/to/nowhere')
@@ -45,7 +47,7 @@ describe Rundeck::Client do
     end
 
     context 'with a direct path to a key',
-            vcr: { cassette_name: 'keys_direct' } do
+            vcr: { cassette_name: 'key/key_direct' } do
       specify do
         expect do
           Rundeck.keys('path/to/key')
@@ -58,7 +60,7 @@ describe Rundeck::Client do
 
   describe '.key_metadata' do
     context 'with a direct path to a key',
-            vcr: { cassette_name: 'key_metadata_direct' } do
+            vcr: { cassette_name: 'key/metadata_direct' } do
       before do
         @key = Rundeck.key_metadata('path/to/key')
       end
@@ -73,7 +75,7 @@ describe Rundeck::Client do
     end
 
     context 'with a path containing multiple keys',
-            vcr: { cassette_name: 'key_metadata_multiple' } do
+            vcr: { cassette_name: 'key/metadata_multiple' } do
       specify do
         expect do
           Rundeck.key_metadata('path/to')
@@ -86,7 +88,7 @@ describe Rundeck::Client do
 
   describe '.key_contents' do
     context 'with a direct path to a key',
-            vcr: { cassette_name: 'key_contents_direct' } do
+            vcr: { cassette_name: 'key/contents_direct' } do
       before do
         @key = Rundeck.key_contents('path/to/key')
       end
@@ -104,7 +106,7 @@ describe Rundeck::Client do
     end
 
     context 'with a path containing multiple keys',
-            vcr: { cassette_name: 'key_contents_multiple' } do
+            vcr: { cassette_name: 'key/contents_multiple' } do
       specify do
         expect do
           Rundeck.key_contents('path/to')
@@ -115,7 +117,7 @@ describe Rundeck::Client do
     end
 
     context 'with a path to a private key',
-            vcr: { cassette_name: 'key_contents_private' } do
+            vcr: { cassette_name: 'key/contents_private' } do
       specify do
         expect do
           Rundeck.key_contents('path/to/private_key')
@@ -127,7 +129,7 @@ describe Rundeck::Client do
   end
 
   describe '.create_private_key',
-           vcr: { cassette_name: 'create_private_key' } do
+           vcr: { cassette_name: 'key/create_private' } do
     before do
       @key = Rundeck.create_private_key('path/to/private_key2', private_key)
     end
@@ -144,7 +146,7 @@ describe Rundeck::Client do
   end
 
   describe '.update_private_key',
-           vcr: { cassette_name: 'update_private_key' } do
+           vcr: { cassette_name: 'key/update_private' } do
     before do
       @key = Rundeck.update_private_key('path/to/private_key2', private_key)
     end
@@ -162,7 +164,7 @@ describe Rundeck::Client do
   end
 
   describe '.create_public_key',
-           vcr: { cassette_name: 'create_public_key' } do
+           vcr: { cassette_name: 'key/create_public' } do
     before do
       @key = Rundeck.create_public_key('path/to/public_key2', public_key)
     end
@@ -179,7 +181,7 @@ describe Rundeck::Client do
   end
 
   describe '.update_public_key',
-           vcr: { cassette_name: 'update_public_key' } do
+           vcr: { cassette_name: 'key/update_public' } do
     before do
       @key = Rundeck.update_public_key('path/to/public_key2', public_key)
     end
@@ -204,7 +206,7 @@ describe Rundeck::Client do
       subject { @key }
 
       context 'public key path',
-              vcr: { cassette_name: 'delete_key_public' } do
+              vcr: { cassette_name: 'key/delete_public' } do
         let(:path) { 'path/to/public_key2' }
 
         it { is_expected.to be_nil }
@@ -214,7 +216,7 @@ describe Rundeck::Client do
       end
 
       context 'private key path',
-              vcr: { cassette_name: 'delete_key_private' } do
+              vcr: { cassette_name: 'key/delete_private' } do
         let(:path) { 'path/to/private_key2' }
 
         it { is_expected.to be_nil }
@@ -225,7 +227,7 @@ describe Rundeck::Client do
     end
 
     context 'with a bad path',
-            vcr: { cassette_name: 'delete_key_invalid' } do
+            vcr: { cassette_name: 'key/delete_error' } do
       specify do
         expect do
           Rundeck.delete_key('path/to/nowhere')

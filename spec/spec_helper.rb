@@ -12,15 +12,13 @@ require 'support/shared_examples'
 
 require File.expand_path('../../lib/rundeck', __FILE__)
 
-WebMock.disable_net_connect!(allow: 'codeclimate.com')
-
 RSpec.configure do |config|
   config.include Helpers
 
   config.before(:each) do
-    # Configuration for Anvils Demo Vagrant Box. API token might change.
     Rundeck.endpoint = 'http://192.168.50.2:4440'
-    Rundeck.api_token = 'cbsQgUIZBOyCgoipJAwKd1YgfcwPJ0FY'
+    Rundeck.api_token =
+      ENV['TEST_RUNDECK_API_TOKEN'] ||= 'OPIfQ6MOnevhlFThG1af4GAcbPdAgh0B'
     WebMock.reset!
   end
 end
@@ -31,3 +29,6 @@ VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = true
   config.configure_rspec_metadata!
 end
+
+WebMock.allow_net_connect!
+# WebMock.disable_net_connect!(allow: 'codeclimate.com')
