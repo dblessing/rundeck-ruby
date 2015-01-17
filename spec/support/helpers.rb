@@ -4,6 +4,16 @@ module Helpers
     File.new(File.dirname(__FILE__) + "/../fixtures/#{name}.xml")
   end
 
+  # Check if the current example's VCR cassette exists
+  def cassette_exist?
+    File.exist?(
+      File.join(
+        VCR.configuration.cassette_library_dir,
+        "#{RSpec.current_example.metadata[:vcr][:cassette_name]}.yml"
+      )
+    )
+  end
+
   def endpoint
     "#{Rundeck.endpoint}/api/#{Rundeck.api_version}"
   end
