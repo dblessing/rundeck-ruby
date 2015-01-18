@@ -74,7 +74,8 @@ describe Rundeck::Client do
   end
 
   describe '.create_token' do
-    context 'when the user exists', vcr: { cassette_name: 'token/token_create' } do
+    context 'when the user exists',
+            vcr: { cassette_name: 'token/token_create' } do
       before do
         @token = Rundeck.create_token('dev')
       end
@@ -89,7 +90,8 @@ describe Rundeck::Client do
   end
 
   describe '.delete_token' do
-    context 'when a token exists', vcr: { cassette_name: 'token/token_delete' } do
+    context 'when a token exists',
+            vcr: { cassette_name: 'token/token_delete' } do
       before do
         VCR.use_cassette('token/tokens_user') do
           @dev_tokens = Rundeck.tokens('dev')
