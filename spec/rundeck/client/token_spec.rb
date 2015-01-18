@@ -91,7 +91,8 @@ describe Rundeck::Client do
 
   describe '.delete_token' do
     context 'when a token exists',
-            vcr: { cassette_name: 'token/token_delete' } do
+            vcr: { cassette_name: 'token/token_delete',
+                   match_requests_on: [:method] } do
       before do
         VCR.use_cassette('token/tokens_user') do
           @dev_tokens = Rundeck.tokens('dev')
