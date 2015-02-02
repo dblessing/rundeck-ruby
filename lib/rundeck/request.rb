@@ -1,5 +1,5 @@
 require 'httparty'
-require 'libxml'
+require 'multi_xml'
 
 module Rundeck
   # @private
