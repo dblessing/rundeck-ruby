@@ -1,3 +1,7 @@
+1.1.0 (February 9, 2015)
+  - Change to multi_xml for XML parsing. Enables use of multiple parsers instead
+    of forcing libxml.
+
 1.0.2 (January 3, 2015)
   - Add a temporary fix for Rundeck bug that was fixed. See 
     https://github.com/dblessing/rundeck-ruby/issues/25
