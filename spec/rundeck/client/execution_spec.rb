@@ -31,7 +31,7 @@ describe Rundeck::Client do
 
       it 'expects a post to have been made' do
         expect(
-            a_post('/job/2/executions?argString=-repository%20ci%20-release%20SNAPSHOT%20-packages%20app-SNAPSHOT')
+          a_post('/job/2/executions?argString=-repository%20ci%20-release%20SNAPSHOT%20-packages%20app-SNAPSHOT')
         ).to have_been_made
       end
     end

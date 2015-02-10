@@ -173,7 +173,7 @@ describe Rundeck::Client do
 
     it 'expects a post to have been made' do
       expect(
-          a_post('/storage/keys/path/to/public_key2')
+        a_post('/storage/keys/path/to/public_key2')
       ).to have_been_made
     end
   end

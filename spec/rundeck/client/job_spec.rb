@@ -171,7 +171,7 @@ describe Rundeck::Client do
 
         it 'expects a get to have been made' do
           expect(
-              a_get('/jobs/export?project=anvils&format=yaml')
+            a_get('/jobs/export?project=anvils&format=yaml')
           ).to have_been_made
         end
       end
@@ -186,7 +186,7 @@ describe Rundeck::Client do
 
         it 'expects a get to have been made' do
           expect(
-              a_get('/jobs/export?project=anvils&format=xml')
+            a_get('/jobs/export?project=anvils&format=xml')
           ).to have_been_made
         end
       end

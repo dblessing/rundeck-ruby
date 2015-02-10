@@ -95,7 +95,7 @@ describe Rundeck::Client do
 
       it 'expects a delete to have been made' do
         expect(
-            a_delete('/token/cmJQYoy9EAsSd0905yNjKDNGs0ESIwEd')
+          a_delete('/token/cmJQYoy9EAsSd0905yNjKDNGs0ESIwEd')
         ).to have_been_made
       end
     end

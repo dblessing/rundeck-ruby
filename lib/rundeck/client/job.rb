@@ -68,7 +68,7 @@ module Rundeck
         end
         options[:headers] = {} if options[:headers].nil?
         options[:headers].merge!(
-            'Content-Type' => 'application/x-www-form-urlencoded')
+          'Content-Type' => 'application/x-www-form-urlencoded')
         options[:body] = "xmlBatch=#{content}"
         options[:query] = {} if options[:query].nil?
         options[:query]['format'] = format

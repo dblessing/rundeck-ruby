@@ -38,10 +38,10 @@ module Rundeck
         options[:headers] = {} if options[:headers].nil?
         options[:headers] = if format == 'json'
                               options[:headers].merge!(
-                                  'Content-Type' => 'application/json')
+                                'Content-Type' => 'application/json')
                             elsif format == 'xml'
                               options[:headers].merge!(
-                                  'Content-Type' => 'application/xml')
+                                'Content-Type' => 'application/xml')
                             else
                               fail Error::InvalidAttributes,
                                    'format must be json or xml'
