@@ -55,6 +55,7 @@ module Rundeck
     include Job
     include Key
     include Project
+    include SystemInfo
     include Token
 
     # Turn a hash into an object for easy accessibility.
