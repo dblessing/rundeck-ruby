@@ -3,7 +3,9 @@
 [Official Website](http://dblessing.github.io/rundeck-ruby) with examples,
 documentation, and links to the RDoc technical documentation.
 
-**Note: Although the git repository is called 'rundeck-ruby', the gem is called 'rundeck' on Rubygems.org. There is another gem called 'rundeck-ruby' on Rubygems.org and it is not affiliated with this project.**
+**Note: Although the git repository is called 'rundeck-ruby', the gem is called
+'rundeck' on Rubygems.org. There is another gem called 'rundeck-ruby' on Rubygems.org and
+it is not affiliated with this project.**
 
 [![Gem Version](https://badge.fury.io/rb/rundeck.svg)](http://badge.fury.io/rb/rundeck)
 [![Build Status](https://travis-ci.org/dblessing/rundeck-ruby.svg?branch=master)](https://travis-ci.org/dblessing/rundeck-ruby)

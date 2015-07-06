@@ -1,3 +1,6 @@
+1.2.0 (July 6, 2015)
+  - Add `system_info` endpoint. Thanks to @shyam
+
 1.1.0 (February 9, 2015)
   - Change to multi_xml for XML parsing. Enables use of multiple parsers instead
     of forcing libxml.
