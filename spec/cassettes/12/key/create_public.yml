@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://192.168.50.2:4440/api/12/storage/keys/path/to/public_key2
+    body:
+      encoding: UTF-8
+      string: |
+        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3oblgkLjHhSJFAHTx2wtq8Mz3YdWdAg2zh+IBSBmw8gJMCFsCCftdFdT4/x9fVpF5GLangsdIi12XmGNPZaQ0IfU2LD1+mW2I2GeU6WumgG395Yx13asm0LTSNDikO/7V53D2lz5F7t8NBgPgdKaGb97GlAsCC74tIUJ0vsWPTk4A3sPRHHAV9DfCtl7moa3i2vmhuMDbBfAYScykWoUYYj366pIqe7DVpSBV/uJG95zV8lP+GYVJqy2jMScEmYEH+ZCgW+M6rP6hKJeZeLC+gd/D0HwB1vEqmaLj4B9JOYmphPWPgU87okl/vxDHRSHt5ZBwLu7GEtrlekevoL+p test@localhost
+    headers:
+      Content-Type:
+      - application/pgp-key
+      X-Rundeck-Auth-Token:
+      - vDCT9dP6evCJYHtWoivruQtymkLTGJXq
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Set-Cookie:
+      - JSESSIONID=1vk9l5wdeqpifynov208r20fx;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: "<resource path='keys/path/to/public_key2' type='file' url='http://192.168.50.2:4440/api/12/storage/keys/path/to/public_key2'
+        name='public_key2'><resource-meta><Rundeck-content-type>application/pgp-key</Rundeck-content-type><Rundeck-content-size>396</Rundeck-content-size><Rundeck-content-creation-time>2015-01-17T21:46:18Z</Rundeck-content-creation-time><Rundeck-content-modify-time>2015-01-17T21:46:18Z</Rundeck-content-modify-time><Rundeck-auth-created-username>admin</Rundeck-auth-created-username><Rundeck-auth-modified-username>admin</Rundeck-auth-modified-username></resource-meta></resource>"
+    http_version: 
+  recorded_at: Sat, 17 Jan 2015 21:46:18 GMT
+recorded_with: VCR 2.9.3
