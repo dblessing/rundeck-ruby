@@ -11,7 +11,7 @@ describe Rundeck::Client do
       let(:user) { nil }
 
       context 'when a single token is returned',
-              vcr: { cassette_name: 'token/tokens_single' } do
+              vcr: { cassette_name: 'token/single' } do
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
         its(:token) { is_expected.to be_a Rundeck::ObjectifiedHash }
         its(:allusers) { is_expected.to eq('true') }
@@ -22,7 +22,7 @@ describe Rundeck::Client do
       end
 
       context 'when multiple tokens are returned',
-              vcr: { cassette_name: 'token/tokens_multiple' } do
+              vcr: { cassette_name: 'token/multiple' } do
         before { prepare { Rundeck.create_token('dev') } }
 
         it { is_expected.to be_a Rundeck::ObjectifiedHash }
@@ -32,7 +32,7 @@ describe Rundeck::Client do
     end
 
     context 'when user is specified',
-            vcr: { cassette_name: 'token/tokens_user' } do
+            vcr: { cassette_name: 'token/user' } do
       before { prepare { Rundeck.create_token('dev') } }
       let(:user) { 'dev' }
 
@@ -63,7 +63,7 @@ describe Rundeck::Client do
     end
 
     context 'when a token does not exist',
-            vcr: { cassette_name: 'token/token_error' } do
+            vcr: { cassette_name: 'token/error' } do
       specify do
         expect do
           Rundeck.token('123456')
@@ -75,7 +75,7 @@ describe Rundeck::Client do
 
   describe '.create_token' do
     context 'when the user exists',
-            vcr: { cassette_name: 'token/token_create' } do
+            vcr: { cassette_name: 'token/create' } do
       before do
         @token = Rundeck.create_token('dev')
       end
@@ -91,10 +91,10 @@ describe Rundeck::Client do
 
   describe '.delete_token' do
     context 'when a token exists',
-            vcr: { cassette_name: 'token/token_delete',
+            vcr: { cassette_name: 'token/delete',
                    match_requests_on: [:method] } do
       before do
-        VCR.use_cassette('token/tokens_user') do
+        VCR.use_cassette('token/user') do
           @dev_tokens = Rundeck.tokens('dev')
         end
         @token = Rundeck.delete_token(@dev_tokens.token.first.id)
