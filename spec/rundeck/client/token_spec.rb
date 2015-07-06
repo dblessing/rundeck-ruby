@@ -49,7 +49,9 @@ describe Rundeck::Client do
   end
 
   describe '.token' do
-    context 'when a token exists', vcr: { cassette_name: 'token/token' } do
+    context 'when a token exists',
+            vcr: { cassette_name: 'token/token',
+                   match_requests_on: [:method] } do
       before do
         @token = Rundeck.token(Rundeck.api_token)
       end
