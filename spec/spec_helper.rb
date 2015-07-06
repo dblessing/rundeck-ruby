@@ -18,7 +18,7 @@ RSpec.configure do |config|
   config.before(:each) do
     Rundeck.endpoint = 'http://192.168.50.2:4440'
     Rundeck.api_token =
-      ENV['TEST_RUNDECK_API_TOKEN'] ||= 'vDCT9dP6evCJYHtWoivruQtymkLTGJXq'
+      ENV['TEST_RUNDECK_API_TOKEN'] ||= 'OPIfQ6MOnevhlFThG1af4GAcbPdAgh0B'
     WebMock.reset!
   end
 end
@@ -31,4 +31,4 @@ VCR.configure do |config|
 end
 
 WebMock.allow_net_connect!
-# WebMock.disable_net_connect!(allow: 'codeclimate.com'
+# WebMock.disable_net_connect!(allow: 'codeclimate.com')
