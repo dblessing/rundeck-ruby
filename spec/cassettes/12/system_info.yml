@@ -1,0 +1,86 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/system/info
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - cmJQYoy9EAsSd0905yNjKDNGs0ESIwEd
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 01 Apr 2015 21:09:38 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      X-Rundeck-Api-Xml-Response-Wrapper:
+      - 'false'
+      Pragma:
+      - no-cache
+      X-Rundeck-Api-Version:
+      - '12'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - nginx/1.6.2
+    body:
+      encoding: UTF-8
+      string: |-
+        <system>
+            <timestamp epoch='1427925619090' unit='ms'>
+                <datetime>2015-04-01T22:00:19Z</datetime>
+            </timestamp>
+            <rundeck>
+                <version>2.4.2</version>
+                <build>2.4.2-1</build>
+                <node>rundeck-test</node>
+                <base>/var/lib/rundeck</base>
+                <apiversion>12</apiversion>
+                <serverUUID />
+            </rundeck>
+            <os>
+                <arch>amd64</arch>
+                <name>Linux</name>
+                <version>2.6.32-431.17.1.el6.x86_64</version>
+            </os>
+            <jvm>
+                <name>Java HotSpot(TM) 64-Bit Server VM</name>
+                <vendor>Oracle Corporation</vendor>
+                <version>1.7.0_76</version>
+                <implementationVersion>24.76-b04</implementationVersion>
+            </jvm>
+            <stats>
+                <uptime duration='130964380' unit='ms'>
+                    <since epoch='1427794654710' unit='ms'>
+                        <datetime>2015-03-31T09:37:34Z</datetime>
+                    </since>
+                </uptime>
+                <cpu>
+                    <loadAverage unit='percent'>0.0</loadAverage>
+                    <processors>2</processors>
+                </cpu>
+                <memory unit='byte'>
+                    <max>954728448</max>
+                    <free>187146352</free>
+                    <total>498073600</total>
+                </memory>
+                <scheduler>
+                    <running>0</running>
+                </scheduler>
+                <threads>
+                    <active>26</active>
+                </threads>
+            </stats>
+            <metrics href='http://192.168.50.2:4440/metrics/metrics?pretty=true' contentType='text/json' />
+            <threadDump href='http://192.168.50.2:4440/metrics/threads' contentType='text/plain' />
+        </system>
+    http_version: 
+  recorded_at: Thu, 01 Apr 2015 21:09:38 GMT
+recorded_with: VCR 2.9.3
