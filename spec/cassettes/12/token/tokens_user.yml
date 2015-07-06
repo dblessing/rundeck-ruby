@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/tokens/dev
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - OPIfQ6MOnevhlFThG1af4GAcbPdAgh0B
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - JSESSIONID=ng8vxyg7q5qqjipbu295jctq;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Rundeck-Api-Xml-Response-Wrapper:
+      - 'false'
+      Content-Type:
+      - application/xml;charset=UTF-8
+      X-Rundeck-Api-Version:
+      - '12'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: |-
+        <tokens count='5' user='dev'>
+          <token id='eJ17Hkuu7PCTdKAMzMcLAR0yzdzkscQX' user='dev' />
+          <token id='XnMEQWugSGz5hDmLtOiQ5NeqGveBQqwz' user='dev' />
+        </tokens>
+    http_version: 
+  recorded_at: Sun, 18 Jan 2015 00:30:08 GMT
+recorded_with: VCR 2.9.3
