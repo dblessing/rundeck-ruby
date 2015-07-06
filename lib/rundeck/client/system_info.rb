@@ -13,7 +13,7 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
       def system_info
-        objectify get('/system/info')
+        objectify get('/system/info')['system']
       end
     end
   end
