@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://192.168.50.2:4440/api/12/project/anvils/jobs
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Rundeck-Auth-Token:
+      - 0qLDNZvlobR43k48d5rTaFORFWDOK96s
+      Accept:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - JSESSIONID=9vm21e4rognh1gelxpry68z2a;Path=/
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Rundeck-Api-Xml-Response-Wrapper:
+      - 'false'
+      Content-Type:
+      - application/xml;charset=UTF-8
+      X-Rundeck-Api-Version:
+      - '13'
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - Jetty(7.6.0.v20120127)
+    body:
+      encoding: UTF-8
+      string: |-
+        <jobs count='2'>
+          <job id='8065ac12-aa0e-4c24-a409-912b79f457a1'>
+            <name>My XML Job</name>
+            <group>anvils</group>
+            <project>anvils</project>
+            <description>Check the status of anvils</description>
+          </job>
+          <job id='8e209246-db47-4f55-b281-f0894e1cacb6'>
+            <name>My YAML Job</name>
+            <group>anvils</group>
+            <project>anvils</project>
+            <description>Check the status of anvils</description>
+          </job>
+        </jobs>
+    http_version: 
+  recorded_at: Tue, 07 Jul 2015 00:49:37 GMT
+recorded_with: VCR 2.9.3

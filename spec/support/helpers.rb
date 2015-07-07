@@ -21,13 +21,15 @@ module Helpers
   # Example - Before running tests that need to 'get' a project,
   # we must create the project.
   def prepare
-    unless cassette_exist?
+    if !cassette_exist?
       cassette = RSpec.current_example.metadata[:vcr][:cassette_name]
       VCR.eject_cassette(cassette)
       VCR.turned_off { yield }
       VCR.insert_cassette(cassette)
     end
   end
+  alias_method :without_recording, :prepare
+
 
   def endpoint
     "#{Rundeck.endpoint}/api/#{Rundeck.api_version}"
