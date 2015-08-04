@@ -65,7 +65,13 @@ module Rundeck
       # @!macro exceptions
       def running_job_executions(project, options = {})
         options = project_options_query(project, options)
-        objectify get('/executions/running', options)['result']['executions']
+        r = get('/executions/running', options)
+        # Temporary fix for https://github.com/dblessing/rundeck-ruby/issues/25
+        begin
+          objectify r['result']['executions']
+        rescue
+          objectify r['executions']
+        end
       end
 
       # Delete all executions for a specific job
