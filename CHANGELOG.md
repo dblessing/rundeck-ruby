@@ -1,3 +1,6 @@
+1.2.1 (August 4, 2015)
+  - Fix for getting a single execution. Thanks to @avekash-altiscale
+
 1.2.0 (July 6, 2015)
   - Add `system_info` endpoint. Thanks to @shyam
 
