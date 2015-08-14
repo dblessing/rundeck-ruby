@@ -1,8 +1,13 @@
 require 'spec_helper'
 
 describe Rundeck::Client do
-  describe '.jobs', vcr: { cassette_name: 'jobs' } do
+  describe '.jobs', vcr: { cassette_name: 'job/jobs' } do
     before do
+      prepare do
+        Rundeck.create_project(project_anvils, 'json')
+        Rundeck.import_jobs(job_yaml, 'yaml')
+        Rundeck.import_jobs(job_xml, 'xml')
+      end
       @jobs = Rundeck.jobs('anvils')
     end
     subject { @jobs }
@@ -13,7 +18,7 @@ describe Rundeck::Client do
       subject { @jobs.job }
 
       it { is_expected.to be_an Array }
-      its(:length) { is_expected.to eq(6) }
+      its(:length) { is_expected.to eq(2) }
 
       context 'the first job' do
         subject { @jobs.job[0] }
@@ -28,9 +33,14 @@ describe Rundeck::Client do
     end
   end
 
-  describe '.job', vcr: { cassette_name: 'job' }  do
+  describe '.job',
+           vcr: { cassette_name: 'job/job',
+                  match_requests_on: [:method] } do
     before do
-      @job = Rundeck.job('2')
+      VCR.use_cassette('job/jobs') do
+        @job_id = Rundeck.jobs('anvils').job.first.id
+      end
+      @job = Rundeck.job(@job_id)
     end
     subject { @job }
 
@@ -48,25 +58,23 @@ describe Rundeck::Client do
 
       it { is_expected.to respond_to(:keepgoing) }
       it { is_expected.to respond_to(:strategy) }
-
-      describe '#command' do
-        subject { @job.sequence.command }
-
-        it { is_expected.to respond_to(:scriptargs) }
-        it { is_expected.to respond_to(:script) }
-      end
+      it { is_expected.to respond_to(:command) }
     end
 
     it 'expects a get to have been made' do
-      expect(a_get('/job/2')).to have_been_made
+      expect(a_get("/job/#{@job_id}")).to have_been_made
     end
   end
 
   describe '.delete_job' do
     context 'when a job exists',
-            vcr: { cassette_name: 'delete_job_valid' } do
+            vcr: { cassette_name: 'job/delete_valid',
+                   match_requests_on: [:method] } do
       before do
-        @job = Rundeck.delete_job(job_id)
+        VCR.use_cassette('job/jobs') do
+          @job_id = Rundeck.jobs('anvils').job.first.id
+        end
+        @job = Rundeck.delete_job(@job_id)
       end
       let(:job_id) { '3' }
       subject { @job }
@@ -74,12 +82,12 @@ describe Rundeck::Client do
       it { is_expected.to be_nil }
 
       it 'expects a delete to have been made' do
-        expect(a_delete('/job/3')).to have_been_made
+        expect(a_delete("/job/#{@job_id}")).to have_been_made
       end
     end
 
     context 'when a job does not exist',
-            vcr: { cassette_name: 'delete_job_invalid' } do
+            vcr: { cassette_name: 'job/delete_invalid' } do
       specify do
         expect do
           Rundeck.delete_job('123456')
@@ -92,6 +100,12 @@ describe Rundeck::Client do
   describe '.import_job' do
     context 'with valid format' do
       before do
+        prepare do
+          VCR.use_cassette('job/jobs') do
+            jobs = Rundeck.jobs('anvils').job
+            jobs.each { |job| Rundeck.delete_job(job.id) }
+          end
+        end
         @job_import = Rundeck.import_jobs(content, format)
       end
       subject { @job_import }
@@ -154,7 +168,7 @@ describe Rundeck::Client do
     end
   end
 
-  describe '.export_job' do
+  describe '.export_jobs' do
     context 'with valid format' do
       before do
         @jobs = Rundeck.export_jobs('anvils', format)
