@@ -45,8 +45,13 @@ module Rundeck
       # @return [Rundeck::ObjectifiedHash]
       # @!macro exceptions
       def job_executions(id, options = {})
-        r = get("/job/#{id}/executions", options)['result']['executions']
-        objectify r
+        r = get("/job/#{id}/executions", options)
+        # Temporary fix for https://github.com/dblessing/rundeck-ruby/issues/25
+        begin
+          objectify r['result']['executions']
+        rescue
+          objectify r['executions']
+        end
       end
 
       # Get all running job executions
