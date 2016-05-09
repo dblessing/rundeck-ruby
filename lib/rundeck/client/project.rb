@@ -113,7 +113,7 @@ module Rundeck
                                 'Content-Type' => 'text/plain')
                             else
                               fail Error::InvalidAttributes,
-                              'format must be json, text or xml'
+                                   'format must be json, text or xml'
                             end
 
         options[:body] = config
