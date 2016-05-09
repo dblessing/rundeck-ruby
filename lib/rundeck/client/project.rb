@@ -82,13 +82,16 @@ module Rundeck
       def delete_project(name, options = {})
         objectify delete("/project/#{name}", options)
       end
+
       # Configure a project
       #
       # @see http://rundeck.org/docs/api/index.html#project-configuration
-      #   Rundeck API documentation for 'PUT /api/11/project/[NAME]/config' endpoint
+      #   Rundeck API documentation for 'PUT /api/11/project/[NAME]/config'
+      #   endpoint
       #
       # @example
-      #   Rundeck.configure_project('my_project', '{"resources.source.1.type": "file"}')
+      #   Rundeck.configure_project('my_project', 
+      #         '{"resources.source.1.type": "file"}')
       #
       # @param  [String] name The project name
       # @param  [String] config The configuration
@@ -101,16 +104,16 @@ module Rundeck
         options[:headers] = {} if options[:headers].nil?
         options[:headers] = if format == 'json'
                               options[:headers].merge!(
-                                  'Content-Type' => 'application/json')
+                                'Content-Type' => 'application/json')
                             elsif format == 'xml'
                               options[:headers].merge!(
-                                  'Content-Type' => 'application/xml')
+                                'Content-Type' => 'application/xml')
                             elsif format == 'text'
                               options[:headers].merge!(
-                                  'Content-Type' => 'text/plain')
+                                'Content-Type' => 'text/plain')
                             else
                               fail Error::InvalidAttributes,
-                                   'format must be json, text or xml'
+                                'format must be json, text or xml'
                             end
 
         options[:body] = config

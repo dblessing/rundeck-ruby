@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Rundeck::Client do
-
   describe '.projects', vcr: { cassette_name: 'project/projects' } do
     before do
       prepare { Rundeck.create_project(project_anvils, 'json') }
@@ -120,12 +119,11 @@ describe Rundeck::Client do
   end
 
   describe '.configure_project' do
-
     context 'when a project exists',
             vcr: { cassette_name: 'project/configure' } do
       before do
         prepare { Rundeck.create_project(project_anvils) }
-        @project = Rundeck.configure_project(project, '{"resources.source.1.type": "file"}')
+        @project = Rundeck.configure_project(project, project_configure)
       end
 
       let(:project) { 'anvils' }
@@ -142,12 +140,10 @@ describe Rundeck::Client do
             vcr: { cassette_name: 'project/configure_error' } do
       specify do
         expect do
-          Rundeck.configure_project('nonexistent', '{"resources.source.1.type": "file"}')
+          Rundeck.configure_project('nonexistent', project_configure)
         end.to raise_error(Rundeck::Error::NotFound,
                            /Project does not exist/)
       end
     end
-
   end
-
 end
