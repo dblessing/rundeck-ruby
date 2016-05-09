@@ -90,7 +90,7 @@ module Rundeck
       #   endpoint
       #
       # @example
-      #   Rundeck.configure_project('my_project', 
+      #   Rundeck.configure_project('my_project',
       #         '{"resources.source.1.type": "file"}')
       #
       # @param  [String] name The project name
@@ -113,7 +113,7 @@ module Rundeck
                                 'Content-Type' => 'text/plain')
                             else
                               fail Error::InvalidAttributes,
-                                'format must be json, text or xml'
+                              'format must be json, text or xml'
                             end
 
         options[:body] = config
