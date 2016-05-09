@@ -113,6 +113,10 @@ module Helpers
     '{ "name": "deleteme" }'
   end
 
+  def project_configure
+    '{"resources.source.1.type": "file"}'
+  end
+
   def project_xml
     <<-EOS
 <project>

@@ -117,4 +117,33 @@ describe Rundeck::Client do
       end
     end
   end
+
+  describe '.configure_project' do
+    context 'when a project exists',
+            vcr: { cassette_name: 'project/configure' } do
+      before do
+        prepare { Rundeck.create_project(project_anvils) }
+        @project = Rundeck.configure_project(project, project_configure)
+      end
+
+      let(:project) { 'anvils' }
+      subject { @project }
+
+      it { is_expected.to be_a(Rundeck::ObjectifiedHash) }
+
+      it 'expects a put to have been made' do
+        expect(a_put('/project/anvils/config')).to have_been_made
+      end
+    end
+
+    context 'when a project does not exist',
+            vcr: { cassette_name: 'project/configure_error' } do
+      specify do
+        expect do
+          Rundeck.configure_project('nonexistent', project_configure)
+        end.to raise_error(Rundeck::Error::NotFound,
+                           /Project does not exist/)
+      end
+    end
+  end
 end
